@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTP Verification - MaxCart</title>
+    <style>
+        body {
+            background-color: #0e4580;
+        }
+        .container {
+            margin-top: 18%;
+            margin-left: 36%;
+            max-width: 400px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #e9e8e8;
+            color: #000;
+        }
+        h1 {
+            text-align: center;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .input-group input {
+            width: 94%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #505861;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 10px; /* Added margin bottom */
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTP Verification - MaxCart</title>
+    <style>
+        /* Your CSS styles */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>OTP Verification</h1>
+        <form action="/verify" method="post">
+            <div class="input-group">
+                <input type="text" id="otp" name="otp" placeholder="Enter OTP">
+            </div>
+            <button type="submit" class="btn">Verify OTP</button>
+        </form>
+        <!-- Resend OTP button -->
+        <form action="/resendotp" method="post">
+            <button type="submit" class="btn">Resend OTP</button>
+        </form>
+    </div>
+</body>
+</html>

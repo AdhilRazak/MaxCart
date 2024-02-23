@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter OTP - MaxCart</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #0e4580; /* Background color similar to MaxCart */
+            color: #fff;
+        }
+        .container {
+            max-width: 400px;
+            margin-top: 200px;
+            margin-left: 530px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #0e4580;
+            color: #000;
+        }
+        h1 {
+            text-align: center;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .input-group input {
+            width: 94%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #007bff; /* Button color similar to MaxCart */
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 10px; /* Added margin to separate buttons */
+        }
+        .btn:hover {
+            background-color: #0056b3; /* Button hover color similar to MaxCart */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Enter OTP</h1>
+        <p>Please enter the OTP sent to your email address.</p>
+        <form action="/forgototp" method="post">
+            <div class="input-group">
+                <label for="otp">OTP</label>
+                <input type="text" id="otp" name="otp" required>
+            </div>
+            <button type="submit" class="btn">Submit</button>
+        </form>
+        <form action="/resentotpemail" method="post">
+            <button type="submit" class="btn">Resend OTP</button>
+        </form>
+    </div>
+</body>
+</html>
