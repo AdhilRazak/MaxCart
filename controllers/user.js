@@ -25,18 +25,17 @@ module.exports = {
             const user = await userdatacollection.findOne({ username });
 
             if (!user) {
-                return res.send('Invalid user or password');
+                return res.send('Invalid user');
             }
 
             const passMatch = await bcrypt.compare(password, user.password);
 
             if (!passMatch) {
-                return res.send('Invalid user or password');
+                return res.send('Invalid password');
             }
             
             req.session.username = username
             
-            const userverify = await userdatacollection.findOne({user})
 
             if(user.otpVerified !== true ){
                 return res.send('not a valid user');
@@ -121,7 +120,7 @@ module.exports = {
 
 
            const phoneo = req.session.phone
-           console.log(phoneo);
+        //    console.log(phoneo);
 
 
            await sendPhoneOtp(phoneo);

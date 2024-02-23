@@ -31,8 +31,10 @@ app.use(session({
 }));
 
 const user = require('./router/user')
+const admin = require('./router/admin')
 
 app.use('/',user)
+app.use('/admin',admin)
 
 app.listen(port,()=>{
     console.log('running on 4516');
