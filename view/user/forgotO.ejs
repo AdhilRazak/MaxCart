@@ -10,18 +10,20 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #0e4580; /* Background color similar to MaxCart */
-            color: #fff;
+            background-color: #000000; /* Background color similar to MaxCart */
+    background: linear-gradient(135deg, #cfd8dc 0%, #607d8b 100%, #b0bec5 100%);
+            
         }
         .container {
             max-width: 400px;
-            margin-top: 200px;
-            margin-left: 530px;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: #0e4580;
-            color: #000;
+            margin: 200px auto;
+            padding: 40px;
+            background-color: #000000;
+    border-radius: 5px;
+    background: linear-gradient(135deg, #cfd8dc 0%, #607d8b 100%, #b0bec5 100%);
+
+
+
         }
         h1 {
             text-align: center;
@@ -45,7 +47,7 @@
             width: 100%;
             padding: 10px;
             font-size: 16px;
-            background-color: #007bff; /* Button color similar to MaxCart */
+            background-color: #000; /* Button color similar to MaxCart */
             color: #fff;
             border: none;
             border-radius: 5px;
@@ -54,6 +56,21 @@
         }
         .btn:hover {
             background-color: #0056b3; /* Button hover color similar to MaxCart */
+        }
+
+        /* Media Query for Responsive Design */
+        @media screen and (max-width: 600px) {
+            .container {
+                max-width: 100%;
+                margin: 50px auto;
+                padding: 10px;
+            }
+            .input-group label {
+                margin-bottom: 3px;
+            }
+            .input-group input {
+                width: calc(100% - 20px);
+            }
         }
     </style>
 </head>

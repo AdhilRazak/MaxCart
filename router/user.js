@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { loginget, loginpost, signupget, signuppost, verificationget, verificationpost ,resendOtp,forgotpasswordEget,
-    forgotpasswordEpost,forgotpasswordOget,forgotpasswordOpost,resetpassordget,resetpassordpost,resendOtpToEmail} = require('../controllers/user');
+    forgotpasswordEpost,forgotpasswordOget,forgotpasswordOpost,resetpassordget,resetpassordpost,resendOtpToEmail,otpVerifiedget,otpVerifiedpost} = require('../controllers/authcontroller');
 
 router.get('/', loginget);
 router.post('/', loginpost);
@@ -10,7 +10,12 @@ router.post('/signup', signuppost);
 
 router.get('/verify', verificationget);
 router.post('/verify', verificationpost);
+
 router.post('/resendotp',resendOtp);
+
+router.get('/v',otpVerifiedget)
+router.post('/v',otpVerifiedpost)
+
 
 router.get('/forgotemail',forgotpasswordEget)
 router.post('/forgotemail',forgotpasswordEpost)
