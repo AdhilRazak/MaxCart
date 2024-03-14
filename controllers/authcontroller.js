@@ -1,49 +1,49 @@
 const admindatacollection = require('../model/admindatacollection')
 const userdatacollection = require('../model/userdatacollection');
 const bcrypt = require('bcrypt');
-const {sendPhoneOtp,resendPhoneOtp}=require('../middleware/twilio')
-const  {sendEmail}= require('../middleware/nodemailer')
-const otpgen = Math.floor(Math.random() * 900000) + 100000; 
+const { sendPhoneOtp, resendPhoneOtp } = require('../utilities/twilio')
+const { sendEmail } = require('../utilities/nodemailer')
+const otpgen = Math.floor(Math.random() * 900000) + 100000;
 const client = require('twilio')(process.env.Acountsid, process.env.Acountauthtoken);
 const passwordregex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{5,}$/;
 const emailregex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-module.exports ={
+module.exports = {
 
-    adminlogin:(req,res)=>{
+    adminlogin: (req, res) => {
         res.render('admin/adminlogin')
     },
 
-    adminloginpost:async(req,res)=>{
-      
-        const {username,password,secretkey}= req.body
+    adminloginpost: async (req, res) => {
 
-        const userexist = await admindatacollection.findOne({username})
+        const { username, password, secretkey } = req.body
 
-        if(!userexist){
+        const userexist = await admindatacollection.findOne({ username })
+
+        if (!userexist) {
             return res.status(401).send('not an existing admin')
         }
 
         const passwordog = userexist.password
 
-        if(passwordog !== password){
+        if (passwordog !== password) {
             return res.status(401).send('password is not correct')
         }
 
         const scretkeyog = userexist.secretkey
         console.log(scretkeyog);
-        if(scretkeyog !== secretkey){
+        if (scretkeyog !== secretkey) {
             return res.status(401).send('scret key is wrong')
         }
 
         res.redirect('/dashboard')
     },
 
-    
+
     loginget: (req, res) => {
         res.render('user/login');
     },
-    
+
 
     loginpost: async (req, res) => {
         try {
@@ -59,15 +59,15 @@ module.exports ={
             if (!passMatch) {
                 return res.send('Invalid password');
             }
-            
-            req.session.username = username
-            
 
-            if(user.otpVerified !== true ){
+            req.session.username = username
+
+
+            if (user.otpVerified !== true) {
                 return res.redirect('/v');
-                
+
             }
-            res.send('welcome'); 
+            res.send('welcome');
 
         } catch (error) {
             console.error('Login error:', error);
@@ -83,7 +83,7 @@ module.exports ={
 
     signuppost: async (req, res) => {
         try {
-           
+
             const phoneregex = /^\d{10}$/;
 
             const { username, email, phone, password, confirmpassword } = req.body;
@@ -104,9 +104,9 @@ module.exports ={
 
             const emailExist = await userdatacollection.findOne({ email });
 
-            if(emailExist){
+            if (emailExist) {
                 return res.status(401).send('email already exists')
-                
+
             }
 
             if (!phoneregex.test(phone)) {
@@ -115,7 +115,7 @@ module.exports ={
 
             const phoneExist = await userdatacollection.findOne({ phone });
 
-            if(phoneExist){
+            if (phoneExist) {
                 return res.status(401).send('phone already exists')
 
             }
@@ -140,21 +140,21 @@ module.exports ={
                 phone,
                 password: hashedPassword,
             });
-            
+
             await newUser.save();
 
             req.session.phone = phone
-           const phoneo = req.session.phone
+            const phoneo = req.session.phone
 
-        //    await sendPhoneOtp(phoneo);
+            //    await sendPhoneOtp(phoneo);
 
-          res.redirect('/verify')        
+            res.redirect('/verify')
         } catch (error) {
             console.error('Signup error:', error);
             res.status(500).send('Internal error');
         }
     },
-    
+
 
     verificationget: (req, res) => {
         res.render('user/otp verification');
@@ -162,9 +162,9 @@ module.exports ={
 
 
     verificationpost: async (req, res) => {
-        
+
         const { otp } = req.body;
-        const phone = req.session.phone; 
+        const phone = req.session.phone;
 
         const verificationCheck = await client.verify.services(process.env.servicesid)
             .verificationChecks
@@ -177,49 +177,49 @@ module.exports ={
             throw new Error('OTP verification failed');
         }
 
-try{
-        
-        const user = await userdatacollection.findOneAndUpdate(
-            { phone : phone},
-            { $set: { otpVerified: true } },
-            { new: true }
-        );
+        try {
 
-        
+            const user = await userdatacollection.findOneAndUpdate(
+                { phone: phone },
+                { $set: { otpVerified: true } },
+                { new: true }
+            );
 
-         res.redirect('/');
-        
-    } catch (error) {
-        console.error('Verification error:', error);
-        res.status(401).send('Invalid OTP');
-    }
+
+
+            res.redirect('/');
+
+        } catch (error) {
+            console.error('Verification error:', error);
+            res.status(401).send('Invalid OTP');
+        }
     },
 
     resendOtp: async (req, res) => {
         try {
-            const phone = req.session.phone; 
+            const phone = req.session.phone;
             if (!phone) {
                 return res.status(404).send('Phone number not found');
             }
 
-        
+
             await resendPhoneOtp(phone);
         } catch (error) {
             console.error('Resend OTP error:', error);
             res.status(500).send('Internal error');
         }
     },
-    
-    otpVerifiedget:(req,res)=>{
-     res.render('user/otpVerified')
+
+    otpVerifiedget: (req, res) => {
+        res.render('user/otpVerified')
     },
 
-    otpVerifiedpost:async(req,res)=>{
+    otpVerifiedpost: async (req, res) => {
         try {
-           
+
             const phoneregex = /^\d{10}$/;
 
-            const {phone} = req.body;           
+            const { phone } = req.body;
 
             if (!phoneregex.test(phone)) {
                 return res.status(401).send('Phone number must contain 10 digits');
@@ -227,14 +227,14 @@ try{
 
             const phoneExist = await userdatacollection.findOne({ phone });
 
-            if(phoneExist){
-               
-            req.session.phone = phone
-           const phoneo = req.session.phone
+            if (phoneExist) {
 
-           await sendPhoneOtp(phoneo);
+                req.session.phone = phone
+                const phoneo = req.session.phone
 
-          res.redirect('/verify')  
+                await sendPhoneOtp(phoneo);
+
+                res.redirect('/verify')
             }
         } catch (error) {
             console.error('Signup error:', error);
@@ -242,7 +242,7 @@ try{
         }
     },
 
-    forgotpasswordEget:(req,res)=>{
+    forgotpasswordEget: (req, res) => {
         res.render('user/forgotE')
     },
 
@@ -252,7 +252,7 @@ try{
 
             req.session.email = email
 
-            await sendEmail(email, otpgen); 
+            await sendEmail(email, otpgen);
 
             res.redirect('/forgototp');
         } catch (error) {
@@ -260,26 +260,26 @@ try{
             res.status(500).send('Internal error');
         }
     },
-    
 
-    forgotpasswordOget:(req,res)=>{
-        if(req.session.email){
-      res.render('user/forgotO')
-        }else{
+
+    forgotpasswordOget: (req, res) => {
+        if (req.session.email) {
+            res.render('user/forgotO')
+        } else {
             res.redirect('/forgotemail')
         }
     },
 
     forgotpasswordOpost: async (req, res) => {
-            console.log('hai');
-            const { otp } = req.body;
-            console.log(otpgen);
-            console.log(otp)
+        console.log('hai');
+        const { otp } = req.body;
+        console.log(otpgen);
+        console.log(otp)
 
-            if (otpgen != otp) {
-                throw new Error('OTP verification failed');
-            }
-        try{
+        if (otpgen != otp) {
+            throw new Error('OTP verification failed');
+        }
+        try {
 
             res.redirect('/resetpassword');
         } catch (error) {
@@ -287,19 +287,19 @@ try{
             res.status(401).send('OTP verification failed. Please try again.');
         }
     },
-    
-     resendOtpToEmail : async (req, res) => {
+
+    resendOtpToEmail: async (req, res) => {
         try {
             const email = req.session.email
-    
+
             if (!email) {
                 return res.status(404).send('Email not found in session');
             }
-    
-           
-            await sendEmail(email, otpgen); 
-    
-    
+
+
+            await sendEmail(email, otpgen);
+
+
             res.send('OTP has been resent to your email');
         } catch (error) {
             console.error('Resend OTP to Email error:', error);
@@ -307,46 +307,46 @@ try{
         }
     },
 
-    resetpassordget:(req,res)=>{
-        if(req.session.email){
-        res.render('user/resetpassword')
-      }else{
-        res.redirect('/forgototp')
-      }
+    resetpassordget: (req, res) => {
+        if (req.session.email) {
+            res.render('user/resetpassword')
+        } else {
+            res.redirect('/forgototp')
+        }
     },
 
-    resetpassordpost:async(req,res)=>{
+    resetpassordpost: async (req, res) => {
 
-        const {username,password,confirmpassword} = req.body
+        const { username, password, confirmpassword } = req.body
 
-        const userexist = await userdatacollection.findOne({username})
+        const userexist = await userdatacollection.findOne({ username })
 
-        if(!userexist){
+        if (!userexist) {
             return res.status(401).send(`not exiting user`)
 
         }
-     if(!passwordregex.test(password)){
-        return res.status(401).send('Password must contain at least 5 characters, one lowercase letter, one uppercase letter, and one digit')
-     }
+        if (!passwordregex.test(password)) {
+            return res.status(401).send('Password must contain at least 5 characters, one lowercase letter, one uppercase letter, and one digit')
+        }
 
-     if(password !== confirmpassword){
-        return res.status(401).send(`password and confirmpassword does'nt match`)
-     }
-     try {
-        const newPassword = await bcrypt.hash(password,10)
-        await userdatacollection.updateOne({username}, {
-            $set: {
-                password: newPassword, 
-            }
-        }, { upsert: true });
+        if (password !== confirmpassword) {
+            return res.status(401).send(`password and confirmpassword does'nt match`)
+        }
+        try {
+            const newPassword = await bcrypt.hash(password, 10)
+            await userdatacollection.updateOne({ username }, {
+                $set: {
+                    password: newPassword,
+                }
+            }, { upsert: true });
 
-        res.redirect('/')
+            res.redirect('/')
+        }
+        catch (err) {
+            res.send(err)
+        }
+
     }
-    catch(err) {
-        res.send(err)
-    }
-
-}
 
 
 }

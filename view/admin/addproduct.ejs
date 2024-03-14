@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <link rel="stylesheet" href="/public/css/addproduct.css">
+    <link rel="stylesheet" href="/css/admin/addproduct.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.7.1.slim.js"></script>
 </head>
@@ -52,7 +52,7 @@
         <h3 class="i-name">Add Products</h3>
         <div class="content_part">
 
-            <form id="add_product_form" enctype="multipart/form-data" >
+            <form id="add_product_form" action="/admin/addproduct" method="post" enctype="multipart/form-data" >
                 <div class="frame">
                     <div class="gap_div">
                         <d
@@ -81,31 +81,7 @@
                                 <input type="number" id="stock" name="stock" placeholder="Enter stock">
                             </div>
             
-                            <div class="form-group">
-                                <label for="category">Category</label>
-                                <div id="add_product_category_error"></div>
-                                <select id="category" name="category" onchange="">
-                                    <option value="" selected disabled>Select category</option>
-                                    <% categorydatas.forEach((data) => { %>
-                                        <option value="<%= data.category %>"><%= data.category %></option>
-                                    <% }); %>
-                                </select>
-                                
-                            </div>
-
-                            <div class="form-group" id="subcategory_display_div" style="display:block; padding: 0.5rem; border-radius: 4px;  margin-left: -10px;">
-                                <label for="subCategory">Sub Category</label>
-                                <div id="add_product_sub-category_error"></div>
-                                <select name="subCategory" id="subCategory" style="width:344px" onchange="select(e)" required>
-                                    <option  selected disabled>Select sub category</option>
-                                    <% categorydatas.forEach((data) => { %>
-                                    <% data.subcategory.forEach((sub) => { %>
-                                    <option  value="<%= sub %>"><%= sub %></option>
-                                    <% }); %>
-                                    <% }); %>
-                                </select>
-                            </div>
-            
+                            
                             <div class="form-group">
                                 <label for="deliveryDate">Delivery Date</label>
                                 <div id="add_product_delivery-date_error"></div>
@@ -115,7 +91,7 @@
                             <div class="form-group">
                                 <label for="colour">Colour</label>
                                 <div id="add_product_colour_error"></div>
-                                <select name="colour" id="colour" >
+                                <select name="color" id="colour" >
                                     <option value="" selected disabled>Select color</option>
                                     <option value="red" style="color: #ff0000;">Red</option> 
                                     <option value="Blue" style="color: #0000ff;">Blue</option>
@@ -147,13 +123,38 @@
                                         <option value="Xx-Large">XX-Large</option>
                                     </select>
                                 <!-- </div> -->
-                            </div>
+                           
             
                             <div class="form-group">
                                 <label for="description">Description</label>
                                 <div id="add_product_description_error"></div>
                                 <textarea id="descriptions" name="description" class="descriptions"></textarea>
                             </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="category">Category</label>
+                            <div id="add_product_category_error"></div>
+                            <select id="category" name="category" onchange="">
+                                <option value="" selected disabled>Select category</option>
+                                <% categorydata.forEach((data) => { %>
+                                    <option value="<%= data.category %>"><%= data.category %></option>
+                                <% }); %>
+                            </select>
+                            
+                        </div>
+
+                        <div class="form-group" id="subcategory_display_div" style="display:block; padding: 0.5rem; border-radius: 4px;  margin-left: -10px;">
+                            <label for="subCategory">Sub Category</label>
+                            <div id="add_product_sub-category_error"></div>
+                            <select name="subCategory" id="subCategory" style="width:344px" onchange="select(e)" required>
+                                <option  selected disabled>Select sub category</option>
+                                <% categorydata.forEach((data) => { %>
+                                <% data.subCategory.forEach((sub) => { %>
+                                <option  value="<%= sub %>"><%= sub %></option>
+                                <% }); %>
+                                <% }); %>
+                            </select>
+                        </div>
                             <div class="form-group">
                                 <div class="message" style="color: red ; margin-bottom: 10px; font-weight: bold;"></div>
                                 <button class="buttonsubmit" type="submit" id="add_product_btn">Submit</button>
@@ -177,7 +178,6 @@
              
         </div>
     </section>
-    <script src="/js/AddProducts.js"></script>
     <script>
         function previewImage(input) {
             var file = input.files[0];
@@ -196,6 +196,7 @@
         $('#menu-btn').click(function() {
            $('#menu').toggleClass('active')
         })
+        
     </script>
 
 </body>
