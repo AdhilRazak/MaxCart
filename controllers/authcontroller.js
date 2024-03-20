@@ -36,7 +36,7 @@ module.exports = {
             return res.status(401).send('scret key is wrong')
         }
 
-        res.redirect('/dashboard')
+        res.redirect('admin/dashboard')
     },
 
 
@@ -146,7 +146,7 @@ module.exports = {
             req.session.phone = phone
             const phoneo = req.session.phone
 
-            //    await sendPhoneOtp(phoneo);
+               await sendPhoneOtp(phoneo);
 
             res.redirect('/verify')
         } catch (error) {

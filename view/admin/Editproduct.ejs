@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <link rel="stylesheet" href="/css/admin/addproduct.css">
+    <link rel="stylesheet" href="/css/admin/editproduct.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.7.1.slim.js"></script>
 </head>
@@ -49,10 +49,10 @@
       
         </div>
 
-        <h3 class="i-name">Add Products</h3>
+        <h3 class="i-name">Edit Products</h3>
         <div class="content_part">
 
-            <form id="add_product_form" action="/admin/addproduct" method="post" enctype="multipart/form-data" >
+            <form id="add_product_form" action="/admin/Editproduct/<%= productData._id %>" method="post" enctype="multipart/form-data">
                 <div class="frame">
                     <div class="gap_div">
                         <d
@@ -60,83 +60,76 @@
                             <div class="form-group">
                                 <label for="productName">Product Name</label>
                                 <div id="add_product_name_error"></div>
-                                <input type="text" id="productName" name="productName" placeholder="Enter product name">
+                                <input type="text" id="productName" name="productName" placeholder="Enter product name" value="<%=productData.productName %>">
                             </div>
             
                             <div class="form-group">
                                 <label for="prices">Price</label>
                                 <div id="add_product_price_error"></div>
-                                <input type="number" id="prices" name="prices" placeholder="Enter prices">
+                                <input type="number" id="prices" name="prices" placeholder="Enter prices" value="<%=productData.prices %>">
                             </div>
             
                             <div class="form-group">
                                 <label for="discount">Discount</label>
                                 <div id="add_product_discount_error"></div>
-                                <input type="number" id="discount" name="discount" placeholder="Enter discount">
+                                <input type="number" id="discount" name="discount" placeholder="Enter discount" value="<%=productData.discount %>">
                             </div>
             
                             <div class="form-group">
                                 <label for="stock">Stock</label>
                                 <div id="add_product_stock_error"></div>
-                                <input type="number" id="stock" name="stock" placeholder="Enter stock">
+                                <input type="number" id="stock" name="stock" placeholder="Enter stock" value="<%=productData.stock %>">
                             </div>
             
                             
                             <div class="form-group">
                                 <label for="deliveryDate">Delivery Date</label>
                                 <div id="add_product_delivery-date_error"></div>
-                                <input type="text" id="deliveryDate" name="deliveryDate" placeholder="Enter delivery date">
+                                <input type="text" id="deliveryDate" name="deliveryDate" placeholder="Enter delivery date" value="<%=productData.deliveryDate %>">
                             </div>
             
                             <div class="form-group">
                                 <label for="colour">Colour</label>
                                 <div id="add_product_colour_error"></div>
-                                <select name="color" id="colour" >
-                                    <option value="" selected disabled>Select color</option>
-                                    <option value="red" style="color: #ff0000;">Red</option> 
-                                    <option value="Blue" style="color: #0000ff;">Blue</option>
-                                    <option value="Green" style="color: #00ff00;">Green</option>
-                                    <option value="Black" style="color: #000000;">Black</option>
-                                    <option value="Orange" style="color: #f98000;">Orange</option>
-                                    <option value="Yellow" style="color: #ffea00;">Yellow</option>     
+                                <select name="color" id="colour">
+                                    <option value="" disabled>Select color</option>
+                                    <option value="red" style="color: #ff0000;" <% if (productData.color === 'red') { %> selected <% } %>>Red</option>
+                                    <option value="Blue" style="color: #0000ff;" <% if (productData.color === 'Blue') { %> selected <% } %>>Blue</option>
+                                    <option value="Green" style="color: #00ff00;" <% if (productData.color === 'Green') { %> selected <% } %>>Green</option>
+                                    <option value="Black" style="color: #000000;" <% if (productData.color === 'Black') { %> selected <% } %>>Black</option>
+                                    <option value="Orange" style="color: #f98000;" <% if (productData.color === 'Orange') { %> selected <% } %>>Orange</option>
+                                    <option value="Yellow" style="color: #ffea00;" <% if (productData.color === 'Yellow') { %> selected <% } %>>Yellow</option>
                                 </select>
                             </div>
+                            
             
                             <div class="form-group">
                                 <label for="size">Size</label>
                                 <div id="add_product_size_error"></div>
-                                <!-- <div class="dropdown"> -->
-                                    <!-- <input type="text" style="width: 95%; position:relative;">
-                                    <ul style="display: none; position:absolute;">
-                                        <li><input type="checkbox" id="s" name="s" value="s"><label for="s">Small</label></li>
-                                        <li><input type="checkbox" id="m" name="m" value="m"><label for="m">Medium</label></li>
-                                        <li><input type="checkbox" id="l" name="l" value="l"><label for="l">Large</label></li>
-                                        <li><input type="checkbox" id="xl" name="xl" value="xl"><label for="xl">X-Large</label></li>
-                                        <li><input type="checkbox" id="xxl" name="xxl" value="xxl"><label for="xxl">XX-Large</label></li>
-                                    </ul> -->
-                                    <select name="size" id="size">
-                                        <option value="" selected disabled>Choose Size</option>                                            
-                                        <option value="Small">Small</option>
-                                        <option value="Medium">Medium</option>
-                                        <option value="Large">Large</option>
-                                        <option value="X-Large">X-Large</option>
-                                        <option value="Xx-Large">XX-Large</option>
-                                    </select>
-                                <!-- </div> -->
+                        
+                                <select name="size" id="size">
+                                    <option value="" disabled>Choose Size</option>
+                                    <option value="Small" <% if (productData.size === 'Small') { %> selected <% } %>>Small</option>
+                                    <option value="Medium" <% if (productData.size === 'Medium') { %> selected <% } %>>Medium</option>
+                                    <option value="Large" <% if (productData.size === 'Large') { %> selected <% } %>>Large</option>
+                                    <option value="X-Large" <% if (productData.size === 'X-Large') { %> selected <% } %>>X-Large</option>
+                                    <option value="XX-Large" <% if (productData.size === 'XX-Large') { %> selected <% } %>>XX-Large</option>
+                                </select>
+                                
                            
-            
-                            <div class="form-group">
-                                <label for="description">Description</label>
-                                <div id="add_product_description_error"></div>
-                                <textarea id="descriptions" name="description" class="descriptions"></textarea>
-                            </div>
+                                <div class="form-group">
+                                    <label for="description">Description</label>
+                                    <div id="add_product_description_error"></div>
+                                    <textarea id="descriptions" name="description" class="descriptions"><%= productData.description %></textarea>
+                                </div>
+                                
                         </div>
                         <div class="form-group">
                             <label for="category">Category</label>
                             <div id="add_product_category_error"></div>
                             <select id="category" name="category" onchange="">
                                 <option value="" selected disabled>Select category</option>
-                                <% categorydata.forEach((data) => { %>
+                                <% categoryData.forEach((data) => { %>
                                     <option value="<%= data.category %>"><%= data.category %></option>
                                 <% }); %>
                             </select>
@@ -148,7 +141,7 @@
                             <div id="add_product_sub-category_error"></div>
                             <select name="subCategory" id="subCategory" style="width:344px" onchange="select(e)" required>
                                 <option  selected disabled>Select sub category</option>
-                                <% categorydata.forEach((data) => { %>
+                                <% categoryData.forEach((data) => { %>
                                 <% data.subCategory.forEach((sub) => { %>
                                 <option  value="<%= sub %>"><%= sub %></option>
                                 <% }); %>

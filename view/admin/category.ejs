@@ -8,6 +8,10 @@
   <link rel="stylesheet" href="/css/admin/category.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <script src="https://code.jquery.com/jquery-3.7.1.slim.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
 </head>
 
 <body>
@@ -65,7 +69,7 @@
 
     <h3 class="i-name">Categories & SubCategories</h3>
     <div class="categoriesAdd" style="display: none" id="forms">
-      <form action="/admin/Category" method="post">
+      <form action="/admin/Categories" method="post">
         <div class="exit" id="exitForm">
           <i class="fa-solid fa-circle-xmark" style="color: #e81756"></i>
         </div>
@@ -86,141 +90,137 @@
           <tr>
             <td>category</td>
             <td>SubCategory</td>
+            <td>Edit</td>
             <td>Remove</td>
           </tr>
         </thead>
         <tbody>
-          <% categories.forEach((data) => { %>
-          <tr>
-            <td class="people">
-              <div class="people-de">
-                <h5>
-                  <%= data.category %>
-                </h5>
-              </div>
-            </td>
 
-            <td class="people-des">
-              <% data.subCategory.forEach((sub) => { %>
-              <p class="subcat_para<%= sub %>" id="subcat_para">
-                <span>
-                  <%= sub %>
-                </span><button id="subcat" class="Deletebtn" onclick="subategoryDelete('<%= sub %>','<%= data.category %>')">
-                  <i class="fa-solid fa-trash" style="color: #c74141"></i>
+          <% categoryData.forEach((data)=>{ %>
+            <tr class="row<%=data._id%>">
+              <td class="people">
+                <div class="people-de">
+                  <h5>
+                    <%=data.category%>
+                  </h5>
+                </div>
+              </td>
+
+              <td class="people-des">
+                <% data.subCategory.forEach((sub)=>{ %>
+                  <p class="subcat_paragraph<%=sub%>" id="subcat_para">
+                    <span>
+                      <%=sub%>
+                    </span>
+                    <!-- Update the trash icon button to call Deletesubcategory function -->
+<button class="Deletebtn" onclick="Deletesubcategory(event, '<%=data._id%>', '<%=sub%>')">
+  <i class="fa-solid fa-trash" style="color: #c74141"></i>
+</button>
+
+                  </p>
+                  <% })%>
+              </td>
+
+              <td class="active">
+                <a href="/admin/editcategory?id=<%= data._id %>">Edit</a>
+              </td>
+
+              <td class="edit">
+                <button class="categoryDelete" id="category_delete_tr" onclick="CategoryDelete(event,'<%=data._id%>')">
+                  Delete
                 </button>
-              </p>
-              <% }) %>
-            </td>
-
-            <td class="edit">
-              <button class="categoryDelete" id="category_delete_tr" onclick="CategoryDelete('<%= data._id %>')">
-                Delete
-              </button>
-            </td>
-          </tr>
-          <% }) %>
+              </td>
+            </tr>
+            <% })%>
         </tbody>
       </table>
     </div>
   </section>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script>
-    function subategoryDelete(id, categoryname) {
-      Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!",
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          const response = await fetch(
-            `/admin/deleteSubCategory?subcategoryid=${id}&categoryid=${categoryname}`,
-            { method: "DELETE" }
 
-          );
-          if (!response.ok) {
-            throw new Error(
-              "error deleting subcategory" + response.statusText
-            );
-          }
-          const result = await response.json();
-          console.log(result);
-          if (result.success == true) {
-
-            Swal.fire({
-              title: "Deleted!",
-              text: "Your file has been deleted.",
-              icon: "success",
-            });
-            document.querySelector(".subcat_para" + id).remove();
-          } else {
-            message.innerHTML = result.error || "unknown error";
-          }
-        }
-      });
-    }
-  </script>
   <script>
     const category = document.getElementById("add");
     const addform = document.getElementById("forms");
+    const exit = document.getElementById("exitForm");
+
     category.addEventListener("click", (event) => {
       event.preventDefault();
-      if ((addform.style.display = "none")) {
-        addform.style.display = "block";
-      }
+      addform.style.display = "block";
     });
 
-    const exit = document.getElementById("exitForm");
     exit.addEventListener("click", (event) => {
       event.preventDefault();
-      if ((addform.style.display = "block")) {
-        addform.style.display = "none";
+      addform.style.display = "none";
+    });
+
+    async function CategoryDelete(event, id) {
+      console.log(`${id}`);
+      event.preventDefault()
+      try {
+        Swal.fire({
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, delete it!"
+        }).then(async (res) => {
+          if (res.isConfirmed) { // <-- Corrected variable name to `res`
+            const response = await axios.delete(`/admin/deletecategory?id=${id}`)
+            document.querySelector('.row' + id).remove();
+            if (response.data.success) {
+              console.log('onkhjbhb');
+              Swal.fire({
+                title: "Deleted!",
+                text: "Your file has been deleted.",
+                icon: "success"
+              });
+            }
+
+          }
+        });
+      } catch (error) {
+        console.log(error);
+      }
+
+    }
+
+    async function Deletesubcategory(event, categoryId, subcategoryName) {
+  event.preventDefault();
+  try {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then(async (res) => {
+      if (res.isConfirmed) {
+        const response = await axios.delete(`/admin/subcategorydelete?categoryId=${categoryId}&subcategoryName=${subcategoryName}`);
+        if (response.data.success) {
+          // Optionally, you can remove the deleted subcategory from the UI
+          document.querySelector(`.subcat_paragraph${subcategoryName}`).remove();
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your subcategory has been deleted.",
+            icon: "success"
+          });
+        }
       }
     });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
+
   </script>
 
-  <script>
-    function CategoryDelete(categoryname) {
-      Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!",
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          const categoryId = categoryname
-          const response = await fetch(
-            `/admin/deleteCategory?id=${categoryId}`,
-            { method: "DELETE" }
-          );
-          if (!response.ok) {
-            throw new Error(
-              "error deleting category" + response.statusText
-            );
-          }
-          const result = await response.json();
-          console.log(result);
-          if (result.success == true) {
 
-            Swal.fire({
-              title: "Deleted!",
-              text: "Your file has been deleted.",
-              icon: "success",
-            });
-            document.getElementById("category_delete_tr").closest("tr").remove()
-          } else {
-            message.innerHTML = result.error || "unknown error";
-          }
-        }
-      });
-    }
-  </script>
+
 </body>
 
 </html>

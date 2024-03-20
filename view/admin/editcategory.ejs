@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href='/css/admin/editcategory.css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.js"></script>
+    <script src="https://kit.fontawesome.com/d4181b2b31.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+
+    <section id="menu">
+        <div class="logo">
+            <!-- <img src="/images/logo.png" alt=""> -->
+            <h2>Dynamic</h2>
+        </div>
+        <div class="items">
+            <li><i class="fa-solid fa-chart-pie"></i> <a href="/admin/home">Dashboard</a></li>
+            <li><i class="fa-solid fa-table-cells-large"></i> <a href="/admin/productslist">Products</li>
+            <li> <i class="fa-regular fa-pen-to-square"></i> <a href="/admin/userslist">Users</a></li>
+            <li> <i class="fa-regular fa-pen-to-square"></i> <a href="/admin/blockeduser">Blocked Users</a></li>
+            <li><i class="fa-solid fa-credit-card"></i> <a href="/admin/categorylist">Category</a></li>
+            <li><i class="fa-solid fa-credit-card"></i> <a href="/admin/order">Orders</a></li>
+            <li><i class="fa-solid fa-burger"></i> <a href="/admin/couponslist">coupon</a></li>
+            <li><i class="fa-solid fa-burger"></i> <a href='/admin/bannerlist'>Banner</a></li>
+            <li><i class="fa-solid fa-chart-line"></i> <a href="/admin/addproducts">Add products</a></li>
+
+        </div>
+
+    </section>
+
+    <section id="interface">
+        <form id="categoryForm" action="/admin/editcategory?id=<%= categoryDats.id %>" method="POST">
+            <label for="categoryName">Category Name:</label>
+            <input type="text" id="categoryName" name="categoryName" value="<%= categoryDats.category%>">
+            <label for="subcategoryName">Subcategory Name:</label>
+            <div class="subcategorys">
+                <input type="text" id="subCategoryName" name="subcategoryName" required
+                    placeholder="add new subcategory">
+                <ul type="none" class="catalist">
+
+                    <% categoryDats.subCategory.forEach(sub=>{ %>
+
+                        <div style="display: flex;align-items: center;gap:5px;">
+                            <li class="sublist<%=sub%>">
+                                <%=sub%>
+                        </div>
+                        <%})%>
+                </ul>
+            </div>
+            <button type="submit" id="addBtn" data-id="<%= categoryDats._id %>">Submit</button>
+            <p class="errorMessage"></p>
+        </form>
+    </section>
+
+</body>
+<!-- <script src="/js/addcatagory.js"></script> -->
+<!-- <script src="/js/updateCategory.js"></script> -->
+
+</html>

@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="/css/Admin/Product.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.7.1.slim.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -25,8 +27,8 @@
             <li><i class="fa-solid fa-credit-card"></i> <a href="/admin/banner">Banners</a></li>
             <li><i class="fa-solid fa-credit-card"></i> <a href="/admin/coupon">Coupons</a></li>
             <li><i class="fa-solid fa-user" style="color: #c4c8cf;"></i><a href="/admin/Userslist">Users</a></li>
-          
-            
+
+
             <!-- <li><i class="fa-solid fa-chart-line"></i> <a href="#">Blank</a></li> -->
             <div class="logout">
                 <li><i class="fa-solid fa-right-from-bracket" style="color: #d40c48;"></i> <a href="#">Logout</a></li>
@@ -40,7 +42,7 @@
         <div class="navigation">
             <div class="n1">
                 <div>
-            
+
                     <i id="menu-btn" class="fa-solid fa-bars"></i>
                 </div>
                 <div class="search">
@@ -49,144 +51,218 @@
                 </div>
             </div>
 
-            
-        <div class="Addproducts">
-            <a href="/admin/addProduct" class="category" id="add">Add Products</a>
-          </div>
-       
-           
+
+            <div class="Addproducts">
+                <a href="/admin/addProduct" class="category" id="add">Add Products</a>
+            </div>
+
+
         </div>
 
         <h3 class="i-name">Product Lists</h3>
- 
+
 
 
         <div class="board">
-            <table width="100%"> 
+            <table width="100%">
                 <thead>
                     <tr>
                         <td>ID</td>
                         <td>Image</td>
-                        <td>Product name</td>
-                        <td>stocks</td>
+                        <td>Name</td>
+                        <td>Stocks</td>
                         <td>Prices</td>
                         <td>Category</td>
-                        <td>subCategory</td>
-                        <td>status</td>
-                        <td>edit</td>
-                        <td>delete</td>
+                        <td>SubCategory</td>
+                        <td>Description</td>
+                        <td>Size</td>
+                        <td>Color</td>
+                        <td>DeliveryDate</td>
+                        <td>Status</td>
+                        <td>Edit</td>
+                        <td>Delete</td>
                     </tr>
                 </thead>
                 <tbody>
                     <% productdat.forEach((data)=>{ %>
-                       
-                        <tr>
-                            <td class="people"> 
+
+                        <tr class="row<%=data._id%>">
+                            <td class="people">
                                 <div class="people-de">
-                                   <h5>
-                                    <%=data._id%>
+                                    <h5>
+                                        <%=data._id%>
                                     </h5>
                                 </div>
                             </td>
-    
-                            <td class="people-des">
-                                <img src='/images/product/<%=data.productImage[0]%>' alt="" style="object-fit: contain;">
-                            </td>
-                            <td class="people-des">
-                              <h5><%=data.productName %></h5>
-                            </td>
-                            <td class="people-des">
-                              <h5><%=data.stock %></h5>
-                            </td>
-                            <td class="people-des">
-                               
-                              <h5>$<%=data.prices %></h5>
-                            </td>
-                            <td class="people-des">
-                              <h5><%=data.category %></h5>
-                            </td>
-                            <td class="people-des">
-                              <h5><%=data.subCategory %></h5>
-                            </td>
-    
-                            <td class="edit"> 
-                                 <!-- <% if(data.is_blocked){ %>
 
-                                     <a href="/admin/blockproducts?id=<%=data._id%>" class="unblock-product" data-user-id="<%= data._id %>"><span
-                                         class="unblock">unblock</span></a>
-                                         <% } else { %>
-                                     <a href="/admin/blockproducts?id=<%=data._id%>" class="block-product" data-user-id="<%= data._id %>"><span
-                                         class="block">block</span></a>
-                                <% } %> -->
+                            <td class="people-des">
+                                <img src='/images/product/<%=data.productImage[0]%>' alt=""
+                                    style="object-fit: contain;">
+                            </td>
+                            <td class="people-des">
+                                <h5>
+                                    <%=data.productName %>
+                                </h5>
+                            </td>
+                            <td class="people-des">
+                                <h5>
+                                    <%=data.stock %>
+                                </h5>
+                            </td>
+                            <td class="people-des">
+
+                                <h5>$<%=data.prices %>
+                                </h5>
+                            </td>
+                            <td class="people-des">
+                                <h5>
+                                    <%=data.category %>
+                                </h5>
+                            </td>
+                            <td class="people-des">
+                                <h5>
+                                    <%=data.subCategory %>
+                                </h5>
+                            </td>
+                            </td>
+                            <td class="people-des">
+                                <h5>
+                                    <%=data.description %>
+                                </h5>
+                            </td>
+                            <td class="people-des">
+                                <h5>
+                                    <%=data.size%>
+                                </h5>
+                            </td>
+                            <td class="people-des">
+                                <h5>
+                                    <%=data.color %>
+                                </h5>
+                            </td>
+                            <td class="people-des">
+                                <h5>
+                                    <%=data.deliveryDate %>
+                                </h5>
+                            </td>
+
+
+
+
+                            <td class="edit">
+
 
                                 <% if(data.status) { %>
-                                    <button style="padding: .6rem;  border-radius: 5px; border: none; width: 100px; color: rgb(234, 218, 218); background-color: red;"  class="blockBtn blockbtn<%=data._id %>" onclick="blockUser(event,'<%=data._id %>')">
+                                    <button
+                                        style="padding: .6rem;  border-radius: 5px; border: none; width: 100px; color: rgb(234, 218, 218); background-color: red;"
+                                        class="blockBtn blockbtn<%=data._id %>"
+                                        onclick="blockUser(event,'<%=data._id %>')">
                                         BLOCK
                                     </button>
-                                    <% }else { %> 
-                                    <button style="padding: .6rem; ; border-radius: 5px; border: none; width: 100px; color: rgb(199, 215, 199); background-color: green;"  class="blockBtn blockbtn<%=data._id %>" onclick="blockUser(event,'<%=data._id %>')">
-                                       Active 
-                                    </button>
-                                    <% } %>
-                              
+                                    <% }else { %>
+                                        <button
+                                            style="padding: .6rem; ; border-radius: 5px; border: none; width: 100px; color: rgb(199, 215, 199); background-color: green;"
+                                            class="blockBtn blockbtn<%=data._id %>"
+                                            onclick="blockUser(event,'<%=data._id %>')">
+                                            Active
+                                        </button>
+                                        <% } %>
+
                             </td>
-                            <td class="edit"> <a href="/admin/editProduct/<%=data._id%>"><i class="fa-solid fa-pen-to-square" style="color: #961320;"></i></a></td>
-                            <td class="edit"> <a href=""><i class="fa-solid fa-trash" style="color: #ca163a;"></i></a></td>
-                            <% }) %>
-                            
+                            <td class="edit"> <a href="/admin/Editproduct/<%=data._id%>"><i
+                                        class="fa-solid fa-pen-to-square" style="color: #961320;"></i></a></td>
+                            <td class="edit">
+                                <button class="delete-btn" onclick="deleteProduct(event, '<%=data._id %>')">
+                                    <i class="fa-solid fa-trash" style="color: #ca163a;"></i>
+                                </button>
+                            </td>
                         </tr>
-                        
-               
-                                     
-                </tr>
-          
+                        <% }) %>
                 </tbody>
             </table>
-            
+
         </div>
     </section>
 
 
-<script>
-async function blockUser(event,productId){
-    event.preventDefault()
-    try {
+    <script>
+        async function blockUser(event, productId) {
+            event.preventDefault();
+            try {
+                const blockBtn = document.querySelector('.blockbtn' + productId);
 
-        const blockBtn = document.querySelector('.blockbtn' + productId)
+                const response = await axios.post(`/admin/productvisiblity?id=${productId}`, {}, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
 
-           const response = await fetch(`/admin//productvisiblity?id=${productId}`,{
-            method:'post',
-            headers:{
-            'Content-Type':'application/json'
+                const result = response.data;
+
+                if (result.state) {
+                    blockBtn.innerText = 'BLOCK';
+                    blockBtn.style.backgroundColor = 'red';
+                    blockBtn.style.color = 'white';
+                } else {
+                    blockBtn.innerText = 'Active';
+                    blockBtn.style.backgroundColor = 'green';
+                    blockBtn.style.color = 'white';
+                }
+            } catch (error) {
+                console.log('Error in block product', error);
             }
-           })
+        }
 
-           const result = await response.json()
+        async function deleteProduct(event, id) {
+            event.preventDefault();
+            console.log(id)
+            try {
+                const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                        confirmButton: "btn btn-success",
+                        cancelButton: "btn btn-danger"
+                    },
+                    buttonsStyling: false
+                });
 
-           if(result.state){
-               blockBtn.innerText = 'BLOCK'
-               blockBtn.style.backgroundColor = 'red'
-               blockBtn.style.color = 'white'
+                swalWithBootstrapButtons.fire({
+                    title: "Are you sure?",
+                    text: "You won't be able to revert this!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: "Yes, delete it!",
+                    cancelButtonText: "No, cancel!",
+                    reverseButtons: true
+                }).then(async (result) => {
+                    if (result.isConfirmed) {
+                        const response = await axios.delete(`/admin/productdelete/${id}`);
+                        document.querySelector('.row' + id).remove();
+                        if (response.status == 200) {
+                            swalWithBootstrapButtons.fire({
+                                title: "Deleted!",
+                                text: "Your product has been deleted.",
+                                icon: "success"
+                            });
+                        } else {
+                            console.log("Deletion failed");
+                        }
+                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                        swalWithBootstrapButtons.fire({
+                            title: "Cancelled",
+                            text: "Your product is safe :)",
+                            icon: "error"
+                        });
+                    }
+                });
+            } catch (error) {
+                console.log("Error deleting product: ", error);
             }
-            else{
-                
-               blockBtn.innerText = 'Active'
-               blockBtn.style.backgroundColor = 'green'
-               blockBtn.style.color = 'white'
+        }
 
-           }
-    } catch (error) {
-        console.log('Error in block product',error);
-    }
-}
-</script>
-<script>
-    $('#menu-btn').click(function() {
-       $('#menu').toggleClass('active')
-    })
-    
-</script>
+        $('#menu-btn').click(function () {
+            $('#menu').toggleClass('active')
+        });
+    </script>
 </body>
 
 </html>
-

@@ -14,41 +14,6 @@ body {
     display: flex;
 }
 
-.profile {
-    display: flex;
-    gap: 20px;
-}
-
-.addbtn {
-    background-color: rgb(24, 194, 24);
-    color: white;
-    width: 100px;
-    height: 40px;
-    border: none;
-    border-radius: 3px;
-}
-
-.Addproducts {
-    width: 130px;
-    height: 40px;
-    background-color: rgb(168, 24, 91);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 6px;
-    font-size: medium;
-    font-family: sans-serif;
-    font-weight: 500;
-    color: white;
-
-
-}
-
-.category {
-    text-decoration: none;
-    color: white;
-}
-
 #menu {
     background-color: #111827;
     width: 300px;
@@ -60,39 +25,38 @@ body {
 }
 
 #menu .logo {
-    display: flex;
-    align-items: center;
-    color: #fff;
-    padding: 30px 0 0 30px;
+display: flex;
+align-items: center;
+color: #fff;
+padding: 30px 0 0 30px;
 }
 
-#menu .logo img {
-    width: 40px;
-    margin-right: 15px;
-
+#menu .logo img{
+width: 40px;
+margin-right: 15px;
 }
 
-#menu .items {
-    margin-top: 40px;
+#menu .items{
+margin-top: 40px;
 }
 
-#menu .items li {
-    list-style: none;
-    padding: 15px 0;
-    transition: 0.3s ease;
+#menu .items li{
+list-style: none;
+padding: 15px 0;
+transition: 0.3s ease;
 }
 
-#menu .items li:hover {
-    background: #253047;
-    cursor: pointer;
+#menu .items li:hover{
+background: #253047;
+cursor: pointer;
 }
 
-#menu .items li:nth-child(1) {
-    border-left: 4px solid #fff;
+#menu .items li:nth-child(1){
+border-left: 4px solid #fff;
 }
 
-#menu .items li i {
-    color: rgb(134, 141, 151);
+#menu .items li i{
+    color:  rgb(134, 141, 151) ;
     width: 30px;
     height: 30px;
     line-height: 30px;
@@ -102,22 +66,26 @@ body {
 }
 
 #menu .items li:hover i,
-#menu .items li:hover a {
-    color: #F3F4F6;
+#menu .items li:hover a{
+color: #F3F4F6;
 }
 
 #menu .items li a {
-    text-decoration: none;
-    color: rgb(134, 141, 151);
-    font-weight: 300px;
-    transition: 0.3s ease;
+text-decoration: none;
+color: rgb(134, 141, 151);
+font-weight: 300px;
+transition: 0.3s ease;
 }
 
 #interface {
-    width: 1236px;
-    width: calc(100%-300px);
-    margin-left: 300px;
-    position: relative;
+display: flex;
+justify-content: center;
+align-items: center;
+width:100%;
+height: 100vh;
+width: calc(100%-300px);
+margin-left: 300px;
+position: relative;
 }
 
 #interface .navigation {
@@ -127,13 +95,13 @@ body {
     background: #fff;
     padding: 15px 30px;
     border-bottom: 3px solid #594ef7;
-    width: 1236px;
+    width:100%;
     position: fixed;
     width: calc(100%-300px);
 }
 
 
-#interface .navigation .search {
+#interface .navigation .search{
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -142,19 +110,21 @@ body {
     border-radius: 4px;
 
 }
+.errMsg{
+ color: red;
+}
 
-
-#interface .navigation .search input {
-    border: none;
-    outline: none;
-    font-size: 14px;
+#interface .navigation .search input{
+border: none;
+outline: none;
+font-size: 14px;
 }
 
 #interface .navigation .search i {
     margin-right: 14px;
 }
 
-#interface .navigation .profile {
+#interface .navigation .profile{
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -199,31 +169,31 @@ body {
     align-items: center;
 }
 
-.values .val-box i {
-    font-size: 25px;
-    width: 60px;
-    height: 60px;
-    line-height: 60px;
-    border-radius: 50%;
-    text-align: center;
-    color: #fff;
-    margin-right: 15px;
+.values .val-box i{
+font-size: 25px;
+width: 60px;
+height: 60px;
+line-height: 60px;
+border-radius: 50%;
+text-align: center;
+color: #fff;
+margin-right: 15px;
 }
 
 .values .val-box:nth-child(1) i {
-    background: #7B74EC;
+background: #7B74EC;
 }
 
 .values .val-box:nth-child(2) i {
-    background: #5C8AF0;
+background: #5C8AF0;
 }
 
 .values .val-box:nth-child(3) i {
-    background: #E45D99;
+background: #E45D99;
 }
 
 .values .val-box:nth-child(4) i {
-    background: #74daec;
+background: #74daec;
 }
 
 .values .val-box h3 {
@@ -231,9 +201,9 @@ body {
     font-weight: 600;
 }
 
-.values .val-box span {
+.values .val-box span{
     font-size: 15px;
-    color: #828997;
+   color: #828997;
 }
 
 .board {
@@ -252,12 +222,7 @@ body {
     margin-right: 15px;
 }
 
-.logout {
-    background-color: rgb(121, 10, 10);
-    margin-top: 39px;
-}
-
-.board h5 {
+.board h5{
     font-weight: 600;
     font-size: 14px;
 }
@@ -304,8 +269,12 @@ tbody tr td {
     color: #2b2b2b;
 }
 
-
-
+.edit a {
+    text-decoration: none;
+    font-style: 14px;
+    color: #8f8bba;
+    font-weight: 600;
+}
 
 .n1 {
     display: flex;
@@ -321,6 +290,10 @@ tbody tr td {
     margin-right: 20px;
 }
 
+.fa-trash:hover{
+  color: red;
+ 
+}
 @media (max-width:769px) {
     #menu {
         width: 270px;
@@ -333,7 +306,7 @@ tbody tr td {
         left: 0px;
     }
 
-
+  
 
     #menu-btn {
         display: initial;
@@ -341,15 +314,15 @@ tbody tr td {
 
     #interface {
         width: 100%;
-        margin-left: 0px;
-        display: inline-block;
-        transition: 0.8s ease;
+    margin-left: 0px;
+    display: inline-block;
+    transition: 0.8s ease;
     }
 
-    #menu.active~#interface {
-        width: calc(100% - 270px);
-        margin-left: 270px;
-        transition: 0.8s ease;
+    #menu.active ~ #interface {
+    width: calc(100% - 270px);
+    margin-left: 270px;
+    transition: 0.8s ease;
     }
 
     #interface .navigation {
@@ -364,13 +337,13 @@ tbody tr td {
     .values .val-box {
         padding: 16px 20px;
         margin: 10px 20px 10px 0;
-
+        
     }
 
     .board {
         width: 88%;
-        padding: 0;
-        overflow-x: auto;
+       padding: 0;
+       overflow-x: auto;
     }
 
     table {
@@ -380,15 +353,58 @@ tbody tr td {
 }
 
 
+form {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 300px;
+}
 
+label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+input[type="text"],
+input[type="file"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+.success{
+    color:green;
+}
+
+
+.subcategorys input:hover .catalist{
+    background-color: red;
+    display: block;
+}
 @media (max-width:477px) {
 
     #interface .navigation {
-        padding: 15px;
-    }
+        padding: 15px;   
+}
 
-    #interface .navigation .search input {
-        width: 150px;
+#interface .navigation .search input{
+    width: 150px;
     }
 
     .i-name {
@@ -397,19 +413,23 @@ tbody tr td {
 
     .values {
         padding: 15px 15px 0 15px;
-
+        
     }
 
     .values .val-box {
-        width: 100%;
-        margin: 8px 0;
+    width: 100%;
+    margin: 8px 0;
     }
 
     .board {
-        margin: 30px 15px 30px 15px;
+       margin: 30px 15px 30px 15px;
     }
+
+
+
 
 
 
 
 }
+

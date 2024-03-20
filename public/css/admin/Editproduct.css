@@ -9,17 +9,13 @@
 
 body {
     width: 100%;
-    background: #E5E7EB;
+     background:#5f7783;
     position: relative;
     display: flex;
 }
 
-.profile {
-    display: flex;
-    gap: 20px;
-}
 
-.addbtn {
+.addbtn{
     background-color: rgb(24, 194, 24);
     color: white;
     width: 100px;
@@ -27,30 +23,8 @@ body {
     border: none;
     border-radius: 3px;
 }
-
-.Addproducts {
-    width: 130px;
-    height: 40px;
-    background-color: rgb(168, 24, 91);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 6px;
-    font-size: medium;
-    font-family: sans-serif;
-    font-weight: 500;
-    color: white;
-
-
-}
-
-.category {
-    text-decoration: none;
-    color: white;
-}
-
 #menu {
-    background-color: #111827;
+    background: linear-gradient(135deg,#8fa4aa  0%, #607d8b 100%, #cfd8dc 100%);
     width: 300px;
     height: 100%;
     position: fixed;
@@ -60,39 +34,41 @@ body {
 }
 
 #menu .logo {
-    display: flex;
-    align-items: center;
-    color: #fff;
-    padding: 30px 0 0 30px;
+display: flex;
+align-items: center;
+color: #000000;
+padding: 30px 0 0 30px;
 }
 
-#menu .logo img {
-    width: 40px;
-    margin-right: 15px;
+#menu .logo img{
+width: 40px;
+margin-right: 15px;
+}
+
+#menu .items{
+margin-top: 40px;
+}
+
+#menu .items li{
+list-style: none;
+padding: 15px 0;
+transition: 0.3s ease;
+}
+
+#menu .items li:hover{
+background: #253047;
+cursor: pointer;
+}
+
+#menu .items li:nth-child(2){
+border-left: 5px solid #000000;
+border-bottom:1px solid #000000 ;
+border-top:1px solid #000000 ;
 
 }
 
-#menu .items {
-    margin-top: 40px;
-}
-
-#menu .items li {
-    list-style: none;
-    padding: 15px 0;
-    transition: 0.3s ease;
-}
-
-#menu .items li:hover {
-    background: #253047;
-    cursor: pointer;
-}
-
-#menu .items li:nth-child(1) {
-    border-left: 4px solid #fff;
-}
-
-#menu .items li i {
-    color: rgb(134, 141, 151);
+#menu .items li i{
+    color:  rgb(0, 0, 0) ;
     width: 30px;
     height: 30px;
     line-height: 30px;
@@ -102,22 +78,22 @@ body {
 }
 
 #menu .items li:hover i,
-#menu .items li:hover a {
-    color: #F3F4F6;
+#menu .items li:hover a{
+color: #F3F4F6;
 }
 
 #menu .items li a {
-    text-decoration: none;
-    color: rgb(134, 141, 151);
-    font-weight: 300px;
-    transition: 0.3s ease;
+text-decoration: none;
+color: rgb(0, 0, 0);
+font-weight: 300px;
+transition: 0.3s ease;
 }
 
 #interface {
     width: 1236px;
-    width: calc(100%-300px);
-    margin-left: 300px;
-    position: relative;
+width: calc(100%-300px);
+margin-left: 300px;
+position: relative;
 }
 
 #interface .navigation {
@@ -126,14 +102,14 @@ body {
     justify-content: space-between;
     background: #fff;
     padding: 15px 30px;
-    border-bottom: 3px solid #594ef7;
+    border-bottom: 3px solid #000000;
     width: 1236px;
     position: fixed;
     width: calc(100%-300px);
 }
 
 
-#interface .navigation .search {
+#interface .navigation .search{
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -144,17 +120,17 @@ body {
 }
 
 
-#interface .navigation .search input {
-    border: none;
-    outline: none;
-    font-size: 14px;
+#interface .navigation .search input{
+border: none;
+outline: none;
+font-size: 14px;
 }
 
 #interface .navigation .search i {
     margin-right: 14px;
 }
 
-#interface .navigation .profile {
+#interface .navigation .profile{
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -174,11 +150,11 @@ body {
 }
 
 .i-name {
-    color: #444a53;
+    color: #000000;
     padding: 30px 30px 0 30px;
     font-size: 24px;
     font-weight: 700;
-    margin-top: 70px;
+    margin-top: 30px;
 }
 
 .values {
@@ -199,31 +175,31 @@ body {
     align-items: center;
 }
 
-.values .val-box i {
-    font-size: 25px;
-    width: 60px;
-    height: 60px;
-    line-height: 60px;
-    border-radius: 50%;
-    text-align: center;
-    color: #fff;
-    margin-right: 15px;
+.values .val-box i{
+font-size: 25px;
+width: 60px;
+height: 60px;
+line-height: 60px;
+border-radius: 50%;
+text-align: center;
+color: #fff;
+margin-right: 15px;
 }
 
 .values .val-box:nth-child(1) i {
-    background: #7B74EC;
+background: #7B74EC;
 }
 
 .values .val-box:nth-child(2) i {
-    background: #5C8AF0;
+background: #5C8AF0;
 }
 
 .values .val-box:nth-child(3) i {
-    background: #E45D99;
+background: #E45D99;
 }
 
 .values .val-box:nth-child(4) i {
-    background: #74daec;
+background: #74daec;
 }
 
 .values .val-box h3 {
@@ -231,9 +207,9 @@ body {
     font-weight: 600;
 }
 
-.values .val-box span {
+.values .val-box span{
     font-size: 15px;
-    color: #828997;
+   color: #828997;
 }
 
 .board {
@@ -251,13 +227,11 @@ body {
     border-radius: 50%;
     margin-right: 15px;
 }
-
-.logout {
-    background-color: rgb(121, 10, 10);
-    margin-top: 39px;
+.logout{
+   background-color: #5f7783 ;
+   margin-top: 39px;
 }
-
-.board h5 {
+.board h5{
     font-weight: 600;
     font-size: 14px;
 }
@@ -280,7 +254,7 @@ table {
 }
 
 tr {
-    border-bottom: 1px solid #eef0f3;
+    border-bottom: 1px solid #0968f8;
 }
 
 thead td {
@@ -304,8 +278,12 @@ tbody tr td {
     color: #2b2b2b;
 }
 
-
-
+.edit a {
+    text-decoration: none;
+    font-style: 14px;
+    color: #8f8bba;
+    font-weight: 600;
+}
 
 .n1 {
     display: flex;
@@ -333,7 +311,7 @@ tbody tr td {
         left: 0px;
     }
 
-
+  
 
     #menu-btn {
         display: initial;
@@ -341,15 +319,15 @@ tbody tr td {
 
     #interface {
         width: 100%;
-        margin-left: 0px;
-        display: inline-block;
-        transition: 0.8s ease;
+    margin-left: 0px;
+    display: inline-block;
+    transition: 0.8s ease;
     }
 
-    #menu.active~#interface {
-        width: calc(100% - 270px);
-        margin-left: 270px;
-        transition: 0.8s ease;
+    #menu.active ~ #interface {
+    width: calc(100% - 270px);
+    margin-left: 270px;
+    transition: 0.8s ease;
     }
 
     #interface .navigation {
@@ -364,13 +342,13 @@ tbody tr td {
     .values .val-box {
         padding: 16px 20px;
         margin: 10px 20px 10px 0;
-
+        
     }
 
     .board {
         width: 88%;
-        padding: 0;
-        overflow-x: auto;
+       padding: 0;
+       overflow-x: auto;
     }
 
     table {
@@ -379,16 +357,109 @@ tbody tr td {
     }
 }
 
+.frame{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.gap_div{
+    width: 90%;
+    height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.86);
+    box-shadow: 0px 0px 1.5rem 0.1rem rgba(128, 128, 128, 0.525);
+    border: 1px solid rgba(128, 128, 128, 0.351);
+    overflow: hidden;
+    padding-bottom: 2rem;
+}
+.gap_div:hover{
+    box-shadow: 0px 0px 1.5rem 0.1rem rgba(128, 128, 128, 0.704);
+}
+.card_div{
+    width: 50%;
+    height: 100%;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    padding-top: 2.5rem;
+    overflow: hidden;
+}
+.img_div{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem; 
+}
+.content_part form{
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
 
+label {
+    margin-bottom: 0.5rem;
+}
+input,
+select,
+textarea {
+    padding: 0.5rem;
+    border: 1px solid #e3dad6;
+    border-radius: 4px;
+}
+.image_space{
+    margin-top:-510px;
+    width: 20rem;
+    height: 20rem;
+    border: 1px solid;
+}
+.image_buttn{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+.buttonsubmit{
+    background-color: rgb(0, 0, 0);
+    width: 360px;
+    color: white;
+    height: 40px;
+    border-radius: 5px;
+    border: none;
+}
+.buttonsubmit:hover{
+   background-color: #1cb745;
+}
+
+#productImage{
+    margin-top: 10px;
+    margin-left: 118px;
+    background-color: rgb(0, 0, 0);
+    width: 204px;
+    color: white;
+    border: none;
+}
 
 @media (max-width:477px) {
 
     #interface .navigation {
-        padding: 15px;
-    }
+        padding: 15px;   
+}
 
-    #interface .navigation .search input {
-        width: 150px;
+#interface .navigation .search input{
+    width: 150px;
     }
 
     .i-name {
@@ -397,18 +468,17 @@ tbody tr td {
 
     .values {
         padding: 15px 15px 0 15px;
-
+        
     }
 
     .values .val-box {
-        width: 100%;
-        margin: 8px 0;
+    width: 100%;
+    margin: 8px 0;
     }
 
     .board {
-        margin: 30px 15px 30px 15px;
+       margin: 30px 15px 30px 15px;
     }
-
 
 
 
