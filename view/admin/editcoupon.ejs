@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/css/admin/editCoupon.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.js"></script>
+</head>
+
+<body>
+
+    <section id="menu">
+        <div class="logo">
+            <img src="/images/logo.png" alt="">
+            <h2>Dynamic</h2>
+        </div>
+        <div class="items">
+            <li><i class="fa-solid fa-chart-pie"></i> <a href="/admin/dashboard">Dashboard</a></li>
+            <li><i class="fa-solid fa-table-cells-large"></i> <a href="/admin/products">Products</a></li>
+            <li> <i class="fa-solid fa-list" style="color: #adb1b8;"></i> <a href="/admin/Category">Categories</a></li>
+            <li><i class="fa-solid fa-credit-card"></i> <a href="#">Orders</a></li>
+            <li><i class="fa-solid fa-credit-card"></i> <a href="/admin/banner">Banner</a></li>
+            <li><i class="fa-solid fa-credit-card"></i> <a href="/admin/coupon">Coupons</a></li>
+            <li><i class="fa-solid fa-user" style="color: #c4c8cf;"></i><a href="/admin/Userslist">Users</a></li>
+
+          
+            
+            <!-- <li><i class="fa-solid fa-chart-line"></i> <a href="#">Blank</a></li> -->
+            <div class="logout">
+                <li><i class="fa-solid fa-right-from-bracket" style="color: #d40c48;"></i> <a href="#">Logout</a></li>
+            </div>
+        </div>
+
+    </section>
+
+
+    <section id="interface">
+        <div class="navigation">
+            <div class="n1">
+                <div>
+            
+                    <i id="menu-btn" class="fa-solid fa-bars"></i>
+                </div>
+                <div class="search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Search">
+                </div>
+            </div>
+          
+        </div>
+
+        <h3 class="i-name"> Add Coupons</h3>
+        <div class="container">
+            <div class="body">
+                <div class="content_part">
+                    <form action="/admin/editcoupon?id=<%= existingCoupon._id %>" id="coupon_add_form" method="post">
+                        <div class="frame">
+                            <div class="coupon_gap_div">
+                                <div class="coupon_div">
+                                    <div class="form-group">
+                                        <label for="couponName">Coupon Name</label>
+                                        <input type="text" id="couponName" name="couponCode" value="<%=existingCoupon.couponCode%>" placeholder="Enter Coupon Name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="couponDiscount">Coupon Discount</label>
+                                        <input type="text" id="couponDiscount" name="discount" value="<%=existingCoupon.discount%>" placeholder="Enter Coupon Discount">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="minOrderAmount">Minimum Order Amount</label>
+                                        <input type="number" id="minOrderAmount" name="MinOrderAmount" value="<%=existingCoupon.MinOrderAmount%>" placeholder="Enter Minimum Order Amount">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="maxOrderAmount">Maximum Order Amount</label>
+                                        <input type="number" id="maxOrderAmount" name="MaxOrderAmount" value="<%=existingCoupon.MaxOrderAmount%>" placeholder="Enter Maximum Order Amount">
+                                    </div>
+                                
+                                    <div id="errorMessage" style="color: brown; margin-bottom: 1rem;"></div>
+                                    <button type="submit" id="coupon_create_button">Create Coupon</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                             
+                </div>
+            </div>
+        </div>
+        
+
+
+    </section>
+
+    <script>
+        $('#menu-btn').click(function() {
+           $('#menu').toggleClass('active')
+        })
+    </script>
+</body>
+
+</html>

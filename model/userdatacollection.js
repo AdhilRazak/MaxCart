@@ -19,7 +19,7 @@ const userdata = new mongoose.Schema({
     },
     otpVerified: {
         type: Boolean,
-        default: false // Indicates whether OTP is verified
+        default: true // Indicates whether OTP is verified
     }
 });
 

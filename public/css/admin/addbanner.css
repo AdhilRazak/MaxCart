@@ -14,8 +14,17 @@ body {
     display: flex;
 }
 
+
+.addbtn{
+    background-color: rgb(24, 194, 24);
+    color: white;
+    width: 100px;
+    height: 40px;
+    border: none;
+    border-radius: 3px;
+}
 #menu {
-    background-color: #111827;
+    background: linear-gradient(135deg,#8fa4aa  0%, #607d8b 100%, #cfd8dc 100%);
     width: 300px;
     height: 100%;
     position: fixed;
@@ -27,7 +36,7 @@ body {
 #menu .logo {
 display: flex;
 align-items: center;
-color: #fff;
+color: #000000;
 padding: 30px 0 0 30px;
 }
 
@@ -51,12 +60,15 @@ background: #253047;
 cursor: pointer;
 }
 
-#menu .items li:nth-child(1){
-border-left: 4px solid #fff;
+#menu .items li:nth-child(2){
+border-left: 5px solid #000000;
+border-bottom:1px solid #000000 ;
+border-top:1px solid #000000 ;
+
 }
 
 #menu .items li i{
-    color:  rgb(134, 141, 151) ;
+    color:  rgb(0, 0, 0) ;
     width: 30px;
     height: 30px;
     line-height: 30px;
@@ -72,17 +84,13 @@ color: #F3F4F6;
 
 #menu .items li a {
 text-decoration: none;
-color: rgb(134, 141, 151);
+color: rgb(0, 0, 0);
 font-weight: 300px;
 transition: 0.3s ease;
 }
 
 #interface {
-display: flex;
-justify-content: center;
-align-items: center;
-width:100%;
-height: 100vh;
+    width: 1236px;
 width: calc(100%-300px);
 margin-left: 300px;
 position: relative;
@@ -94,8 +102,8 @@ position: relative;
     justify-content: space-between;
     background: #fff;
     padding: 15px 30px;
-    border-bottom: 3px solid #594ef7;
-    width:100%;
+    border-bottom: 3px solid #000000;
+    width: 1236px;
     position: fixed;
     width: calc(100%-300px);
 }
@@ -110,9 +118,7 @@ position: relative;
     border-radius: 4px;
 
 }
-.errMsg{
- color: red;
-}
+
 
 #interface .navigation .search input{
 border: none;
@@ -145,9 +151,10 @@ font-size: 14px;
 
 .i-name {
     color: #444a53;
-    padding: 10px 0 30px 80px;
+    padding: 30px 30px 0 30px;
     font-size: 24px;
     font-weight: 700;
+    margin-top: 30px;
 }
 
 .values {
@@ -220,7 +227,10 @@ background: #74daec;
     border-radius: 50%;
     margin-right: 15px;
 }
-
+.logout{
+   background-color: #5f7783 ;
+   margin-top: 39px;
+}
 .board h5{
     font-weight: 600;
     font-size: 14px;
@@ -244,7 +254,7 @@ table {
 }
 
 tr {
-    border-bottom: 1px solid #eef0f3;
+    border-bottom: 1px solid #0968f8;
 }
 
 thead td {
@@ -289,10 +299,6 @@ tbody tr td {
     margin-right: 20px;
 }
 
-.fa-trash:hover{
-  color: red;
- 
-}
 @media (max-width:769px) {
     #menu {
         width: 270px;
@@ -351,44 +357,98 @@ tbody tr td {
     }
 }
 
-
-form {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    width: 600px;
+.frame{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.gap_div{
+    width: 90%;
+    height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.86);
+    box-shadow: 0px 0px 1.5rem 0.1rem rgba(128, 128, 128, 0.525);
+    border: 1px solid rgba(128, 128, 128, 0.351);
+    overflow: hidden;
+    padding-bottom: 2rem;
+}
+.gap_div:hover{
+    box-shadow: 0px 0px 1.5rem 0.1rem rgba(128, 128, 128, 0.704);
+}
+.card_div{
+    width: 50%;
+    height: 100%;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    padding-top: 2.5rem;
+    overflow: hidden;
+}
+.img_div{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem; 
+}
+.content_part form{
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
 }
 
 label {
-    display: block;
-    margin-bottom: 8px;
+    margin-bottom: 0.5rem;
 }
-
-input {
-    width: 100%;
-    padding: 11px;
-    margin-bottom: 16px;
-    box-sizing: border-box;
-    border: 1px solid #ccc;
+input,
+select,
+textarea {
+    padding: 0.5rem;
+    border: 1px solid #e3dad6;
     border-radius: 4px;
 }
-
-button {
-    background-color: #9d3737;
-    color: #fff;
-    padding: 10px 15px;
+.image_space{
+    margin-top:-510px;
+    width: 20rem;
+    height: 20rem;
+    border: 1px solid;
+}
+.image_buttn{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+.buttonsubmit{
+    background-color: rgb(0, 0, 0);
+    width: 360px;
+    color: white;
+    height: 40px;
+    border-radius: 5px;
     border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    width: 100%;
+}
+.buttonsubmit:hover{
+   background-color: #1cb745;
 }
 
-button:hover {
-    background-color: #45a049;
-}
-.success{
-    color:green;
+#productImage{
+    margin-top: 10px;
+    margin-left: 118px;
+    background-color: rgb(0, 0, 0);
+    width: 204px;
+    color: white;
 }
 
 @media (max-width:477px) {
@@ -421,9 +481,4 @@ button:hover {
 
 
 
-
-
-
-
 }
-

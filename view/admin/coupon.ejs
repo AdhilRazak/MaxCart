@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/css/admin/coupon.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</head>
+
+<body>
+
+    <section id="menu">
+        <div class="logo">
+            <img src="/images/logo.png" alt="">
+            <h2>Dynamic</h2>
+        </div>
+        <div class="items">
+            <li><i class="fa-solid fa-chart-pie"></i> <a href="/admin/dashboard">Dashboard</a></li>
+            <li><i class="fa-solid fa-table-cells-large"></i> <a href="/admin/products">Products</a></li>
+            <li> <i class="fa-solid fa-list" style="color: #adb1b8;"></i> <a href="/admin/Category">Categories</a></li>
+            <li><i class="fa-solid fa-credit-card"></i> <a href="#">Orders</a></li>
+            <li><i class="fa-solid fa-credit-card"></i> <a href="/admin/banner">Banner</a></li>
+            <li><i class="fa-solid fa-credit-card"></i> <a href="/admin/coupon">Coupons</a></li>
+            <li><i class="fa-solid fa-user" style="color: #c4c8cf;"></i><a href="/admin/Userslist">Users</a></li>
+
+          
+            
+            <!-- <li><i class="fa-solid fa-chart-line"></i> <a href="#">Blank</a></li> -->
+            <div class="logout">
+                <li><i class="fa-solid fa-right-from-bracket" style="color: #d40c48;"></i> <a href="#">Logout</a></li>
+            </div>
+        </div>
+
+    </section>
+
+
+    <section id="interface">
+        <div class="navigation">
+            <div class="n1">
+                <div>
+            
+                    <i id="menu-btn" class="fa-solid fa-bars"></i>
+                </div>
+                <div class="search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Search">
+                </div>
+            </div>
+           
+            <div class="profile">
+                <button class="addbtn" onclick="window.location.href='/admin/addcoupon'">Add Coupon</button>
+                <i class="fa-solid fa-bell"></i>
+                <img src="/images/ramees.jpeg" alt="">
+            </div>
+        </div>
+
+        <h3 class="i-name">Coupons</h3>
+        
+        <div class="board">
+            <table width="100%"> 
+                <thead>
+                    <tr>
+                    
+                        <td>name</td>
+                        <td>discount</td>
+                        <td>minOrderAmount</td>
+                        <td>maxOrderAmount</td>
+                        <td>edit</td>
+                        <td>Delete</td>
+                      
+                    </tr>
+                </thead>
+                <tbody>
+                    <% coupon.forEach((data)=>{ %>
+                    <tr class="coupon-row-<%= data._id %>"" id="coupon_deleted">
+                        </td>
+
+                        <td class="people-des">
+                          <h5><%=data.couponCode%></h5>
+                        </td>
+                     
+                        <td class="people-des">
+                          <h5><%=data.discount%></h5>
+                        </td>
+                        <td class="people-des">
+                          <h5><%=data.MinOrderAmount%></h5>
+                        </td>
+                        <td class="people-des">
+                          <h5><%=data.MaxOrderAmount%></h5>
+                        </td>
+                        <td class="role">
+                            <a href="/admin/editcoupon?id=<%= data._id %>"><i class="fa-solid fa-pen"></i></a>
+                        </td>
+
+
+
+
+                        <td class="edit">
+                            <a href="#" onclick="CouponDelete(event,'<%= data._id %>')"><i
+                                    class="fa-solid fa-trash"></i></a>
+                        </td>
+
+
+                     
+                    </tr>
+                                     
+             <% }) %>
+                </tbody>
+            </table>
+            
+        </div>
+
+
+
+    </section>
+    <script>
+   async function CouponDelete(event, id) {
+            console.log(`${id}`);
+            event.preventDefault();
+            try {
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "You won't be able to revert this!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Yes, delete it!"
+                }).then(async (res) => {
+                    if (res.isConfirmed) {
+                        const response = await axios.delete(`/admin/deletecoupon?id=${id}`);
+                        if (response.data.success) {
+                            console.log('kikiki');
+                            document.querySelector(`.coupon-row-${id}`).remove();
+
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Your coupon has been deleted.",
+                                icon: "success"
+                            });
+
+                        }
+                    }
+                });
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        $('#menu-btn').click(function () {
+            $('#menu').toggleClass('active')
+        })
+
+    </script>
+
+  
+      
+</body>
+
+</html>

@@ -1,11 +1,14 @@
 const express = require('express')
 const router = express.Router()
 
-const {admindashboardget}=require('../controllers/admin')
+const {admindashboardget,adminuserlistget,Blockuser}=require('../controllers/admin')
 const {adminlogin,adminloginpost}=require('../controllers/authcontroller')
 const{productget,addproductget, addproductspost,blockproductvisibility,producteditget,producteditpost,productdelete}=require('../controllers/productcondroller')
 const{categoryget,categorypost,Editcategoryget,deleteCategory, editcategorypost,subCategorydelete}=require('../controllers/categorycondroller')
+const {couponget,addcouponget,addcouponpost,editcoupenget,editCouponPost,deleteCoupon}=require('../controllers/couponcontroller')
+
 const multer=require('../middleware/multer')
+
 
 const uploadProducts = multer.productimage()
 
@@ -37,6 +40,22 @@ router.post('/editcategory',editcategorypost)
 router.delete('/deletecategory',deleteCategory)
 
 router.delete('/subcategorydelete',subCategorydelete)
+
+router.get('/coupon',couponget)
+
+router.get('/addcoupon',addcouponget)
+router.post('/addcoupon',addcouponpost)
+
+router.get('/editcoupon', editcoupenget);
+router.post('/editcoupon', editCouponPost);
+
+router.delete('/deletecoupon', deleteCoupon);
+
+router.get('/adminuserlist',adminuserlistget)
+router.post('/blockuser',Blockuser)
+
+
+
 
 
 

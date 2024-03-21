@@ -64,10 +64,10 @@ module.exports = {
 
 
             if (user.otpVerified !== true) {
-                return res.redirect('/v');
+                // return res.redirect('/v');
+                res.send('welcome');
 
             }
-            res.send('welcome');
 
         } catch (error) {
             console.error('Login error:', error);
@@ -146,9 +146,9 @@ module.exports = {
             req.session.phone = phone
             const phoneo = req.session.phone
 
-               await sendPhoneOtp(phoneo);
+            //    await sendPhoneOtp(phoneo);
 
-            res.redirect('/verify')
+            res.redirect('/')
         } catch (error) {
             console.error('Signup error:', error);
             res.status(500).send('Internal error');
