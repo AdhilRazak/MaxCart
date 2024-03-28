@@ -60,14 +60,16 @@ module.exports = {
                 return res.send('Invalid password');
             }
 
-            req.session.username = username
+            // req.session.username = username
 
 
             if (user.otpVerified !== true) {
                 // return res.redirect('/v');
-                res.send('welcome');
-
             }
+            req.session.user = user._id
+            console.log(req.session.user);
+            res.redirect('/home');
+
 
         } catch (error) {
             console.error('Login error:', error);

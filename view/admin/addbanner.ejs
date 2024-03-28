@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <link rel="stylesheet" href="/css/admin/addproduct.css">
+    <link rel="stylesheet" href="/css/admin/addbanner.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.7.1.slim.js"></script>
 </head>
@@ -25,8 +25,8 @@
             <li><i class="fa-solid fa-credit-card"></i> <a href="/admin/banner">Banners</a></li>
             <li><i class="fa-solid fa-credit-card"></i> <a href="/admin/coupon">Coupons</a></li>
             <li><i class="fa-solid fa-user" style="color: #000000;"></i><a href="/admin/Userslist">Users</a></li>
-          
-            
+
+
             <!-- <li><i class="fa-solid fa-chart-line"></i> <a href="#">Blank</a></li> -->
             <div class="logout">
                 <li><i class="fa-solid fa-right-from-bracket" style="color: #a10c39;"></i> <a href="#">Logout</a></li>
@@ -40,163 +40,88 @@
         <div class="navigation">
             <div class="n1">
                 <div>
-            
+
                     <i id="menu-btn" class="fa-solid fa-bars"></i>
                 </div>
-           
+
             </div>
-           
-      
+
+
         </div>
 
         <h3 class="i-name">Add Products</h3>
         <div class="content_part">
 
-            <form id="add_product_form" action="/admin/addproduct" method="post" enctype="multipart/form-data" >
-                <div class="frame">
-                    <div class="gap_div">
-                        <d
-                        iv class="card_div">
-                            <div class="form-group">
-                                <label for="productName">Product Name</label>
-                                <div id="add_product_name_error"></div>
-                                <input type="text" id="productName" name="productName" placeholder="Enter product name">
-                            </div>
-            
-                            <div class="form-group">
-                                <label for="prices">Price</label>
-                                <div id="add_product_price_error"></div>
-                                <input type="number" id="prices" name="prices" placeholder="Enter prices">
-                            </div>
-            
-                            <div class="form-group">
-                                <label for="discount">Discount</label>
-                                <div id="add_product_discount_error"></div>
-                                <input type="number" id="discount" name="discount" placeholder="Enter discount">
-                            </div>
-            
-                            <div class="form-group">
-                                <label for="stock">Stock</label>
-                                <div id="add_product_stock_error"></div>
-                                <input type="number" id="stock" name="stock" placeholder="Enter stock">
-                            </div>
-            
-                            
-                            <div class="form-group">
-                                <label for="deliveryDate">Delivery Date</label>
-                                <div id="add_product_delivery-date_error"></div>
-                                <input type="text" id="deliveryDate" name="deliveryDate" placeholder="Enter delivery date">
-                            </div>
-            
-                            <div class="form-group">
-                                <label for="colour">Colour</label>
-                                <div id="add_product_colour_error"></div>
-                                <select name="color" id="colour" >
-                                    <option value="" selected disabled>Select color</option>
-                                    <option value="red" style="color: #ff0000;">Red</option> 
-                                    <option value="Blue" style="color: #0000ff;">Blue</option>
-                                    <option value="Green" style="color: #00ff00;">Green</option>
-                                    <option value="Black" style="color: #000000;">Black</option>
-                                    <option value="Orange" style="color: #f98000;">Orange</option>
-                                    <option value="Yellow" style="color: #ffea00;">Yellow</option>     
-                                </select>
-                            </div>
-            
-                            <div class="form-group">
-                                <label for="size">Size</label>
-                                <div id="add_product_size_error"></div>
-                                <!-- <div class="dropdown"> -->
-                                    <!-- <input type="text" style="width: 95%; position:relative;">
-                                    <ul style="display: none; position:absolute;">
-                                        <li><input type="checkbox" id="s" name="s" value="s"><label for="s">Small</label></li>
-                                        <li><input type="checkbox" id="m" name="m" value="m"><label for="m">Medium</label></li>
-                                        <li><input type="checkbox" id="l" name="l" value="l"><label for="l">Large</label></li>
-                                        <li><input type="checkbox" id="xl" name="xl" value="xl"><label for="xl">X-Large</label></li>
-                                        <li><input type="checkbox" id="xxl" name="xxl" value="xxl"><label for="xxl">XX-Large</label></li>
-                                    </ul> -->
-                                    <select name="size" id="size">
-                                        <option value="" selected disabled>Choose Size</option>                                            
-                                        <option value="Small">Small</option>
-                                        <option value="Medium">Medium</option>
-                                        <option value="Large">Large</option>
-                                        <option value="X-Large">X-Large</option>
-                                        <option value="Xx-Large">XX-Large</option>
-                                    </select>
-                                <!-- </div> -->
-                           
-            
-                            <div class="form-group">
-                                <label for="description">Description</label>
-                                <div id="add_product_description_error"></div>
-                                <textarea id="descriptions" name="description" class="descriptions"></textarea>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="category">Category</label>
-                            <div id="add_product_category_error"></div>
-                            <select id="category" name="category" onchange="">
-                                <option value="" selected disabled>Select category</option>
-                                <% categorydata.forEach((data) => { %>
-                                    <option value="<%= data.category %>"><%= data.category %></option>
-                                <% }); %>
-                            </select>
-                            
-                        </div>
+            <!-- Inside the content_part div -->
+            <div class="content_part">
+                    <form id="edit" action="/admin/addbanner"
+                        method="post" enctype="multipart/form-data">
+                        <div class="frame">
+                            <div class="gap_div">
+                                <div class="card_div">
+                                    <div class="form-group">
+                                        <label for="productName">Name</label>
+                                        <input type="text" id="name" name="name" 
+                                            placeholder="Enter name">
+                                    </div>
 
-                        <div class="form-group" id="subcategory_display_div" style="display:block; padding: 0.5rem; border-radius: 4px;  margin-left: -10px;">
-                            <label for="subCategory">Sub Category</label>
-                            <div id="add_product_sub-category_error"></div>
-                            <select name="subCategory" id="subCategory" style="width:344px" onchange="select(e)" required>
-                                <option  selected disabled>Select sub category</option>
-                                <% categorydata.forEach((data) => { %>
-                                <% data.subCategory.forEach((sub) => { %>
-                                <option  value="<%= sub %>"><%= sub %></option>
-                                <% }); %>
-                                <% }); %>
-                            </select>
-                        </div>
-                            <div class="form-group">
-                                <div class="message" style="color: red ; margin-bottom: 10px; font-weight: bold;"></div>
-                                <button class="buttonsubmit" type="submit" id="add_product_btn">Submit</button>
-                            </div>
-                        </div>
-                        <div class="img_div">      
-                            <div class="form-group img_centr">            
-                                <div class="image_space">
-                                    <img src="" alt="" id="imagePreview" style="width: 100%; height: 100%;">
+                                    <div class="form-group">
+                                        <label for="title">Title</label>
+                                        <input type="text" id="title" name="title" 
+                                            placeholder="Enter title">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="offer">Offer</label>
+                                        <input type="text" id="offer" name="offer" 
+                                            placeholder="Enter offer">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="message"
+                                            style="color: red; margin-bottom: 10px; font-weight: bold;"></div>
+                                        <button class="buttonsubmit" type="submit">Submit</button>
+                                    </div>
                                 </div>
-                                <div id="add_product_image_error"></div>
-                               <div class="image_buttn">
-                                <input type="file" id="productImage" name="productImage" onchange="previewImage(this)" multiple>
-                               </div>
-                               <div id="errorMain" style="color: brown; margin-top: 1rem;"></div>
+                                <div class="img_div">
+                                    <div class="form-group img_centr">
+                                        <div class="image_space">
+                                            <img src="" alt="" id="imagePreview" style="width: 100%; height: 100%;">
+                                        </div>
+                                        <div id="add_product_image_error"></div>
+                                        <div class="image_buttn">
+                                            <input type="file" id="image" name="image" onchange="previewImage(this)" multiple>
+                                        </div>
+                                        <div id="errorMain" style="color: brown; margin-top: 1rem;"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </form>
-             
+                    </form>
+            </div>
+
+
         </div>
     </section>
     <script>
         function previewImage(input) {
             var file = input.files[0];
-            if(file){
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                document.getElementById('imagePreview').src= e.target.result;
-            };
-            reader.readAsDataURL(file);
-        }else{
-            document.getElementById("imagePreview").setAttribute('src', 'https://via.placeholder.com/150');
+            if (file) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('imagePreview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            } else {
+                document.getElementById("imagePreview").setAttribute('src', 'https://via.placeholder.com/150');
             }
         }
     </script>
     <script>
-        $('#menu-btn').click(function() {
-           $('#menu').toggleClass('active')
+        $('#menu-btn').click(function () {
+            $('#menu').toggleClass('active')
         })
-        
+
     </script>
 
 </body>

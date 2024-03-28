@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Nest Dashboard</title>
+        <meta http-equiv="x-ua-compatible" content="ie=edge" />
+        <meta name="description" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta property="og:title" content="" />
+        <meta property="og:type" content="" />
+        <meta property="og:url" content="" />
+        <meta property="og:image" content="" />
+        <!-- Favicon -->
+        <link rel="shortcut icon" type="image/x-icon" href="/public/assets/imgs/theme/favicon.svg" />
+        <!-- Template CSS -->
+        <link href="/public/assets/css/main.css?v=1.1" rel="stylesheet" type="text/css" />
+    </head>
+
+    <body>
+        <div class="screen-overlay"></div>
+        <aside class="navbar-aside" id="offcanvas_aside">
+            <div class="aside-top">
+                <a href="index" class="brand-wrap">
+                    <img src="/public/assets/imgs/theme/logo.svg" class="logo" alt="Nest Dashboard" />
+                </a>
+                <div>
+                    <button class="btn btn-icon btn-aside-minimize"><i class="text-muted material-icons md-menu_open"></i></button>
+                </div>
+            </div>
+            <nav>
+                <ul class="menu-aside ">
+                    <li class="menu-item ">
+                        <a class="menu-link" href="dashboard">
+                            <i class="icon material-icons md-home"></i>
+                            <span class="text">Dashboard</span>
+                        </a>
+                    </li>
+
+                    <li class="menu-item">
+                        <a class="menu-link" href="order">
+                            <i class="icon material-icons md-shopping_cart"></i>
+                            <span class="text">Order</span>
+                        </a>
+                    </li>
+                    
+                    
+     
+                    <li class="menu-item active">
+                        <a class="menu-link" href="product">
+                            <i class="icon material-icons md-shopping_bag"></i>
+                            <span class="text">Products</span>
+                        </a>
+                    </li>
+
+                    <li class="menu-item ">
+                        <a class="menu-link" href="category">
+                            <i class="icon material-icons md-category"></i>
+                            <span class="text">Categories</span>
+                        </a>
+                    </li>
+
+                    <li class="menu-item">
+                        <a class="menu-link" href="users">
+                            <i class="icon material-icons md-perm_identity"></i>
+                            <span class="text">Users</span>
+                        </a>
+                    </li>
+
+                    <li class="menu-item">
+                        <a class="menu-link " href="coupon">
+                            <i class="icon material-icons md-local_offer"></i>
+                            <span class="text">Coupons</span>
+                        </a>
+                    </li>
+
+                    <li class="menu-item">
+                        <a class="menu-link" href="banner">
+                            <i class="icon material-icons md-photo"></i>
+                            <span class="text">Banner</span>
+                        </a>
+                    </li>
+                    
+
+                    <li class="menu-item mt-auto">
+                        <a class="menu-link" href="logout">
+                            <i class="icon material-icons md-exit_to_app"></i>
+                            <span class="text">Logout</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="main-wrap">
+            <header class="main-header navbar">
+                <div class="col-search">
+                    <form class="searchform">
+                        <div class="input-group">
+                            <input list="search_terms" type="text" class="form-control" placeholder="Search term" />
+                            <button class="btn btn-light bg" type="button"><i class="material-icons md-search"></i></button>
+                        </div>
+                        <datalist id="search_terms">
+                            <option value="Products"></option>
+                            <option value="New orders"></option>
+                            <option value="Apple iphone"></option>
+                            <option value="Ahmed Hassan"></option>
+                        </datalist>
+                    </form>
+                </div>
+                <div class="col-nav">
+                    <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"><i class="material-icons md-apps"></i></button>
+                    <ul class="nav">
+                        <li class="nav-item">
+                            <a class="nav-link btn-icon" href="#">
+                                <i class="material-icons md-notifications animation-shake"></i>
+                                <span class="badge rounded-pill">3</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn-icon darkmode" href="#"> <i class="material-icons md-nights_stay"></i> </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="requestfullscreen nav-link btn-icon"><i class="material-icons md-cast"></i></a>
+                        </li>
+                        <li class="dropdown nav-item">
+                            <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownLanguage" aria-expanded="false"><i class="material-icons md-public"></i></a>
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownLanguage">
+                                <a class="dropdown-item text-brand" href="#"><img src="/public/assets/imgs/theme/flag-us.png" alt="English" />English</a>
+                                <a class="dropdown-item" href="#"><img src="/public/assets/imgs/theme/flag-fr.png" alt="Français" />Français</a>
+                                <a class="dropdown-item" href="#"><img src="/public/assets/imgs/theme/flag-jp.png" alt="Français" />日本語</a>
+                                <a class="dropdown-item" href="#"><img src="/public/assets/imgs/theme/flag-cn.png" alt="Français" />中国人</a>
+                            </div>
+                        </li>
+                        <li class="dropdown nav-item">
+                            <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false"> <img class="img-xs rounded-circle" src="/public/assets/imgs/people/avatar-2.png" alt="User" /></a>
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
+                                <a class="dropdown-item" href="#"><i class="material-icons md-perm_identity"></i>Edit Profile</a>
+                                <a class="dropdown-item" href="#"><i class="material-icons md-settings"></i>Account Settings</a>
+                                <a class="dropdown-item" href="#"><i class="material-icons md-account_balance_wallet"></i>Wallet</a>
+                                <a class="dropdown-item" href="#"><i class="material-icons md-receipt"></i>Billing</a>
+                                <a class="dropdown-item" href="#"><i class="material-icons md-help_outline"></i>Help center</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item text-danger" href="#"><i class="material-icons md-exit_to_app"></i>Logout</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </header>
+
+   
+            <section class="content-main py-4">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12 col-md-9">
+                            <div class="content-header">
+                                <h2 class="content-title">Add New Product</h2>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <form action="" method="post" enctype="multipart/form-data">
+                                        <div class="form-group">
+                                            <label for="product_title">Product Name</label>
+                                            <input type="text" class="form-control" id="product_title" name="name" placeholder="Type here">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="quantity">Quantity</label>
+                                            <input type="number" class="form-control" id="quantity" name="quantity" placeholder="Type here">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Category</label>
+                                            <select class="form-control" id="product-category" name="category">
+                                                <option value="sofa">Sofa</option>
+                                                <option value="chair">Chair</option>
+                                                <option value="light">Light</option>
+                                                <option value="cushion">Cushion</option>
+                                                <option value="bean-bag">Bean Bag</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Price</label>
+                                            <input type="text" class="form-control" name="price" placeholder="Type here">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="offer">Offer</label>
+                                            <input type="text" class="form-control" id="offer" name="offer" placeholder="Type here">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Description</label>
+                                            <textarea class="form-control" rows="4" name="description" placeholder="Type here"></textarea>
+                                        </div>
+                                        <div class="row d-flex justify-content-center ">
+                                            <div class="row d-flex justify-content-between ">
+                                                <div class="col-lg-3 col-md-6 rounded-image-preview">
+                                                    <label for="imageInput1" class="image-label">Image 1
+                                                        <div class="rounded-image-preview">
+                                                            <img id="imagePreview1" src="/public/assets/images/add Image.jpg" alt="Preview" />
+                                                        </div>
+                                                        <input name="image1" type="file" accept="image/*" id="imageInput1" class="imageInput">
+                                                    </label>
+                                                </div>
+            
+                                                <div class="col-lg-3 col-md-6 rounded-image-preview">
+                                                    <label for="imageInput2" class="image-label">Image 2
+                                                        <div class="rounded-image-preview">
+                                                            <img id="imagePreview2" src="/public/assets/images/add Image.jpg" alt="Preview" />
+                                                        </div>
+                                                        <input name="image2" type="file" accept="image/*" id="imageInput2" class="imageInput">
+                                                    </label>
+                                                </div>
+            
+                                                <div class="col-lg-3 col-md-6 rounded-image-preview">
+                                                    <label for="imageInput3" class="image-label">Image 3
+                                                        <div class="rounded-image-preview">
+                                                            <img id="imagePreview3" src="/public/assets/images/add Image.jpg" alt="Preview" />
+                                                        </div>
+                                                        <input name="image3" type="file" accept="image/*" id="imageInput3" class="imageInput">
+                                                    </label>
+                                                </div>
+            
+                                                <div class="col-lg-3 col-md-6 rounded-image-preview">
+                                                    <label for="imageInput4" class="image-label">Image 4
+                                                        <div class="rounded-image-preview">
+                                                            <img id="imagePreview4" src="/public/assets/images/add Image.jpg" alt="Preview" />
+                                                        </div>
+                                                        <input name="image4" type="file" accept="image/*" id="imageInput4" class="imageInput">
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group mt-3">
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+     <footer class="main-footer font-xs">
+                <div class="row pb-30 pt-15">
+                    <div class="col-sm-6">
+                        <script>
+                            document.write(new Date().getFullYear());
+                        </script>
+                        &copy; Nest - HTML Ecommerce Template .
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="text-sm-end">All rights reserved</div>
+                    </div>
+                </div>
+            </footer>
+        </main>
+        <script src="/public/assets/js/vendors/jquery-3.6.0.min.js"></script>
+        <script src="/public/assets/js/vendors/bootstrap.bundle.min.js"></script>
+        <script src="/public/assets/js/vendors/select2.min.js"></script>
+        <script src="/public/assets/js/vendors/perfect-scrollbar.js"></script>
+        <script src="/public/assets/js/vendors/jquery.fullscreen.min.js"></script>
+        <!-- Main Script -->
+        <script src="/public/assets/js/main.js?v=1.1" type="text/javascript"></script>
+    </body>
+</html>

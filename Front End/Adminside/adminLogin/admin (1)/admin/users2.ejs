@@ -1,0 +1,104 @@
+function showEditAddressModal(fullName, country, housename, state, city, pincode, phone, email, addressId) {
+  // Set values of form fields based on the data
+console.log(addressId);
+  $('#fullNames').val(fullName);
+  $('#countrys').val(country);
+  $('#housenames').val(housename);
+  $('#states').val(state);
+  $('#citys').val(city);
+  $('#pincodes').val(pincode);
+  $('#phones').val(phone);
+  $('#emails').val(email);
+  $('#addressIds').val(addressId);
+  console.log(    $('#addressIds').val(addressId)
+);
+
+
+  // Show the modal
+  $('#addAddressModals').modal('show');
+}
+
+$('#submitAddressBtns').on('click', function (event) {
+  event.preventDefault(); // Prevent the default form submission
+
+  // Get form data
+  var formData = new FormData($('#addAddressForms')[0]);
+
+  // Send form data using jQuery AJAX
+  $.ajax({
+      type: 'POST',
+      url: '/editaddresses',
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: function (data) {
+          // Handle the response data as needed
+          console.log('Response from server:', data);
+
+          // Check if the response indicates success
+          if (data && data.success) {
+              // Update the content on the page with the updated address data
+              $('#addrassArea').html(data.updatedAddress);
+
+              // Optionally, display a success message to the user
+              // alert('Address updated successfully');
+          } else {
+              // Handle the case when the server response indicates an error
+              console.error('Server response indicates an error:', data);
+              // Optionally, display an error message to the user
+              // alert('An error occurred. Please try again.');
+          }
+      },
+      error: function (error) {
+          console.error('Error:', error);
+          // Optionally, display an error message to the user
+          // alert('An error occurred. Please try again.');
+      }
+  });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const editaddress = async (req, res) => {
+  try {
+      const userId = req.session.user_id;
+      console.log(req.body.addressIds);
+      console.log(req.body.phone)
+
+      // Perform the update operation and get the updated address data
+      const updatedAddress = await Address.findOneAndUpdate(
+          { user: userId, 'address._id': req.body.addressId },
+          {
+              $set: {
+                  'address.$.fullName': req.body.fullName,
+                  'address.$.country': req.body.country,
+                  'address.$.housename': req.body.housename,
+                  'address.$.state': req.body.state,
+                  'address.$.city': req.body.city,
+                  'address.$.pincode': req.body.pincode,
+                  'address.$.phone': req.body.phone,
+                  'address.$.email': req.body.email,
+              },
+          },
+          { new: true } // Return the modified document, not the original
+      );
+
+      // Send a JSON response indicating success
+      res.json({ success: true, message: 'Address updated successfully', updatedAddress });
+  } catch (error) {
+      console.error(error.message);
+      // Send a JSON response indicating an error
+      res.status(500).json({ success: false, message: 'Internal Server Error' });
+  }
+};

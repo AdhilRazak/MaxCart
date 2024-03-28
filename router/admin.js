@@ -6,12 +6,13 @@ const {adminlogin,adminloginpost}=require('../controllers/authcontroller')
 const{productget,addproductget, addproductspost,blockproductvisibility,producteditget,producteditpost,productdelete}=require('../controllers/productcondroller')
 const{categoryget,categorypost,Editcategoryget,deleteCategory, editcategorypost,subCategorydelete}=require('../controllers/categorycondroller')
 const {couponget,addcouponget,addcouponpost,editcoupenget,editCouponPost,deleteCoupon}=require('../controllers/couponcontroller')
+const{bannerget,addbannerget,addbannerpost,bannerdelete,editbannerget,editbannerpost}=require('../controllers/bannercontroller')
 
 const multer=require('../middleware/multer')
 
 
 const uploadProducts = multer.productimage()
-
+const uploadBannerImages = multer.banner();
 
 router.get('/',adminlogin)
 router.post('/',adminloginpost)
@@ -53,6 +54,16 @@ router.delete('/deletecoupon', deleteCoupon);
 
 router.get('/adminuserlist',adminuserlistget)
 router.post('/blockuser',Blockuser)
+
+router.get('/banner',bannerget)
+router.get('/addbanner',addbannerget)
+router.post('/addbanner', uploadBannerImages.array('image', 5), addbannerpost);
+router.delete('/deletebanner',bannerdelete)
+
+router.get('/editbanner',editbannerget)
+router.post('/editbanner', uploadBannerImages.array('image', 5),editbannerpost)
+
+
 
 
 

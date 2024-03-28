@@ -1,4 +1,5 @@
 const categorydata = require('../model/categorycollection');
+const ProductModel = require('../model/productcollection');
 
 module.exports = {
     categoryget: async (req, res) => {
@@ -55,34 +56,34 @@ module.exports = {
             const id = req.query.id;
             console.log("Category ID:", id); // Debugging console log
             const { categoryName, subcategoryName } = req.body;
-    
+
             // Assuming categorydata is your model
             const category = await categorydata.findById(id);
-    
+
             if (!category) {
                 return res.status(404).json({ error: 'Category not found' });
             }
-    
+
             // Update categoryName if provided
             if (categoryName) {
                 category.category = categoryName; // Corrected assignment
             }
-    
+
             // Add subcategoryName if provided
             if (subcategoryName) {
                 category.subCategory.push(subcategoryName);
             }
-    
+
             // Save the updated category
             await category.save();
-    
+
             res.status(200).json({ message: 'Category updated successfully', category });
         } catch (error) {
             console.error(error);
             res.status(500).json({ error: 'Internal server error' });
         }
     },
-    
+
     deleteCategory: async (req, res) => {
         console.log('hoooi');
         const categoryID = req.query.id;
@@ -99,30 +100,42 @@ module.exports = {
         }
     },
 
-   // In your category controller
-subCategorydelete: async (req, res) => {
-    try {
-      const { categoryId, subcategoryName } = req.query;
-  
-      // Assuming categorydata is your model
-      const category = await categorydata.findById(categoryId);
-      if (!category) {
-        return res.status(404).json({ error: 'Category not found' });
-      }
-  
-      // Remove the subcategory from the category's subCategory array
-      const index = category.subCategory.indexOf(subcategoryName);
-      if (index !== -1) {
-        category.subCategory.splice(index, 1);
-        await category.save();
-        return res.status(200).json({ success: true, message: 'Subcategory deleted successfully' });
-      } else {
-        return res.status(404).json({ error: 'Subcategory not found in the category' });
-      }
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Internal server error' });
+    // In your category controller
+    subCategorydelete: async (req, res) => {
+        try {
+            const { categoryId, subcategoryName } = req.query;
+
+            // Assuming categorydata is your model
+            const category = await categorydata.findById(categoryId);
+            if (!category) {
+                return res.status(404).json({ error: 'Category not found' });
+            }
+
+            // Remove the subcategory from the category's subCategory array
+            const index = category.subCategory.indexOf(subcategoryName);
+            if (index !== -1) {
+                category.subCategory.splice(index, 1);
+                await category.save();
+                return res.status(200).json({ success: true, message: 'Subcategory deleted successfully' });
+            } else {
+                return res.status(404).json({ error: 'Subcategory not found in the category' });
+            }
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    },
+
+    categoryfilterget: async (req, res) => {
+        try {
+            const category = req.query.category;
+            console.log(category);
+            const product = await ProductModel.find({ category: category, status: false });
+            res.render('user/showallproduct', { product });
+        } catch (error) {
+            console.error('Error:', error);
+            res.status(500).send('Internal Server Error');
+        }
     }
-  }
-  
+    
 }

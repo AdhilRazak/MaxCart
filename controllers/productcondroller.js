@@ -153,6 +153,10 @@ module.exports = {
             console.error('Error deleting product:', error);
             res.status(500).json({ message: 'Internal Server Error' });
         }
+    },
+      userallproducts:async(req,res)=>{
+        const product = await ProductModel.find({status:false})
+        res.render('user/showallproduct',{product})
     }
 
 };
