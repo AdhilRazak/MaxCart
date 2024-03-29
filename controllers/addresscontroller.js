@@ -116,7 +116,7 @@ module.exports = {
             console.log('User:', user);
 
             // Extract the locality from the request body
-            const { locality } = req.body;
+            const { locality, country, district, state, city, houseno, pincode } = req.body;
 
             // Find the address based on the user and address ID
             const addresses = await addressdata.findOneAndUpdate(
@@ -126,7 +126,14 @@ module.exports = {
                 },
                 {
                     $set: {
-                        'address.$.locality': locality
+                        'address.$.locality': locality,
+                        'address.$.country': country,
+                        'address.$.state': state,
+                        'address.$.district': district,
+                        'address.$.city': city,
+                        'address.$.houseno': houseno,
+                        'address.$.pincode': pincode
+
                     }
                 }
             );
