@@ -230,22 +230,19 @@
                   </clipPath>
                   </defs>
                 </svg>                                             
-                <h2 class="m-0 p-0 text-capitalize">Add Address</h2>
+                <h2 class="m-0 p-0 text-capitalize">edit Address</h2>
               </div>
+              <% address.forEach((dats)=>{%> 
             </div>
-            <form action="/addaddress" method="post">
+            <form action="/editaddress?id=<%=dats.address._id%>" method="post">
                 <div class="editBody">
                     <div class="d-flex uAcc">
                         <div class="sides">
                             <div>
                                 <label for="locality">Locality</label>
-                                <input name="locality" class="d-block text-capitalize" type="text">
-                                <div>
-                                  <select id="country" name="country">
-                                      <option value="none">Select Country</option>
-                                      <option value="india">India</option>
-                                      <!-- Add other countries as needed -->
-                                  </select>
+                                <input name="locality" class="d-block text-capitalize" type="text" value="<%=dats.address.locality%>">
+                                <label for="country">Country</label>
+                                <input name="country" class="d-block" type="text">
                                 <label for="district">District</label>
                                 <input name="district" class="d-block" type="text">
                                 <label for="state">State</label>
@@ -264,6 +261,7 @@
                             </div>
                             <button type="submit" class="saveBtn twoBtn">Save Changes</button>
                         </div>
+                        <%})%>
                     </div>
                 </div>
             </form>

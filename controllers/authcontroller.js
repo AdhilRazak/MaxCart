@@ -67,7 +67,6 @@ module.exports = {
                 // return res.redirect('/v');
             }
             req.session.user = user._id
-            console.log(req.session.user);
             res.redirect('/home');
 
 

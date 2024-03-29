@@ -49,7 +49,6 @@ module.exports={
             }
             // Find user by ID
             const user = await userdatacollection.findById(userID);
-            console.log(user);
             if (!user) {
                 return res.status(404).send('User not found');
             }
@@ -66,8 +65,6 @@ module.exports={
         try {
             const { username, email, phone, oldpasse, password, cpass } = req.body;
             const userId = req.session.user;
-
-            console.log(oldpasse);
     
             // Find the user by ID
             const userdats = await userdatacollection.findById(userId);
