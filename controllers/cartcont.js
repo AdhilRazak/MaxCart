@@ -43,40 +43,41 @@ module.exports = {
         }
     },
 
-    showcart:async(req,res)=>{
+    showcart: async (req, res) => {
+        try {
+            if (req.session.user) {
+                const userid = req.session.user;
+                const cartdetail = await Cart.findOne({ userId: userid }).populate('productId.id');
+                let cartCount = 0;
+    
+                if (cartdetail && cartdetail.productId) {
+                    cartCount = cartdetail.productId.length;
+                    console.log(cartCount);
+                    console.log(cartdetail.productId);
+    
+                    const subtotal = cartdetail.productId.reduce((acc, index) => {
+                        return (acc += index.id.prices * index.quantity);
+                    }, 0);
 
-        try{
-            if(req.session.user){
-             
-                const userid = req.session.user
-                
-                const cartdetail = await Cart.findOne({userID:userid}).populate('productID.id')
-                
-                let cartCount
-                cartdetail?cartcount =cartdetail.productId.length:cartCount = 0
+    
+                    const discountTotal = cartdetail.productId.reduce((acc, index) => {
+                        return (acc += index.id.discount * index.quantity);
+                    }, 0);
 
-                if(cartdetail&&cartdetail.productId){
-
-                    const subtotal =cartdetail.productId.reduce((acc,index)=>{
-                        return (acc+= index.id.price*index.quantity)
-                    },0)
-
-                    let discountTotal = 0;
-
-                    discountTotal = cartdetail.productId.reduce((acc,index)=>{
-                        return (acc += index.id.discount*index.quantity)
-                    },0)
-
-                    res.render('user/cart',{cartdetail:null,subtotal:0,discountTotal:0,cartCount})
+                    const total = subtotal-discountTotal
+    
+                    res.render('user/cart', { cartdetail, subtotal, discountTotal,total, cartCount });
+                } else {
+                    res.render('user/cart', { cartdetail: null, subtotal: 0, discountTotal: 0,total:0, cartCount });
                 }
+            } else {
+                res.redirect('/');
             }
-            else{
-
-            }
-
-        }
-        catch(error){
-
+        } catch (error) {
+            console.error('Error in showcart:', error);
+            res.status(500).send('Internal Server Error');
         }
     }
+    
+    
 };

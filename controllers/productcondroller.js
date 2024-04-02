@@ -30,8 +30,10 @@ module.exports = {
             }
 
             const productImages = req.files.map(file => file.filename);
-            const { productName, prices, discount, stock, category, subCategory, deliveryDate, description, color, size,title,write} = req.body;
+            const { productName, prices, discount, stock, category, subCategory, deliveryDate, description, color, size, title, write } = req.body;
 
+            const disamount = (prices * discount) / 100
+            const disprice = prices - disamount
             const newProduct = new ProductModel({
                 productName,
                 prices,
@@ -45,6 +47,7 @@ module.exports = {
                 color,
                 title,
                 write,
+                discounted: disprice,
                 productImage: productImages,
             });
 
@@ -101,7 +104,10 @@ module.exports = {
         try {
             const productId = req.params.id;
             const productImages = req.files.map(file => file.filename);
-            const { productName, prices, discount, stock, category, subCategory, deliveryDate, description, color, size ,title,write} = req.body;
+            const { productName, prices, discount, stock, category, subCategory, deliveryDate, description, color, size, title, write } = req.body;
+
+            const disamount = (prices * discount) / 100
+            const disprice = prices - disamount
 
             const productUpdated = await ProductModel.findByIdAndUpdate(
                 productId,
@@ -118,6 +124,7 @@ module.exports = {
                     color,
                     title,
                     write,
+                    discounted: disprice,
                     productImage: productImages
                 },
                 { new: true, upsert: true }
@@ -166,20 +173,20 @@ module.exports = {
         try {
             const productid = req.query.id;
             const product = await ProductModel.findById(productid);
-            
+
             if (!product) {
                 // If product is not found, handle the error accordingly
                 return res.status(404).send("Product not found");
             }
             console.log(product);
-            
-            res.render('user/viewsinglecart', { product});
+
+            res.render('user/viewsinglecart', { product });
         } catch (error) {
             // Handle any other errors that might occur during execution
             console.error("Error occurred in viewsingleproducts:", error);
             res.status(500).send("Internal Server Error");
         }
     }
-    
+
 
 };

@@ -7,7 +7,7 @@ const { userhomeget, useraccountget, useraccounteditget, useraccounteditpost} = 
 const { categoryfilterget } = require('../controllers/categorycondroller')
 const { userallproducts,viewsingleproducts} = require('../controllers/productcondroller')
 const { addressget, addaddressget, addaddresspost, editaddress, editaddressget,deleteaddress } = require('../controllers/addresscontroller')
-const{addtocart}=require('../controllers/cartcont')
+const{addtocart,showcart}=require('../controllers/cartcont')
 
 router.get('/', loginget);
 router.post('/', loginpost);
@@ -53,6 +53,7 @@ router.post('/deleteaddress',deleteaddress)
 router.get('/viewsingleproduct',viewsingleproducts)
 
 router.post('/addtocart',addtocart)
+router.get('/usercart',showcart)
 
 
 

@@ -57,6 +57,9 @@ const productSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
         required: true
+    },
+    discounted:{
+        type:String,
     }
 
 });
