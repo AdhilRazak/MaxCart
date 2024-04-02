@@ -70,8 +70,11 @@
                         <td>ID</td>
                         <td>Image</td>
                         <td>Name</td>
+                        <td>title</td>
+                        <td>write</td>
                         <td>Stocks</td>
                         <td>Prices</td>
+                        <td>discounted</td>
                         <td>Category</td>
                         <td>SubCategory</td>
                         <td>Description</td>
@@ -106,12 +109,27 @@
                             </td>
                             <td class="people-des">
                                 <h5>
+                                    <%=data.title%>
+                                </h5>
+                            </td>
+                            <td class="people-des">
+                                <h5>
+                                    <%=data.write%>
+                                </h5>
+                            </td>
+                            <td class="people-des">
+                                <h5>
                                     <%=data.stock %>
                                 </h5>
                             </td>
                             <td class="people-des">
 
                                 <h5>$<%=data.prices %>
+                                </h5>
+                            </td>
+                            <td class="people-des">
+
+                                <h5>$<%=data.discount %>
                                 </h5>
                             </td>
                             <td class="people-des">

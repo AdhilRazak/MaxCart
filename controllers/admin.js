@@ -25,14 +25,13 @@ module.exports = {
 
           let state;
 
-          if (user.status) {
+          if (user.otpVerified) {
               await userdata.updateOne({ _id: userID }, { $set: { otpVerified: false } });
               state = false;
           } else {
               await userdata.updateOne({ _id: userID }, { $set: { otpVerified: true } });
               state = true;
           }
-
           res.json({ state });
       } catch (error) {
           console.error("Error in blocking/unblocking product:", error);

@@ -30,7 +30,7 @@ module.exports = {
             }
 
             const productImages = req.files.map(file => file.filename);
-            const { productName, prices, discount, stock, category, subCategory, deliveryDate, description, color, size } = req.body;
+            const { productName, prices, discount, stock, category, subCategory, deliveryDate, description, color, size,title,write} = req.body;
 
             const newProduct = new ProductModel({
                 productName,
@@ -43,6 +43,8 @@ module.exports = {
                 description,
                 size,
                 color,
+                title,
+                write,
                 productImage: productImages,
             });
 
@@ -99,7 +101,7 @@ module.exports = {
         try {
             const productId = req.params.id;
             const productImages = req.files.map(file => file.filename);
-            const { productName, prices, discount, stock, category, subCategory, deliveryDate, description, color, size } = req.body;
+            const { productName, prices, discount, stock, category, subCategory, deliveryDate, description, color, size ,title,write} = req.body;
 
             const productUpdated = await ProductModel.findByIdAndUpdate(
                 productId,
@@ -114,6 +116,8 @@ module.exports = {
                     description,
                     size,
                     color,
+                    title,
+                    write,
                     productImage: productImages
                 },
                 { new: true, upsert: true }
@@ -154,9 +158,28 @@ module.exports = {
             res.status(500).json({ message: 'Internal Server Error' });
         }
     },
-      userallproducts:async(req,res)=>{
-        const product = await ProductModel.find({status:false})
-        res.render('user/showallproduct',{product})
+    userallproducts: async (req, res) => {
+        const product = await ProductModel.find({ status: false })
+        res.render('user/showallproduct', { product })
+    },
+    viewsingleproducts: async (req, res) => {
+        try {
+            const productid = req.query.id;
+            const product = await ProductModel.findById(productid);
+            
+            if (!product) {
+                // If product is not found, handle the error accordingly
+                return res.status(404).send("Product not found");
+            }
+            console.log(product);
+            
+            res.render('user/viewsinglecart', { product});
+        } catch (error) {
+            // Handle any other errors that might occur during execution
+            console.error("Error occurred in viewsingleproducts:", error);
+            res.status(500).send("Internal Server Error");
+        }
     }
+    
 
 };

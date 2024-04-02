@@ -9,6 +9,14 @@ const productSchema = new mongoose.Schema({
         type: Array, // Or String if you're storing a single image URL
         required: true
     },
+    title:{
+        type:String,
+        required:true
+    },
+    write:{
+        type:String,
+        required:true
+    },
     prices: {
         type: Number,
         required: true

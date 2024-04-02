@@ -496,7 +496,7 @@
           <div class="row">
             <% product.forEach((prods)=>{%>
 
-            <div class="smallWidth col-6 col-md-4">
+            <div class="smallWidth col-6 col-md-4" >
               <div class="shopItems" onclick="console.log('jshdkfd');">
                 <div class="mainItem">
                   <div
@@ -517,7 +517,7 @@
                         />
                       </svg>
                     </a>
-                    <img src="./images/product/<%=prods.productImage[0]%>" alt="" />
+                    <img onclick="window.location.href='/viewsingleproduct?id=<%=prods._id%>'" src="./images/product/<%=prods.productImage[0]%>" alt="" />
                   </div>
                   <div class="itemDescription text-center">
                     <h2><%=prods.productName%></h2>

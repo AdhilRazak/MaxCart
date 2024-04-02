@@ -3,10 +3,12 @@ const router = express.Router();
 const { loginget, loginpost, signupget, signuppost, verificationget, verificationpost, resendOtp, forgotpasswordEget,
         forgotpasswordEpost, forgotpasswordOget, forgotpasswordOpost, resetpassordget, resetpassordpost, resendOtpToEmail,
          otpVerifiedget, otpVerifiedpost } = require('../controllers/authcontroller');
-const { userhomeget, useraccountget, useraccounteditget, useraccounteditpost } = require('../controllers/user')
+const { userhomeget, useraccountget, useraccounteditget, useraccounteditpost} = require('../controllers/user')
 const { categoryfilterget } = require('../controllers/categorycondroller')
-const { userallproducts } = require('../controllers/productcondroller')
+const { userallproducts,viewsingleproducts} = require('../controllers/productcondroller')
 const { addressget, addaddressget, addaddresspost, editaddress, editaddressget,deleteaddress } = require('../controllers/addresscontroller')
+const{addtocart}=require('../controllers/cartcont')
+
 router.get('/', loginget);
 router.post('/', loginpost);
 router.get('/signup', signupget);
@@ -47,6 +49,10 @@ router.get('/editaddress',editaddressget)
 router.post('/editaddress', editaddress)
 
 router.post('/deleteaddress',deleteaddress)
+
+router.get('/viewsingleproduct',viewsingleproducts)
+
+router.post('/addtocart',addtocart)
 
 
 

@@ -25,8 +25,8 @@
             <li><i class="fa-solid fa-credit-card"></i> <a href="/admin/banner">Banners</a></li>
             <li><i class="fa-solid fa-credit-card"></i> <a href="/admin/coupon">Coupons</a></li>
             <li><i class="fa-solid fa-user" style="color: #000000;"></i><a href="/admin/Userslist">Users</a></li>
-          
-            
+
+
             <!-- <li><i class="fa-solid fa-chart-line"></i> <a href="#">Blank</a></li> -->
             <div class="logout">
                 <li><i class="fa-solid fa-right-from-bracket" style="color: #a10c39;"></i> <a href="#">Logout</a></li>
@@ -40,156 +40,193 @@
         <div class="navigation">
             <div class="n1">
                 <div>
-            
+
                     <i id="menu-btn" class="fa-solid fa-bars"></i>
                 </div>
-           
+
             </div>
-           
-      
+
+
         </div>
 
         <h3 class="i-name">Edit Products</h3>
         <div class="content_part">
 
-            <form id="add_product_form" action="/admin/Editproduct/<%= productData._id %>" method="post" enctype="multipart/form-data">
+            <form id="add_product_form" action="/admin/Editproduct/<%= productData._id %>" method="post"
+                enctype="multipart/form-data">
                 <div class="frame">
                     <div class="gap_div">
-                        <d
-                        iv class="card_div">
+                        <d iv class="card_div">
                             <div class="form-group">
                                 <label for="productName">Product Name</label>
                                 <div id="add_product_name_error"></div>
-                                <input type="text" id="productName" name="productName" placeholder="Enter product name" value="<%=productData.productName %>">
+                                <input type="text" id="productName" name="productName" placeholder="Enter product name"
+                                    value="<%=productData.productName %>">
                             </div>
-            
+                            <div class="form-group">
+                                <label for="prices">title</label>
+                                <div id="add_product_price_error"></div>
+                                <input type="text" id="title" name="title" placeholder="Enter prices"
+                                value="<%=productData.title %>">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="prices">write</label>
+                                <div id="add_product_price_error"></div>
+                                <input type="text" id="write" name="write" placeholder="Enter prices"
+                                value="<%=productData.title %>">
+
+                            </div>
                             <div class="form-group">
                                 <label for="prices">Price</label>
                                 <div id="add_product_price_error"></div>
-                                <input type="number" id="prices" name="prices" placeholder="Enter prices" value="<%=productData.prices %>">
+                                <input type="number" id="prices" name="prices" placeholder="Enter prices"
+                                    value="<%=productData.prices %>">
                             </div>
-            
+
                             <div class="form-group">
                                 <label for="discount">Discount</label>
                                 <div id="add_product_discount_error"></div>
-                                <input type="number" id="discount" name="discount" placeholder="Enter discount" value="<%=productData.discount %>">
+                                <input type="number" id="discount" name="discount" placeholder="Enter discount"
+                                    value="<%=productData.discount %>">
                             </div>
-            
+
                             <div class="form-group">
                                 <label for="stock">Stock</label>
                                 <div id="add_product_stock_error"></div>
-                                <input type="number" id="stock" name="stock" placeholder="Enter stock" value="<%=productData.stock %>">
+                                <input type="number" id="stock" name="stock" placeholder="Enter stock"
+                                    value="<%=productData.stock %>">
                             </div>
-            
-                            
+
+
                             <div class="form-group">
                                 <label for="deliveryDate">Delivery Date</label>
                                 <div id="add_product_delivery-date_error"></div>
-                                <input type="text" id="deliveryDate" name="deliveryDate" placeholder="Enter delivery date" value="<%=productData.deliveryDate %>">
+                                <input type="text" id="deliveryDate" name="deliveryDate"
+                                    placeholder="Enter delivery date" value="<%=productData.deliveryDate %>">
                             </div>
-            
+
                             <div class="form-group">
                                 <label for="colour">Colour</label>
                                 <div id="add_product_colour_error"></div>
                                 <select name="color" id="colour">
                                     <option value="" disabled>Select color</option>
-                                    <option value="red" style="color: #ff0000;" <% if (productData.color === 'red') { %> selected <% } %>>Red</option>
-                                    <option value="Blue" style="color: #0000ff;" <% if (productData.color === 'Blue') { %> selected <% } %>>Blue</option>
-                                    <option value="Green" style="color: #00ff00;" <% if (productData.color === 'Green') { %> selected <% } %>>Green</option>
-                                    <option value="Black" style="color: #000000;" <% if (productData.color === 'Black') { %> selected <% } %>>Black</option>
-                                    <option value="Orange" style="color: #f98000;" <% if (productData.color === 'Orange') { %> selected <% } %>>Orange</option>
-                                    <option value="Yellow" style="color: #ffea00;" <% if (productData.color === 'Yellow') { %> selected <% } %>>Yellow</option>
+                                    <option value="red" style="color: #ff0000;" <% if (productData.color==='red' ) { %>
+                                        selected <% } %>>Red</option>
+                                    <option value="Blue" style="color: #0000ff;" <% if (productData.color==='Blue' ) {
+                                        %> selected <% } %>>Blue</option>
+                                    <option value="Green" style="color: #00ff00;" <% if (productData.color==='Green' ) {
+                                        %> selected <% } %>>Green</option>
+                                    <option value="Black" style="color: #000000;" <% if (productData.color==='Black' ) {
+                                        %> selected <% } %>>Black</option>
+                                    <option value="Orange" style="color: #f98000;" <% if (productData.color==='Orange' )
+                                        { %> selected <% } %>>Orange</option>
+                                    <option value="Yellow" style="color: #ffea00;" <% if (productData.color==='Yellow' )
+                                        { %> selected <% } %>>Yellow</option>
                                 </select>
                             </div>
-                            
-            
+
+
                             <div class="form-group">
                                 <label for="size">Size</label>
                                 <div id="add_product_size_error"></div>
-                        
+
                                 <select name="size" id="size">
                                     <option value="" disabled>Choose Size</option>
-                                    <option value="Small" <% if (productData.size === 'Small') { %> selected <% } %>>Small</option>
-                                    <option value="Medium" <% if (productData.size === 'Medium') { %> selected <% } %>>Medium</option>
-                                    <option value="Large" <% if (productData.size === 'Large') { %> selected <% } %>>Large</option>
-                                    <option value="X-Large" <% if (productData.size === 'X-Large') { %> selected <% } %>>X-Large</option>
-                                    <option value="XX-Large" <% if (productData.size === 'XX-Large') { %> selected <% } %>>XX-Large</option>
+                                    <option value="Small" <% if (productData.size==='Small' ) { %> selected <% } %>
+                                            >Small</option>
+                                    <option value="Medium" <% if (productData.size==='Medium' ) { %> selected <% } %>
+                                            >Medium</option>
+                                    <option value="Large" <% if (productData.size==='Large' ) { %> selected <% } %>
+                                            >Large</option>
+                                    <option value="X-Large" <% if (productData.size==='X-Large' ) { %> selected <% } %>
+                                            >X-Large</option>
+                                    <option value="XX-Large" <% if (productData.size==='XX-Large' ) { %> selected <% }
+                                            %>>XX-Large</option>
                                 </select>
-                                
-                           
+
+
                                 <div class="form-group">
                                     <label for="description">Description</label>
                                     <div id="add_product_description_error"></div>
-                                    <textarea id="descriptions" name="description" class="descriptions"><%= productData.description %></textarea>
+                                    <textarea id="descriptions" name="description"
+                                        class="descriptions"><%= productData.description %></textarea>
                                 </div>
-                                
-                        </div>
-                        <div class="form-group">
-                            <label for="category">Category</label>
-                            <div id="add_product_category_error"></div>
-                            <select id="category" name="category" onchange="">
-                                <option value="" selected disabled>Select category</option>
-                                <% categoryData.forEach((data) => { %>
-                                    <option value="<%= data.category %>"><%= data.category %></option>
-                                <% }); %>
-                            </select>
-                            
-                        </div>
 
-                        <div class="form-group" id="subcategory_display_div" style="display:block; padding: 0.5rem; border-radius: 4px;  margin-left: -10px;">
-                            <label for="subCategory">Sub Category</label>
-                            <div id="add_product_sub-category_error"></div>
-                            <select name="subCategory" id="subCategory" style="width:344px" onchange="select(e)" required>
-                                <option  selected disabled>Select sub category</option>
-                                <% categoryData.forEach((data) => { %>
-                                <% data.subCategory.forEach((sub) => { %>
-                                <option  value="<%= sub %>"><%= sub %></option>
-                                <% }); %>
-                                <% }); %>
-                            </select>
-                        </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="category">Category</label>
+                                <div id="add_product_category_error"></div>
+                                <select id="category" name="category" onchange="">
+                                    <option value="" selected disabled>Select category</option>
+                                    <% categoryData.forEach((data)=> { %>
+                                        <option value="<%= data.category %>">
+                                            <%= data.category %>
+                                        </option>
+                                        <% }); %>
+                                </select>
+
+                            </div>
+
+                            <div class="form-group" id="subcategory_display_div"
+                                style="display:block; padding: 0.5rem; border-radius: 4px;  margin-left: -10px;">
+                                <label for="subCategory">Sub Category</label>
+                                <div id="add_product_sub-category_error"></div>
+                                <select name="subCategory" id="subCategory" style="width:344px" onchange="select(e)"
+                                    required>
+                                    <option selected disabled>Select sub category</option>
+                                    <% categoryData.forEach((data)=> { %>
+                                        <% data.subCategory.forEach((sub)=> { %>
+                                            <option value="<%= sub %>">
+                                                <%= sub %>
+                                            </option>
+                                            <% }); %>
+                                                <% }); %>
+                                </select>
+                            </div>
                             <div class="form-group">
                                 <div class="message" style="color: red ; margin-bottom: 10px; font-weight: bold;"></div>
                                 <button class="buttonsubmit" type="submit" id="add_product_btn">Submit</button>
                             </div>
-                        </div>
-                        <div class="img_div">      
-                            <div class="form-group img_centr">            
-                                <div class="image_space">
-                                    <img src="" alt="" id="imagePreview" style="width: 100%; height: 100%;">
-                                </div>
-                                <div id="add_product_image_error"></div>
-                               <div class="image_buttn">
-                                <input type="file" id="productImage" name="productImage" onchange="previewImage(this)" multiple>
-                               </div>
-                               <div id="errorMain" style="color: brown; margin-top: 1rem;"></div>
+                    </div>
+                    <div class="img_div">
+                        <div class="form-group img_centr">
+                            <div class="image_space">
+                                <img src="" alt="" id="imagePreview" style="width: 100%; height: 100%;">
                             </div>
+                            <div id="add_product_image_error"></div>
+                            <div class="image_buttn">
+                                <input type="file" id="productImage" name="productImage" onchange="previewImage(this)"
+                                    multiple>
+                            </div>
+                            <div id="errorMain" style="color: brown; margin-top: 1rem;"></div>
                         </div>
                     </div>
                 </div>
-            </form>
-             
+        </div>
+        </form>
+
         </div>
     </section>
     <script>
         function previewImage(input) {
             var file = input.files[0];
-            if(file){
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                document.getElementById('imagePreview').src= e.target.result;
-            };
-            reader.readAsDataURL(file);
-        }else{
-            document.getElementById("imagePreview").setAttribute('src', 'https://via.placeholder.com/150');
+            if (file) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('imagePreview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            } else {
+                document.getElementById("imagePreview").setAttribute('src', 'https://via.placeholder.com/150');
             }
         }
     </script>
     <script>
-        $('#menu-btn').click(function() {
-           $('#menu').toggleClass('active')
+        $('#menu-btn').click(function () {
+            $('#menu').toggleClass('active')
         })
-        
+
     </script>
 
 </body>

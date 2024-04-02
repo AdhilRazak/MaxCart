@@ -2,6 +2,7 @@ const categorydata = require('../model/categorycollection')
 const bannerdata = require('../model/bannercollection')
 const ProductModel = require('../model/productcollection')
 const userdatacollection = require('../model/userdatacollection')
+const addressdata = require('../model/addresscollection')
 const { Redirect } = require('twilio/lib/twiml/VoiceResponse')
 const passwordregex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{5,}$/;
 const emailregex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -27,12 +28,15 @@ module.exports={
             }
             
             const userdata = await userdatacollection.findById(userID);
+            const addres = await addressdata.findOne({user:userID})
             
+            const addr = addres.address[0]
+            console.log(addr);
             if (!userdata) {
                 return res.status(404).send('User data not found');
             }
     
-            res.render('user/userprofile', { userdata: [userdata] }); // Ensure userdata is passed as an array
+            res.render('user/userprofile', { userdata,addr}); // Ensure userdata is passed as an array
             
         } catch (error) {
             console.error('Error fetching user account data:', error);
