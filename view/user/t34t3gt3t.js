@@ -1,31 +1,27 @@
-cartGET: async (req, res) => {
-   if (req.session.email) {
-     try {
-       let cartCount;
-       const userID = req.session.email._id;
- 
-       const productview = await cartSchema.findOne({ userID: userID }).populate('productID.id');
-       productview ? cartCount = productview.productID.length : cartCount = 0
-        
-       if (productview && productview.productID) {
-         const subtotal = productview.productID.reduce((acc, index) => {
-             return (acc += index.id.price * index.quantity);
-         }, 0);
+updateQuantity:async(req,res)=>{
 
-         let discountTotal = 0; // Initialize discountTotal here
+  try {
+     const userID = req.session.email?._id
+     const userid=new mongoose.Types.ObjectId(userID)
+     const productid = req.body.productid;
+     const id = new mongoose.Types.ObjectId(productid)
+     const qty = req.body.qty;
+     const CartData=  await cartSchema.updateOne(
+     { userID: userid, "productID.id": id },
+     { $set: { "productID.$.quantity": qty } },
+       );
 
-         discountTotal = productview.productID.reduce((acc, index) => {
-             return (acc += index.id.MRP * index.quantity);
-         }, 0);
+     const totalData = await cartSchema.findOne({ userID: userID }).populate('productID.id');
 
-         res.render('UserSide/cart', { productview, subtotal, discountTotal , cartCount});
+        const subtotal = totalData.productID.reduce((acc, index) => {
+            return (acc += index.id.price * index.quantity);
+        }, 0);
 
-     } else {
-         // Handle the case where productview or productview.productID is null or undefined
-         res.render('UserSide/cart', { productview: null, subtotal: 0, discountTotal: 0 , cartCount });
-     }
-     } catch (error) {
-       console.log(error);
-     }
+
+
+     res.status(200).json({success:true,message:'quantity updated',Total:subtotal})
+   } catch (err) {
+     console.log("cart quantity Update", err);
    }
- },
+
+}

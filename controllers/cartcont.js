@@ -77,6 +77,38 @@ module.exports = {
             console.error('Error in showcart:', error);
             res.status(500).send('Internal Server Error');
         }
+    },
+
+    updatecartquantity: async (req, res) => {
+        try {
+            const userid = req.session.user;
+            const productids = req.body.proid;
+            const qty = req.body.qty;
+    
+            const cartdata = await Cart.updateOne(
+                { userId: userid, 'productId.id': productids },
+                { $set: { 'productId.$.quantity': qty } }
+            );
+    
+            if (!cartdata) {
+                return res.status(404).json({ success: false, message: 'Cart not found' });
+            }
+    
+            const cartdetail = await Cart.findOne({ userId: userid }).populate('productId.id');
+    
+            if (!cartdetail) {
+                return res.status(404).json({ success: false, message: 'Cart not found' });
+            }
+    
+            const subtotal = cartdetail.productId.reduce((acc, index) => {
+                return (acc += index.id.prices * index.id.quantity);
+            }, 0);
+    
+            res.status(200).json({ success: true, message: 'Quantity updated', total: subtotal });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ success: false, message: 'Internal server error' });
+        }
     }
     
     

@@ -233,8 +233,23 @@
                   <p>Full Name: <span class="text-capitalize"><%= userdata.username%></span></p>
                   <p>Email : <span><%= userdata.email%></span></p>
                   <p>Phone : <span class=""><%= userdata.phone%></span></p>
-                  <p>Address : <span class="">House no:<%=addr.houseno%>,<%=addr.locality%>,<%=addr.city%>,<%=addr.district%>,
-                    <%=addr.state%>,<%=addr.country%>,<%=addr.pincode%></span></p>
+                  <p>
+                    <% if (addr) { %>
+                        Address : 
+                        <span class="">
+                            House no: <%= addr.houseno %>,
+                            <%= addr.locality %>,
+                            <%= addr.city %>,
+                            <%= addr.district %>,
+                            <%= addr.state %>,
+                            <%= addr.country %>,
+                            <%= addr.pincode %>
+                        </span>
+                    <% } else { %>
+                        No address available
+                    <% } %>
+                </p>
+                
                 </div>
                 <form action="/userLogOut" method="post" class="logOutBtn">
                   <button type="submit">Logout</button>

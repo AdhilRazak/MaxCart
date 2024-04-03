@@ -28,21 +28,26 @@ module.exports={
             }
             
             const userdata = await userdatacollection.findById(userID);
-            const addres = await addressdata.findOne({user:userID})
-            
-            const addr = addres.address[0]
-            console.log(addr);
+            let addr = null; // Initialize addr variable
+    
+            const addres = await addressdata.findOne({ user: userID });
+            if (addres && addres.address.length > 0) {
+                // If address exists, assign the first address to addr
+                addr = addres.address[0];
+            }
+    
             if (!userdata) {
                 return res.status(404).send('User data not found');
             }
     
-            res.render('user/userprofile', { userdata,addr}); // Ensure userdata is passed as an array
+            res.render('user/userprofile', { userdata, addr }); // Ensure userdata is passed as an array
             
         } catch (error) {
             console.error('Error fetching user account data:', error);
             res.status(500).send('Internal error');
         }
     },
+    
 
     useraccounteditget: async (req, res) => {
         try {

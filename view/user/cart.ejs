@@ -185,46 +185,59 @@
           <div class="cartBody d-flex">
             <div class="col-6 oneSection">
               <div class="cartItems">
-                <% if (cartdetail && cartdetail.productId.length > 0) { %>
+                <% if (cartdetail && cartdetail.productId.length> 0) { %>
                   <% cartdetail.productId.forEach((data)=>{%>
 
-                  <div class="items position-relative">
-                    <a class="position-absolute deleteBtn" href="/userCartDelete/id">
-                      <svg viewBox="0 0 15 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          d="M1.07143 16.8889C1.07143 18.05 2.03571 19 3.21429 19H11.7857C12.9643 19 13.9286 18.05 13.9286 16.8889V4.22222H1.07143V16.8889ZM15 1.05556H11.25L10.1786 0H4.82143L3.75 1.05556H0V3.16667H15V1.05556Z"
-                          fill="black" />
-                      </svg>
-                    </a>
-                    <div class="contentDiv d-flex gap-4">
-                      <div class="itemImg">
-                        <img src="./images/product/<%=data.id.productImage[0]%>" alt="" />
-                      </div>
-                      <div class="productDetails">
-                        <h2><%=data.id.productName%></h2>
-                        <div class="quandity d-flex align-items-center">
-                          <div class="dec d-flex justify-content-center align-items-center">
-                            <i class="fa-solid fa-minus"></i>
-                          </div>
-                          <div class="qty d-flex justify-content-center align-items-center">
-                            <p class="m-0 p-0 qtyOne"><%=data.quantity%></p>
-                          </div>
-                          <div class="inc d-flex justify-content-center align-items-center">
-                            <i class="fa-solid fa-plus"></i>
-                          </div>
+                    <div class="items position-relative">
+                      <a class="position-absolute deleteBtn" href="/userCartDelete/id">
+                        <svg viewBox="0 0 15 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M1.07143 16.8889C1.07143 18.05 2.03571 19 3.21429 19H11.7857C12.9643 19 13.9286 18.05 13.9286 16.8889V4.22222H1.07143V16.8889ZM15 1.05556H11.25L10.1786 0H4.82143L3.75 1.05556H0V3.16667H15V1.05556Z"
+                            fill="black" />
+                        </svg>
+                      </a>
+                      <div class="contentDiv d-flex gap-4">
+                        <div class="itemImg">
+                          <img src="./images/product/<%=data.id.productImage[0]%>" alt="" />
                         </div>
-                        <p class="color">COLOR</p>
-                        <p class="cName"><%=data.id.color%></p>
-                        <div class="price d-flex align-items-baseline gap-2">
-                          <p class="lPrice">₹<%=data.id.discounted%></p>
-                          <p class="fPrice">₹<%=data.id.prices%></p>
-                          <p><%=data.id.discount%>%OFF</p>
+                        <div class="productDetails">
+                          <h2>
+                            <%=data.id.productName%>
+                          </h2>
+                          <div class="quandity d-flex align-items-center">
+                            <div class="dec d-flex justify-content-center align-items-center">
+                              <i class="fa-solid fa-minus"
+                                onclick="dec('<%=data.id._id%>', '<%=data.id.price%>', '<%=data.id.stock%>','<%=data.id.MRP%>')"></i>
+                            </div>
+                            <div class="qty d-flex justify-content-center align-items-center">
+                              <p class="m-0 p-0 qtyOne<%=data.id._id%>">
+                                <%=data.quantity%>
+                              </p>
+                            </div>
+                            <div class="inc d-flex justify-content-center align-items-center">
+                              <i class="fa-solid fa-plus"
+                                onclick="inc('<%=data.id._id%>' ,' <%=data.id.price%>','<%=data.id.discounted%>')"></i>
+                            </div>
+                          </div>
+
+                          <p class="color">COLOR</p>
+                          <p class="cName">
+                            <%=data.id.color%>
+                          </p>
+                          <div class="price d-flex align-items-baseline gap-2">
+                            <p class="lPrice">₹<%=data.id.discounted%>
+                            </p>
+                            <p class="fPrice">₹<%=data.id.prices%>
+                            </p>
+                            <p>
+                              <%=data.id.discount%>%OFF
+                            </p>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <%})%>
-                    <!-- <div class="items position-relative">
+                    <%})%>
+                      <!-- <div class="items position-relative">
                     <a
                       class="position-absolute deleteBtn"
                       href="/userCartDelete/id"
@@ -275,7 +288,7 @@
                       </div>
                     </div>
                   </div> -->
-                    <!-- <div class="coupons">
+                      <!-- <div class="coupons">
                     <form
                       action="/userApplyCoupon"
                       class="d-flex align-items-center"
@@ -299,7 +312,9 @@
                 <div class="orderContent">
                   <div class="sTotal d-flex justify-content-between align-items-center">
                     <p class="commonText m-0 p-0">Subtotal</p>
-                    <p class="commonSub m-0 p-0" id="sTotal"><%=subtotal%></p>
+                    <p class="commonSub m-0 p-0" id="sTotal">
+                      <%=subtotal%>
+                    </p>
                   </div>
 
                   <div class="ship d-flex justify-content-between align-items-center">
@@ -309,7 +324,9 @@
 
                   <div class="ship d-flex justify-content-between align-items-center">
                     <p class="commonText m-0 p-0">Discount</p>
-                    <p class="commonSub m-0 p-0" id="dPrice"><%=discountTotal%></p>
+                    <p class="commonSub m-0 p-0" id="dPrice">
+                      <%=discountTotal%>
+                    </p>
                   </div>
 
                   <!-- <div class="ship d-flex justify-content-between align-items-center">
@@ -319,7 +336,9 @@
                 </div>
                 <div class="commonText tPrice d-flex justify-content-between align-items-center">
                   <p class="m-0 p-0">Total</p>
-                  <p class="m-0 p-0" id="tPrice"><%=total%></p>
+                  <p class="m-0 p-0" id="tPrice">
+                    <%=total%>
+                  </p>
                 </div>
               </div>
               <!-- <div class="ms-auto orderSummary mb-0">
@@ -360,7 +379,7 @@
   <% } else { %>
     <img src="/images/allimage/cart_empty.webp" style="width: 120%;" alt="">
     <h1 style="color: red; font-size: large; font-weight: 700; font-family: sans-serif;">Cart is Empty......!!</h1>
-<% } %>
+    <% } %>
       <!-- end of main -->
 
       <!-- footer -->
@@ -704,6 +723,20 @@
 
       <!-- custom js -->
       <script src="./js/userCart.js"></script>
+      <script>
+        async function inc(id, price,discount) {
+          const qty = document.querySelector(`.qtyOne${id}`);
+          qty.innerHTML = +qty.innerHTML + 1;
+          const discountAmount = Number(discount) - Number(price)
+          const discountPercentage = Math.round(Number(discountAmount) / Number(discount) * 100)
+          document.getElementById('percentage').innerHTML = discountPercentage + '% OFF'
+          const quantity = parseInt(qty.innerHTML);
+          const response = await axios.post("/quantity", {
+            productid: id,
+            qty: quantity,
+          });
+        }
+      </script>
       <!-- end of custom js -->
       <!-- fontawesome -->
       <script src="https://kit.fontawesome.com/23d1247997.js" crossorigin="anonymous"></script>

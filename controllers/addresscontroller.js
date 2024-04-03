@@ -8,8 +8,15 @@ module.exports = {
         try {
             if (req.session.user) {
                 const userid = req.session.user;
-                const addressdats = await addressdata.findOne({ user: userid });
-                const user = await userdata.findById(userid)
+                const user = await userdata.findById(userid);
+                let addressdats = null; // Initialize addressdats variable
+    
+                // Check if the user has an address
+                const addressData = await addressdata.findOne({ user: userid });
+                if (addressData) {
+                    addressdats = addressData; // Assign address data if it exists
+                }
+    
                 res.render('user/address', { addressdats, user });
             } else {
                 res.redirect('/');
@@ -19,6 +26,7 @@ module.exports = {
             res.status(500).send('Internal Server Error'); // Sending a generic error response
         }
     },
+    
 
     addaddressget: async (req, res) => {
         try {
