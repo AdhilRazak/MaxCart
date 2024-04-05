@@ -64,7 +64,7 @@ module.exports = {
 
 
             if (user.otpVerified !== true) {
-                // return res.redirect('/v');
+                // return res.redirect('/verifynumber');
             }
             req.session.user = user._id
             res.redirect('/home');
@@ -150,6 +150,7 @@ module.exports = {
             //    await sendPhoneOtp(phoneo);
 
             res.redirect('/')
+            // res.redirect('/verifynumber')
         } catch (error) {
             console.error('Signup error:', error);
             res.status(500).send('Internal error');

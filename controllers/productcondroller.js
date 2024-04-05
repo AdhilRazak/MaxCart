@@ -1,5 +1,6 @@
 const CategoryModel = require('../model/categorycollection');
 const ProductModel = require('../model/productcollection');
+const wish = require('../model/wishlist')
 const fs = require('fs')
 
 module.exports = {
@@ -49,7 +50,7 @@ module.exports = {
                 write,
                 discounted: disprice,
                 productImage: productImages,
-            });
+              });
 
             await newProduct.save();
             res.redirect('/admin/product');
@@ -169,24 +170,50 @@ module.exports = {
         const product = await ProductModel.find({ status: false })
         res.render('user/showallproduct', { product })
     },
-    viewsingleproducts: async (req, res) => {
-        try {
-            const productid = req.query.id;
-            const product = await ProductModel.findById(productid);
+   viewsingleproducts: async (req, res) => {
+    try {
+        const productid = req.query.id;
+        let isWishlist 
 
-            if (!product) {
-                // If product is not found, handle the error accordingly
-                return res.status(404).send("Product not found");
+        
+        // Find the product by ID
+        const product = await ProductModel.findById(productid);
+
+        // If product is not found, send a 404 response
+        if (!product) {
+            return res.status(404).send("Product not found");
+        }
+        
+        // Find the user's wishlist
+        if(req.session.user){
+        const userid = req.session.user;
+        isWishlist = false
+
+
+        const wishlist = await wish.findOne({ userId: userid });
+        
+
+        // Check if the product is in the wishlist
+        if (wishlist) {
+            // Check if the product is in the wishlist
+            const existingProduct = await wish.findOne(
+                { userId: userid, 'productId.id': productid }
+            );
+            if (existingProduct) {
+                isWishlist = true
             }
-            console.log(product);
-
-            res.render('user/viewsinglecart', { product });
-        } catch (error) {
-            // Handle any other errors that might occur during execution
-            console.error("Error occurred in viewsingleproducts:", error);
-            res.status(500).send("Internal Server Error");
         }
     }
+        // Render the view with the product and wishlist status
+        res.render('user/viewsinglecart', { product, isWishlist });
+
+    } catch (error) {
+        // Handle any errors
+        console.error("Error occurred in viewsingleproducts:", error);
+        res.status(500).send("Internal Server Error");
+    }
+}
+
 
 
 };

@@ -12,6 +12,8 @@
   <!-- end of Bootstrap css cdn link -->
   <!-- Style css -->
   <link rel="stylesheet" href="/css/user/cart.css" />
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
   <!-- end of Style css -->
 </head>
 
@@ -132,7 +134,7 @@
                         d="M13.3334 7.29166C12.9917 7.29166 12.7084 7.00832 12.7084 6.66666V3.74999C12.7084 2.84999 12.15 2.29166 11.25 2.29166H8.75002C7.85002 2.29166 7.29169 2.84999 7.29169 3.74999V6.66666C7.29169 7.00832 7.00835 7.29166 6.66669 7.29166C6.32502 7.29166 6.04169 7.00832 6.04169 6.66666V3.74999C6.04169 2.15832 7.15835 1.04166 8.75002 1.04166H11.25C12.8417 1.04166 13.9584 2.15832 13.9584 3.74999V6.66666C13.9584 7.00832 13.675 7.29166 13.3334 7.29166Z"
                         fill="white" />
                       <path
-                        d="M17.0084 14.8167H6.66669C6.32502 14.8167 6.04169 14.5333 6.04169 14.1917C6.04169 13.85 6.32502 13.5667 6.66669 13.5667H17.0084C17.35 13.5667 17.6334 13.85 17.6334 14.1917C17.6334 14.5333 17.35 14.8167 17.0084 14.8167Z"
+                        d="M17.0084 14.8167H6.66669C6.32502 4.8167 6.04169 14.5333 6.04169 14.1917C6.04169 13.85 6.32502 13.5667 6.66669 13.5667H17.0084C17.35 13.5667 17.6334 13.85 17.6334 14.1917C17.6334 14.5333 17.35 14.8167 17.0084 14.8167Z"
                         fill="white" />
                     </svg>
                   </a>
@@ -187,56 +189,56 @@
               <div class="cartItems">
                 <% if (cartdetail && cartdetail.productId.length> 0) { %>
                   <% cartdetail.productId.forEach((data)=>{%>
-
-                    <div class="items position-relative">
-                      <a class="position-absolute deleteBtn" href="/userCartDelete/id">
-                        <svg viewBox="0 0 15 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path
-                            d="M1.07143 16.8889C1.07143 18.05 2.03571 19 3.21429 19H11.7857C12.9643 19 13.9286 18.05 13.9286 16.8889V4.22222H1.07143V16.8889ZM15 1.05556H11.25L10.1786 0H4.82143L3.75 1.05556H0V3.16667H15V1.05556Z"
-                            fill="black" />
-                        </svg>
-                      </a>
-                      <div class="contentDiv d-flex gap-4">
-                        <div class="itemImg">
-                          <img src="./images/product/<%=data.id.productImage[0]%>" alt="" />
-                        </div>
-                        <div class="productDetails">
-                          <h2>
-                            <%=data.id.productName%>
-                          </h2>
-                          <div class="quandity d-flex align-items-center">
-                            <div class="dec d-flex justify-content-center align-items-center">
-                              <i class="fa-solid fa-minus"
-                                onclick="dec('<%=data.id._id%>', '<%=data.id.price%>', '<%=data.id.stock%>','<%=data.id.MRP%>')"></i>
+                    <div class="kiki<%=data.id._id%>">
+                      <div class="items position-relative">
+                        <a class="position-absolute deleteBtn" onclick="deleteProduct(event,'<%=data.id._id%>')">
+                          <svg viewBox="0 0 15 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                              d="M1.07143 16.8889C1.07143 18.05 2.03571 19 3.21429 19H11.7857C12.9643 19 13.9286 18.05 13.9286 16.8889V4.22222H1.07143V16.8889ZM15 1.05556H11.25L10.1786 0H4.82143L3.75 1.05556H0V3.16667H15V1.05556Z"
+                              fill="black" />
+                          </svg>
+                        </a>
+                        <div class="contentDiv d-flex gap-4">
+                          <div class="itemImg">
+                            <img src="./images/product/<%=data.id.productImage[0]%>" alt="" />
+                          </div>
+                          <div class="productDetails">
+                            <h2>
+                              <%=data.id.productName%>
+                            </h2>
+                            <div class="quandity d-flex align-items-center">
+                              <div class="dec d-flex justify-content-center align-items-center">
+                                <i class="fa-solid fa-minus"
+                                  onclick="dec('<%=data.id._id%>', '<%=data.id.price%>', '<%=data.id.discounted%>')"></i>
+                              </div>
+                              <div class="qty d-flex justify-content-center align-items-center">
+                                <p class="m-0 p-0 qtyOne<%=data.id._id%>">
+                                  <%=data.quantity%>
+                                </p>
+                              </div>
+                              <div class="inc d-flex justify-content-center align-items-center">
+                                <i class="fa-solid fa-plus"
+                                  onclick="inc('<%=data.id._id%>' ,' <%=data.id.price%>','<%=data.id.discounted%>')"></i>
+                              </div>
                             </div>
-                            <div class="qty d-flex justify-content-center align-items-center">
-                              <p class="m-0 p-0 qtyOne<%=data.id._id%>">
-                                <%=data.quantity%>
+
+                            <p class="color">COLOR</p>
+                            <p class="cName">
+                              <%=data.id.color%>
+                            </p>
+                            <div class="price d-flex align-items-baseline gap-2">
+                              <p class="lPrice">₹<%=data.id.discounted%>
+                              </p>
+                              <p class="fPrice">₹<%=data.id.prices%>
+                              </p>
+                              <p>
+                                <%=data.id.discount%>%OFF
                               </p>
                             </div>
-                            <div class="inc d-flex justify-content-center align-items-center">
-                              <i class="fa-solid fa-plus"
-                                onclick="inc('<%=data.id._id%>' ,' <%=data.id.price%>','<%=data.id.discounted%>')"></i>
-                            </div>
-                          </div>
-
-                          <p class="color">COLOR</p>
-                          <p class="cName">
-                            <%=data.id.color%>
-                          </p>
-                          <div class="price d-flex align-items-baseline gap-2">
-                            <p class="lPrice">₹<%=data.id.discounted%>
-                            </p>
-                            <p class="fPrice">₹<%=data.id.prices%>
-                            </p>
-                            <p>
-                              <%=data.id.discount%>%OFF
-                            </p>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <%})%>
                       <!-- <div class="items position-relative">
                     <a
                       class="position-absolute deleteBtn"
@@ -368,7 +370,7 @@
       <div class="row">
         <div class="col-12">
           <div class="checkOut">
-            <form action="/userCartCheckOut">
+            <form action="/checkout/cart" method="GET">
               <button>CHECKOUT</button>
             </form>
           </div>
@@ -376,6 +378,8 @@
       </div>
     </div>
   </main>
+  <%})%>
+
   <% } else { %>
     <img src="/images/allimage/cart_empty.webp" style="width: 120%;" alt="">
     <h1 style="color: red; font-size: large; font-weight: 700; font-family: sans-serif;">Cart is Empty......!!</h1>
@@ -563,6 +567,7 @@
             </div>
           </div>
 
+
           <div class="row social largeScreenSocial">
             <div class="col-3 position-relative">
               <div class="socialMedia d-flex align-items-center">
@@ -722,20 +727,96 @@
       <!-- end of footer -->
 
       <!-- custom js -->
-      <script src="./js/userCart.js"></script>
+
       <script>
-        async function inc(id, price,discount) {
+        async function inc(id, price) {
           const qty = document.querySelector(`.qtyOne${id}`);
-          qty.innerHTML = +qty.innerHTML + 1;
-          const discountAmount = Number(discount) - Number(price)
-          const discountPercentage = Math.round(Number(discountAmount) / Number(discount) * 100)
-          document.getElementById('percentage').innerHTML = discountPercentage + '% OFF'
-          const quantity = parseInt(qty.innerHTML);
-          const response = await axios.post("/quantity", {
-            productid: id,
+          let quantity = parseInt(qty.innerHTML); // Convert inner HTML to number
+          quantity++; // Increment quantity
+
+          const response = await axios.post("/updatecart", {
+            proid: id,
             qty: quantity,
+            status:true
           });
+
+          const totalt = document.getElementById('sTotal');
+          const discountt = document.getElementById('dPrice');
+          const subtotal = document.getElementById('tPrice');
+
+          const total = response.data.subtotal;
+          const discount = response.data.discountTotal;
+          const totally = response.data.total
+
+          totalt.innerHTML = total;
+          discountt.innerHTML = discount;
+          subtotal.innerHTML = totally;
+
+          qty.innerHTML = quantity; // Update displayed quantity
         }
+
+
+
+        async function dec(id, price) {
+          const qty = document.querySelector(`.qtyOne${id}`);
+          const quantity = +qty.innerHTML; // Extract quantity value
+
+          if (quantity > 1) { // Compare quantity value
+            qty.innerHTML = quantity - 1;
+
+            const response = await axios.post("/updatecart", {
+              proid: id,
+              qty: quantity - 1, // Decrement quantity
+            });
+
+            const totalt = document.getElementById('sTotal');
+            const discountt = document.getElementById('dPrice');
+            const subtotal = document.getElementById('tPrice');
+
+            const total = response.data.subtotal;
+            const discount = response.data.discountTotal;
+
+            totalt.innerHTML = total;
+            discountt.innerHTML = discount;
+            subtotal.innerHTML = total;
+          }
+        }
+
+        async function deleteProduct(event, id) {
+          console.log(id);
+          event.preventDefault();
+          try {
+
+            const response = await axios.post(`/cartdelete?id=${id}`);
+            if (response.status === 200) {
+              document.querySelector(`.kiki${id}`).remove();
+
+            }
+            const result = response.data.cartCount
+            console.log(result);
+            const carts = document.querySelector('h2.m-0.p-0')
+
+            carts.innerHTML = `Cart(${result || 0})`
+
+            const totalt = document.getElementById('sTotal');
+            const discountt = document.getElementById('dPrice');
+            const subtotal = document.getElementById('tPrice');
+
+            const total = response.data.subtotal;
+            const discount = response.data.discountTotal;
+            const totally = response.data.total
+
+            totalt.innerHTML = total;
+            discountt.innerHTML = discount;
+            subtotal.innerHTML = totally;
+
+          } catch (error) {
+            console.log(error);
+          }
+        }
+
+
+
       </script>
       <!-- end of custom js -->
       <!-- fontawesome -->

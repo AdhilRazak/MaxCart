@@ -14,7 +14,10 @@ const cartSchema = new mongoose.Schema({
             type:Number,
             required:true
         }
-    }]
+    }],
+    total:{
+        type:String,
+    }
 });
 
 const Cart = mongoose.model('Cart', cartSchema);

@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ecart Home</title>
+    <title>Ecart</title>
+    <!-- <link rel="shortcut icon" href="#" type="image/x-icon" /> -->
     <!-- Bootstrap css cdn link -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
@@ -13,7 +14,9 @@
     />
     <!-- end of Bootstrap css cdn link -->
     <!-- Style css -->
-    <link rel="stylesheet" href="/css/user/userhome.css" />
+    <link rel="stylesheet" href="/css/user/buyone.css" />
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
     <!-- end of Style css -->
   </head>
   <body>
@@ -79,7 +82,7 @@
                     <a href="/"> Home </a>
                   </li>
                   <li>
-                    <a href="/category?category=men"> Earbuds </a>
+                    <a href="/earbuds"> Earbuds </a>
                   </li>
                   <li>
                     <a href="/earphones"> Earphones </a>
@@ -94,7 +97,7 @@
                     <a href="/smartWatch"> Smart Watch </a>
                   </li>
                   <li>
-                    <a href="/allproduct"> All product </a>
+                    <a href="/"> Shop By Category </a>
                   </li>
                 </ul>
               </div>
@@ -123,7 +126,7 @@
               <div class="useroptions d-flex">
                 <ul class="m-0 p-0 d-flex align-items-center list-unstyled">
                   <li>
-                    <a href="/userprofile">
+                    <a href="/userAccont">
                       <svg
                         width="20"
                         height="20"
@@ -170,7 +173,7 @@
                     </a>
                   </li>
                   <li>
-                    <a href="/userwishlist">
+                    <a href="/userWhislist">
                       <svg
                         width="20"
                         height="20"
@@ -186,7 +189,7 @@
                     </a>
                   </li>
                   <li>
-                    <a href="/usercart">
+                    <a href="/usersAddToCart">
                       <svg
                         width="20"
                         height="20"
@@ -212,217 +215,117 @@
 
     <!-- main -->
     <main>
-      <div class="container-fluid">
-        <div class="row">
+      <div class="container-fluid main">
+        <div class="row mainContainer">
           <div class="col-12">
-            <div
-              id="carouselExampleControls"
-              class="carousel slide"
-              data-bs-ride="carousel"
-            >
-              <div class="carousel-inner">
-                <% banner.forEach((dat)=>{%>
-                <div
-                  class="carousel-item active"
-                  data-bs-interval="6000"
-                  data-bs-pause="false"
-                  data-bs-ride="false"
-                >
-                  <a href=""
-                    ><img
-                      src="./images/banner/<%=dat.image[0]%>"
-                      class="w-100 img-large-screen"
-                      alt="..."
-                  /></a>
-                  <a href=""
-                    ><img
-                      src="./images/banner/<%=dat.image[0]%>"
-                      class="w-100 img-small-screen"
-                      alt="..."
-                  /></a>
+            <div class="cartBody d-flex">
+              <div class="col-6 oneSection">
+                <div class="cartItems">
+                  <div class="items position-relative">
+                    <div class="contentDiv d-flex gap-4">
+                      <div class="itemImg">
+                        <img src="./images/product/<%=productexist.productImage[0]%>" alt="" />
+                      </div>
+                      <div class="productDetails">
+                        <h2>Collar Flash Pro</h2>
+                        <div class="quandity d-flex align-items-center">
+                          <div class="dec d-flex justify-content-center align-items-center">
+                            <i class="fa-solid fa-minus"
+                              onclick="dec('<%=productexist._id%>')"></i>
+                          </div>
+                          <div class="qty d-flex justify-content-center align-items-center">
+                            <p class="m-0 p-0 qtyOne">
+                              1
+                            </p>
+                          </div>
+                          <div class="inc d-flex justify-content-center align-items-center">
+                            <i class="fa-solid fa-plus"
+                              onclick="inc('<%=productexist._id%>')"></i>
+                          </div>
+                        </div>
+                        <p class="color">COLOR</p>
+                        <p class="cName"><%=productexist.color%></p>
+                        <div class="price d-flex align-items-baseline gap-2">
+                          <p class="lPrice">₹<%=productexist.discounted%></p>
+                          <p class="fPrice">₹<%=productexist.prices%></p>
+                          <p><%=productexist.discount%>% OFF</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <div class="coupons">
+                    <form
+                      action="/userApplyCoupon"
+                      class="d-flex align-items-center"
+                      method="post"
+                    >
+                      <div class="input">
+                        <input type="text" placeholder="Enter Coupon Code" />
+                      </div>
+                      <div>
+                        <button type="submit">APPLY</button>
+                      </div>
+                    </form>
+                  </div> -->
                 </div>
-                <%})%>
-                <!-- <div
-                  class="carousel-item"
-                  data-bs-interval="6000"
-                  data-bs-pause="false"
-                  data-bs-ride="false"
-                >
-                  <a href=""
-                    ><img
-                      src="./images/slideImg/2a.webp"
-                      class="w-100 img-large-screen"
-                      alt="..."
-                  /></a>
-                  <a href=""
-                    ><img
-                      src="./images/slideImg/2as.webp"
-                      class="w-100 img-small-screen"
-                      alt="..."
-                  /></a>
-                </div> -->
               </div>
-              <button
-                class="carousel-control-prev"
-                type="button"
-                data-bs-target="#carouselExampleControls"
-                data-bs-slide="prev"
-              >
-                <span
-                  class="carousel-control-prev-icon slideBtn leftBtn"
-                  aria-hidden="true"
-                ></span>
-                <span class="visually-hidden">Previous</span>
-              </button>
-              <button
-                class="carousel-control-next"
-                type="button"
-                data-bs-target="#carouselExampleControls"
-                data-bs-slide="next"
-              >
-                <span
-                  class="carousel-control-next-icon slideBtn"
-                  aria-hidden="true"
-                ></span>
-                <span class="visually-hidden">Next</span>
-              </button>
+              <div class="col-6 oneSection">
+                <div class="orderSummary">
+                  <div class="orderHeading">
+                    <h2>order summary</h2>
+                  </div>
+                  <div class="orderContent">
+                    <div
+                      class="sTotal d-flex justify-content-between align-items-center"
+                    >
+                      <p class="commonText m-0 p-0">Subtotal</p>
+                      <p class="commonSub m-0 p-0" id="sTotal">₹<%=productexist.prices%></p>
+                    </div>
+
+                    <div
+                      class="ship d-flex justify-content-between align-items-center"
+                    >
+                      <p class="commonText m-0 p-0">Shipping</p>
+                      <p class="commonSub m-0 p-0" id="free">FREE</p>
+                    </div>
+
+                    <div
+                      class="ship d-flex justify-content-between align-items-center"
+                    >
+                      <p class="commonText m-0 p-0">Discount</p>
+                      <p class="commonSub m-0 p-0" id="dPrice">-<%=productexist.discount%></p>
+                    </div>
+
+                    <!-- <div
+                      class="ship d-flex justify-content-between align-items-center"
+                    >
+                      <p class="commonText m-0 p-0">Coupon Discount</p>
+                      <p class="commonSub m-0 p-0" id="cDPrice">0</p>
+                    </div>
+                  </div> -->
+                  <div
+                    class="commonText tPrice d-flex justify-content-between align-items-center"
+                  >
+                    <p class="m-0 p-0">Total</p>
+                    <p class="m-0 p-0" id="tPrice">₹<%=productexist.discounted%></p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
+
       <div class="container-fluid">
         <div class="row">
           <div class="col-12">
-            <div class="main-body">
-              <div class="col-12">
-                <div class="text-center">
-                  <h2>Newly Arrayvals</h2>
-                </div>
-              </div>
-              <div class="col-12 overflow-hidden">
-                <div>
-                  <ul
-                    id="newlyLaunched"
-                    class="newlyLaunched position-relative p-0 d-flex align-items-center list-unstyled"
-                  >
-                  <% product.forEach((prods)=>{%>
-                    <li>
-                      <a href="/viewsingleproduct?id=<%=prods._id%>">
-                        <div class="newItems">
-                          <div class="productImg">
-                            <img src="./images/product/<%= prods.productImage[0]%>" alt="" />
-                          </div>
-                          <div class="text-area">
-                            <div class="productTittle">
-                              <p><%= prods.productName%></p>
-                            </div>
-                            <div
-                              class="discountPrice d-flex align-items-baseline"
-                            >
-                              <p>₹<%= prods.discounted%></p>
-                              <p>₹<%= prods.prices%></p>
-                            </div>
-                            <div class="property">
-                              <div>
-                                <img
-                                  src="./images/newlyLaunched/hexagon-list-icon.svg"
-                                  alt=""
-                                />
-                                <p><%=prods.description%></p>
-                              </div>
-                              <!-- <div>
-                                <img
-                                  src="./images/newlyLaunched/hexagon-list-icon.svg"
-                                  alt=""
-                                />
-                                <p>Dual Connectivity</p>
-                              </div>
-                              <div>
-                                <img
-                                  src="./images/newlyLaunched/hexagon-list-icon.svg"
-                                  alt=""
-                                />
-                                <p>Powered By 13mm Powerful Drivers</p>
-                              </div> -->
-                            </div>
-                            <div class="colorOptions">
-                              <div class="d-flex align-items-center">
-                                <p>Colors</p>
-                                <!-- <div class="d-flex align-items-center"> -->
-                                  <div><%= prods.color %></div>
-                                  <!-- <div class="bg-white"></div>
-                                  <div class="bg-primary"></div> -->
-                                <!-- </div> -->
-                              </div>
-                            </div>
-                            <div class="shopOption">
-                              <div class="d-flex align-items-center">
-                                <p>shop Now</p>
-                                <svg
-                                  width="18"
-                                  height="12"
-                                  viewBox="0 0 18 12"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <g clip-path="url(#clip0_28_66)">
-                                    <path
-                                      d="M1 1L6 6L1 11"
-                                      stroke="#4B4955"
-                                      stroke-width="1.5"
-                                    />
-                                    <path
-                                      opacity="0.65"
-                                      d="M6 1L11 6L6 11"
-                                      stroke="#4B4955"
-                                      stroke-width="1.5"
-                                    />
-                                    <path
-                                      opacity="0.4"
-                                      d="M11 1L16 6L11 11"
-                                      stroke="#4B4955"
-                                      stroke-width="1.5"
-                                    />
-                                  </g>
-                                  <defs>
-                                    <clipPath id="clip0_28_66">
-                                      <rect
-                                        width="18"
-                                        height="12"
-                                        fill="white"
-                                      />
-                                    </clipPath>
-                                  </defs>
-                                </svg>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </a>
-                    </li>
-                    <%})%>
-  
-                  </ul>
-                </div>
-              </div>
+            <div class="checkOut">
+              <form action="/checkout/<%=productexist._id%>" method="GET">
+                <input id="proId" type="text" value="productId" hidden />
+                <input id="noOfPro" type="number" value="1" hidden />
+                <button>CHECKOUT</button>
+              </form>
             </div>
-          </div>
-        </div>
-        <div class="row slideProduct">
-          <div class="col-12 text-center">
-            <ul
-              class="slideButton d-flex align-items-center list-unstyled justify-content-center"
-            >
-              <li data-index="0">
-                <button onfocus="moveSlide(0)"></button>
-              </li>
-              <li data-index="1">
-                <button onfocus="moveSlide(1)"></button>
-              </li>
-              <li data-index="2">
-                <button onfocus="moveSlide(2)"></button>
-              </li>
-            </ul>
           </div>
         </div>
       </div>
@@ -930,7 +833,63 @@
     <!-- end of footer -->
 
     <!-- custom js -->
-    <script src="./js/userHomePage.js"></script>
+    <script src="./js/userBuyNow.js"></script>
+    <script>
+        async function inc(id) {
+          console.log(id);
+          const qty = document.querySelector(`.qtyOne`);
+          let quantity = parseInt(qty.innerHTML); 
+          quantity++; 
+
+          const response = await axios.post("/buyoneupdate", {
+            id: id,
+            qty: quantity,
+          });
+
+          const totalt = document.getElementById('sTotal');
+          const discountt = document.getElementById('dPrice');
+          const subtotal = document.getElementById('tPrice');
+
+          const total = response.data.subtotal;
+          const discount = response.data.discountTotal;
+          const totally = response.data.total
+
+          totalt.innerHTML = total;
+          discountt.innerHTML = discount;
+          subtotal.innerHTML = totally;
+
+          qty.innerHTML = quantity; 
+        }
+
+        async function dec(id) {
+          console.log(id);
+          const qty = document.querySelector(`.qtyOne`);
+          let quantity = parseInt(qty.innerHTML); 
+          if(quantity>1){
+          quantity--;
+          } 
+
+          const response = await axios.post("/buyoneupdate", {
+            id: id,
+            qty: quantity,
+          });
+
+          const totalt = document.getElementById('sTotal');
+          const discountt = document.getElementById('dPrice');
+          const subtotal = document.getElementById('tPrice');
+
+          const total = response.data.subtotal;
+          const discount = response.data.discountTotal;
+          const totally = response.data.total
+
+          totalt.innerHTML = total;
+          discountt.innerHTML = discount;
+          subtotal.innerHTML = totally;
+
+          qty.innerHTML = quantity; 
+        }
+
+    </script>
     <!-- end of custom js -->
     <!-- fontawesome -->
     <script
