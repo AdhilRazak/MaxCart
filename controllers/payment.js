@@ -1,7 +1,6 @@
 const buyone = require('../model/singleproductbuy')
 const product = require('../model/productcollection')
 const cart = require('../model/cartmodel')
-const { Types } = require('mongoose');
 
 
 module.exports = {
@@ -107,41 +106,66 @@ module.exports = {
     checkoutget: async (req, res) => {
         try {
             if (!req.session.user) {
-                return res.status(401).json({ error: "User session not found. Please log in." });
+                return res.redirect('/')
             }
-    
+
             const userId = req.session.user;
             let total = 0;
             let subtotal = 0;
             let discountTotal = 0;
-    
+
             const id = req.params.id;
-    
+
             if (id === 'cart') {
                 const carts = await cart.findOne({ userId }).populate('productId.id');
-    
-                if (!carts) {
+
+                if (!carts && carts.productId) {
                     return res.status(400).json({ error: "Cart not found" });
                 }
-    
+
+                subtotal = carts.productId.reduce((acc, index) => {
+                    return (acc += index.id.prices * index.quantity);
+                }, 0);
+
+
+                discountTotal = carts.productId.reduce((acc, index) => {
+                    return (acc += index.id.discount * index.quantity);
+                }, 0);
+
+
                 total = carts.total;
             } else if (req.session.buy === true && id) {
-                const buy = await buyone.findOne({ userId }).populate('productId.id');
-    
+                console.log(id + 'hhhhh');
+                const buy = await buyone.findOne({ userId: userId, 'productId.id': id });
+
                 if (!buy) {
                     return res.status(400).json({ error: "Product not found" });
                 }
-    
+
+                const products = buy.productId.find(product => product.id.equals(id));
+
+                if (!products) {
+                    console.log('Product not found in the purchase.');
+                    return;
+                }
+
+                const quantity = products.quantity
+
+
+
                 const buyingPrice = await product.findById(id);
-    
+
                 if (!buyingPrice) {
                     return res.status(400).json({ error: "Product not found" });
                 }
-                subtotal = buyingPrice.prices * buy.quantity;
-                    discountTotal = buyingPrice.discount * buy.quantity;
-                    total = subtotal - discountTotal; // Adjust total based on discounts
+                console.log(buyingPrice.prices);
+                console.log(buy.productId.quantity);
+                subtotal = buyingPrice.prices * quantity;
+                console.log(subtotal);
+                discountTotal = buyingPrice.discount * quantity;
+                total = subtotal - discountTotal; // Adjust total based on discounts
             } else {
-                log('dshjch')
+                console.log('dshjch')
                 const buyer = await product.findById(id);
                 if (!buyer) {
                     return res.status(400).json({ error: "Product not found" });
@@ -151,14 +175,14 @@ module.exports = {
                 discountTotal = buyer.discount;
                 total = subtotal - discountTotal; // Adjust total based on discounts
             }
-    
+
             return res.render('user/checkout', { total, subtotal, discountTotal });
         } catch (error) {
             console.error("Error in checkoutget:", error);
             return res.status(500).json({ error: "Internal server error" });
         }
     }
-    
+
 
 }
 
