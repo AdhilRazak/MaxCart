@@ -12,6 +12,8 @@
   <!-- end of Bootstrap css cdn link -->
   <!-- Style css -->
   <link rel="stylesheet" href="/css/user/checkout .css" />
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
   <!-- end of Style css -->
 </head>
 
@@ -278,12 +280,12 @@
 
               </div>
               <div class="coupons">
-                <form action="/userApplyCoupon" class="d-flex align-items-center" method="post">
+                <form class="d-flex align-items-center">
                   <div class="input">
-                    <input type="text" placeholder="Enter Coupon Code" />
+                    <input type="text" class="couponName" placeholder="Enter Coupon Code" />
                   </div>
                   <div>
-                    <button type="submit">APPLY</button>
+                    <button type="submit" onclick="coupon('<%=quantity%>','<%=total%>');return false;">APPLY</button>
                   </div>
                 </form>
               </div>
@@ -679,9 +681,61 @@
   <!-- end of footer -->
 
   <!-- custom js -->
-  <script src="./js/userPayment.js"></script>
+  <!-- <script src="./js/userPayment.js"></script> -->
   <script>
+   async function coupon(qty, total) {
+  try {
+    const coupon = document.querySelector(`.couponName`).value;
+    const coupond = document.querySelector(`.coupons`)
+
+    const coupondis = document.getElementById('cDPrice');
+    const subtotal = document.getElementById('tPrice');
+
+
     
+    console.log(coupon);
+    console.log(qty);
+    console.log(total);
+
+    const response = await axios.post("/applycoupon", {
+      total: total,
+      qty: qty,
+      couponName: coupon
+    });
+
+    if (response.status === 200) {
+
+      const totals = response.data.discountedTotal;
+      const discount = response.data.discountPercentage;
+
+      console.log(totals, discount);
+
+      coupondis.innerHTML = discount
+      subtotal.innerHTML = totals
+      coupond.style.display = 'none';
+      
+      // Update HTML elements if necessary
+      const totalt = document.getElementById('sTotal');
+      // const discountt = document.getElementById('dPrice');
+      // totalt.innerHTML = total;
+      // discountt.innerHTML = discount;
+      // subtotal.innerHTML = totals;
+
+      // qty.innerHTML = quantity; // Update displayed quantity
+    } else if (response.status === 400) {
+      // Handle 400 Bad Request error
+      console.error("Bad Request:", response.data.error);
+    } else {
+      // Handle other status codes
+      console.error("Unexpected Error:", response.statusText);
+    }
+  } catch (error) {
+    // Handle network errors or any other errors
+    console.error("An error occurred:", error.message);
+  }
+}
+
+
   </script>
   <!-- end of custom js -->
   <!-- fontawesome -->

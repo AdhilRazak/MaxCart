@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/public/css/admin/chart.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.js"></script>
+
+</head>
+
+<body>
+
+    <section id="menu">
+        <div class="logo">
+            <img src="/images/logo.png" alt="">
+            <h2>Dynamic</h2>
+        </div>
+        <div class="items">
+            <li><i class="fa-solid fa-chart-pie"></i> <a href="#">Dashboard</a></li>
+            <li><i class="fa-solid fa-table-cells-large"></i> <a href="/admin/products">Products</a></li>
+            <li> <i class="fa-solid fa-list" style="color: #adb1b8;"></i> <a href="/admin/Category">Categories</a></li>
+            <li><i class="fa-solid fa-credit-card"></i> <a href="/admin/orderlist">Orders</a></li>
+            <li><i class="fa-solid fa-credit-card"></i> <a href="/admin/banner">Banners</a></li>
+            <li><i class="fa-solid fa-credit-card"></i> <a href="/admin/coupon">Coupons</a></li>
+            <li><i class="fa-solid fa-user" style="color: #c4c8cf;"></i><a href="/admin/Userslist">Users</a></li>
+          
+            
+            <!-- <li><i class="fa-solid fa-chart-line"></i> <a href="#">Blank</a></li> -->
+            <div class="logout">
+                <li><i class="fa-solid fa-right-from-bracket" style="color: #d40c48;"></i> <a href="/admin/AdminLogout">Logout</a></li>
+            </div>
+        </div>
+
+    </section>
+
+
+    <section id="interface">
+        <div class="navigation">
+            <div class="n1">
+                <div>
+            
+                    <i id="menu-btn" class="fa-solid fa-bars"></i>
+                </div>
+                <div class="search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Search">
+                </div>
+            </div>
+           
+            <div class="profile">
+                <button class="addbtn">Add Product</button>
+                <i class="fa-solid fa-bell"></i>
+                <img src="/images/ramees.jpeg" alt="">
+            </div>
+        </div>
+
+        <h3 class="i-name">Dashboard</h3>
+        <div class="values">
+          
+                <div class="val-box">
+                    <i class="fa-solid fa-users"></i>
+                    <div>
+                        <h3><h3><%=Users.length %></h3>
+                    </h3>
+                    <span>New Users</span>
+                </div>
+            </div>
+       
+
+
+            <div class="val-box">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <div>
+                    <h3><%=Orders.length%></h3>
+                    <span>Total Orders</span>
+                </div>
+            </div>
+
+
+
+            <div class="val-box">
+                <i class="fa-regular fa-circle-check"></i>
+                <div>
+                    <h3><%=products.length%>    </h3>
+                    <span>Total Products</span>
+                </div>
+            </div>
+
+
+            
+            <div class="val-box">
+                <i class="fa-solid fa-dollar-sign"></i>
+                <div>
+                    <h3>$677.89</h3>
+                    <span>This Month</span>
+                </div>
+            </div>
+        </div>
+        
+
+        <div style="width: 500px; height: 500px; display: flex;gap: 150px;   margin-top: 70px;">
+            <canvas id="Chart"></canvas>
+            <canvas id="ChartOrders"></canvas>
+        </div>
+       
+
+
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script>
+        
+$('#menu-btn').click(function() {
+    $('#menu').toggleClass('active')
+  })
+
+const signupCtx = document.getElementById('Chart');
+const Ordersctx = document.getElementById('ChartOrders')
+
+document.addEventListener('DOMContentLoaded', async () => {
+    try {
+       const response = await axios.get('/admin/chart');
+       const chartData = response.data.chartData;
+       const salesData =response.data.salesData
+       const userCount = response.data.usersCount
+ 
+       if (response.status === 200) {
+          // Render signups bar chart
+          new Chart(signupCtx, {
+             type: 'bar',
+             data: {
+                labels: chartData.labels,
+                datasets: [{
+                   label: 'Signups',
+                   data: chartData.data,
+                   backgroundColor: 'darkblue',
+                   borderColor: 'black',
+                   borderWidth: 1
+                }]
+             },
+             options: {
+                scales: {
+                   y: {
+                      beginAtZero: true
+                   }
+                }
+             }
+          });
+ 
+          // Render sales line chart
+          new Chart(Ordersctx, {
+            type: 'line',
+            data: {
+               labels: salesData.labels,
+               datasets: [{
+                  label: 'Sales',
+                  data: salesData.data,
+                  backgroundColor: 'grey',    
+                  borderColor: 'black',
+                  borderWidth: 1
+               }]
+            },
+            options: {
+               scales: {
+                  y: {
+                     beginAtZero: true
+                  }
+               }
+            }
+         });
+      }
+   } catch (error) {
+      console.log(error);
+    }
+ });
+ 
+    </script>
+    
+</body>
+</html>

@@ -1,6 +1,7 @@
 const buyone = require('../model/singleproductbuy')
 const product = require('../model/productcollection')
 const cart = require('../model/cartmodel')
+const couponcontroller = require('../model/couponcollection')
 
 
 module.exports = {
@@ -113,6 +114,7 @@ module.exports = {
             let total = 0;
             let subtotal = 0;
             let discountTotal = 0;
+            let quantity = 0
 
             const id = req.params.id;
 
@@ -132,6 +134,12 @@ module.exports = {
                     return (acc += index.id.discount * index.quantity);
                 }, 0);
 
+                
+                carts.productId.forEach(product => {
+                    quantity += product.quantity;
+                });
+        
+    
 
                 total = carts.total;
             } else if (req.session.buy === true && id) {
@@ -149,7 +157,7 @@ module.exports = {
                     return;
                 }
 
-                const quantity = products.quantity
+                quantity = products.quantity
 
 
 
@@ -166,6 +174,8 @@ module.exports = {
                 total = subtotal - discountTotal; // Adjust total based on discounts
             } else {
                 console.log('dshjch')
+
+                quantity = 1
                 const buyer = await product.findById(id);
                 if (!buyer) {
                     return res.status(400).json({ error: "Product not found" });
@@ -173,15 +183,56 @@ module.exports = {
                 subtotal = buyer.prices;
                 console.log(subtotal);
                 discountTotal = buyer.discount;
-                total = subtotal - discountTotal; // Adjust total based on discounts
+                total = buyer.discounted; // Adjust total based on discounts
             }
 
-            return res.render('user/checkout', { total, subtotal, discountTotal });
+            console.log(quantity);
+            return res.render('user/checkout', { total, subtotal, discountTotal,quantity });
         } catch (error) {
             console.error("Error in checkoutget:", error);
             return res.status(500).json({ error: "Internal server error" });
         }
+    },
+
+    applyCoupon: async (req, res) => {
+        try {
+            console.log('llllll');
+            const couponName = req.body.couponName;
+            const total = req.body.total;
+            let quantity = req.body.qty; // Use let instead of const as quantity might change
+
+            console.log(couponName,total,quantity);
+            // Assuming couponcontroller is your model for coupons
+            const coupon = await couponcontroller.findOne({ couponCode: couponName });
+            console.log(coupon);
+
+            if (!coupon) {
+                return res.status(400).json({ message: "Coupon not found" });
+            }
+
+            // Ensure quantity is capped at 10
+            if (quantity > 10) {
+                quantity = 10;
+            }
+
+            // Calculate discount percentage based on coupon and quantity
+            const discountPercentage = coupon.discount * quantity;
+
+            // Calculate total discount
+            const totalDiscount = (discountPercentage * total) / 100;
+
+            // Calculate discounted total
+            const discountedTotal = total - totalDiscount;
+
+            // Send back the discounted total as response
+            console.log(discountedTotal);
+            return res.status(200).json({ success: true, message: "Document updated successfully",discountedTotal,discountPercentage});
+        } catch (error) {
+            console.error("Error applying coupon:", error);
+            res.status(500).json({ message: "Internal server error" });
+        }
     }
+
 
 
 }
