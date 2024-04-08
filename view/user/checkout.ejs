@@ -181,39 +181,32 @@
           </div>
 
           <div class="modal-body">
-            <div class="chooseAdd existingAddress p-3 w-100 mb-3 position-relative">
-              <p class="name">John D</p>
-              <p>Abc house, abc street,PIN: 673478</p>
-              <p class="phone">Phone: 98675555568</p>
-              <input name="adId" class="position-absolute radio" type="radio" value="proId1">
-            </div>
-            <div class="chooseAdd existingAddress p-3 w-100 mb-3 position-relative">
-              <p class="name">John D</p>
-              <p>Abc house, abc street,PIN: 673478</p>
-              <p class="phone">Phone: 98675555568</p>
-              <input name="adId" class="position-absolute radio" type="radio" value="proId2">
-            </div>
-            <div class="chooseAdd existingAddress p-3 w-100 mb-3 position-relative">
-              <p class="name">John D</p>
-              <p>Abc house, abc street,PIN: 673478</p>
-              <p class="phone">Phone: 98675555568</p>
-              <input name="adId" class="position-absolute radio" type="radio" value="proId3">
-            </div>
-            <div class="chooseAdd existingAddress p-3 w-100 mb-3 position-relative">
-              <p class="name">John D</p>
-              <p>Abc house, abc street,PIN: 673478</p>
-              <p class="phone">Phone: 98675555568</p>
-              <input name="adId" class="position-absolute radio" type="radio" value="proId4">
-            </div>
-
-            <p class="m-0"><a href="/" class="button">Add Address</a></p>
+            <% if (address && address.address && address.address.length> 0) { %>
+              <% address.address.forEach((dats)=> { %>
+                <div class="chooseAdd existingAddress p-3 w-100 mb-3 position-relative">
+                  <p class="name">
+                    <input type="hidden" value="<%=dats._id%>">
+                    <%= user.username %>
+                  </p>
+                  <p> House no: <%= dats.houseno %>, <%= dats.locality %>, <%= dats.city %>, <%= dats.district %>, <%=
+                              dats.state %>, <%= dats.country %>, <%= dats.pincode %>
+                  </p>
+                  <p class="phone">Phone: 98675555568</p>
+                  <input name="adId" class="position-absolute radio" type="radio" value="proId1"
+                    data-address="<%= JSON.stringify(dats) %>">
+                </div>
+                <% }) %>
+                  <p class="m-0"><a href="/addaddress" class="button">Add Address</a></p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary bg-danger text-white" data-bs-dismiss="modal">
               Close
             </button>
+            <% } else { %>
+              <p>No Address Available</p>
+              <% } %>
 
-            <!-- Add additional buttons or actions as needed -->
+                <!-- Add additional buttons or actions as needed -->
           </div>
         </div>
       </div>
@@ -228,9 +221,9 @@
                 <div class="items position-relative mb-3">
                   <div class="d-flex payOptions align-items-center gap-3">
                     <input class="pay" name="payMethode" value="OP" type="radio" id="creditCard" />
-                    <h2 class="m-0">Credit Card</h2>
+                    <h2 class="m-0">RazorPay</h2>
                   </div>
-                  <div class="credit">
+                  <!-- <div class="credit">
                     <label for="cCNo" class="d-block">Credit card number</label>
                     <input type="number" name="cCNo" />
                     <div class="d-flex gap-3 w-100">
@@ -245,7 +238,7 @@
                     </div>
                     <label for="nOC" class="d-block">Name on the card</label>
                     <input type="number" name="nOC" />
-                  </div>
+                  </div> -->
                 </div>
 
                 <div class="items position-relative mb-3">
@@ -260,19 +253,34 @@
                     <h2>Delivery Address</h2>
                   </div>
                   <div class="deleviryContent">
-                    <div class="chooseAdd position-relative">
-                      <div class="existingAddress">
-                        <p class="name">John D</p>
-                        <p>Abc house, abc street,PIN: 673478</p>
-                        <p class="phone">Phone: 98675555568</p>
-                      </div>
-                      <a href="/userChangeAddress" data-bs-toggle="modal" data-bs-target="#changeAddressModal">
-                        <button class="position-absolute button">
-                          Change
-                        </button>
 
-                      </a>
+                    <div class="chooseAdd position-relative">
+                      <% if (address && address.address && address.address.length> 0) { %>
+                        <div class="existingAddress">
+
+                          <p class="name">
+                            <%=user.username %>
+                          </p>
+                          <p class="nameadd"> House no:<%= address.address[0].houseno %>, <%=
+                                address.address[0].locality %>, <%= address.address[0].city %>,
+                                  <%= address.address[0].district %>, <%= address.address[0].state %>, <%=
+                                        address.address[0].country %>, <%= address.address[0].pincode %>
+                          </p>
+                          <p class="phone">Phone: <%=user.phone%>
+                          </p>
+                        </div>
+
+
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#changeAddressModal">
+                          <button class="position-absolute button">
+                            Change
+                          </button>
+
+                        </a>
                     </div>
+                    <% } else { %>
+                      <p>No Address Available</p>
+                      <% } %>
 
                   </div>
 
@@ -299,7 +307,8 @@
                 <div class="orderContent">
                   <div class="sTotal d-flex justify-content-between align-items-center">
                     <p class="commonText m-0 p-0">Subtotal</p>
-                    <p class="commonSub m-0 p-0" id="sTotal">₹<%=subtotal%></p>
+                    <p class="commonSub m-0 p-0" id="sTotal">₹<%=subtotal%>
+                    </p>
                   </div>
 
                   <div class="ship d-flex justify-content-between align-items-center">
@@ -309,7 +318,8 @@
 
                   <div class="ship d-flex justify-content-between align-items-center">
                     <p class="commonText m-0 p-0">Discount</p>
-                    <p class="commonSub m-0 p-0" id="dPrice">-<%=discountTotal%></p>
+                    <p class="commonSub m-0 p-0" id="dPrice">-<%=discountTotal%>
+                    </p>
                   </div>
 
                   <div class="ship d-flex justify-content-between align-items-center">
@@ -319,7 +329,8 @@
                 </div>
                 <div class="commonText tPrice d-flex justify-content-between align-items-center">
                   <p class="m-0 p-0">Total</p>
-                  <p class="m-0 p-0" id="tPrice">₹<%=total%></p>
+                  <p class="m-0 p-0" id="tPrice">₹<%=total%>
+                  </p>
                 </div>
               </div>
             </div>
@@ -683,59 +694,112 @@
   <!-- custom js -->
   <!-- <script src="./js/userPayment.js"></script> -->
   <script>
-   async function coupon(qty, total) {
-  try {
-    const coupon = document.querySelector(`.couponName`).value;
-    const coupond = document.querySelector(`.coupons`)
+    let html
+    let selectedMethod
+    let totals
 
-    const coupondis = document.getElementById('cDPrice');
-    const subtotal = document.getElementById('tPrice');
+    async function coupon(qty, total) {
+      try {
+        const coupon = document.querySelector(`.couponName`).value;
+        const coupond = document.querySelector(`.coupons`)
+
+        const coupondis = document.getElementById('cDPrice');
+        const subtotal = document.getElementById('tPrice');
 
 
+
+        console.log(coupon);
+        console.log(qty);
+        console.log(total);
+
+        const response = await axios.post("/applycoupon", {
+          total: total,
+          qty: qty,
+          couponName: coupon
+        });
+
+        if (response.status === 200) {
+
+          totals = response.data.discountedTotal;
+          const discount = response.data.discountPercentage;
+
+          console.log(totals, discount);
+
+          coupondis.innerHTML = discount
+          subtotal.innerHTML = totals
+          coupond.style.display = 'none';
+
+          // Update HTML elements if necessary
+          const totalt = document.getElementById('sTotal');
+          // const discountt = document.getElementById('dPrice');
+          // totalt.innerHTML = total;
+          // discountt.innerHTML = discount;
+          // subtotal.innerHTML = totals;
+
+          // qty.innerHTML = quantity; // Update displayed quantity
+        } else if (response.status === 400) {
+          // Handle 400 Bad Request error
+          console.error("Bad Request:", response.data.error);
+        } else {
+          // Handle other status codes
+          console.error("Unexpected Error:", response.statusText);
+        }
+      } catch (error) {
+        // Handle network errors or any other errors
+        console.error("An error occurred:", error.message);
+      }
+    }
+
+
+
+    // Get all radio buttons
+    const radioButtons = document.querySelectorAll('.radio');
+
+    // Add event listener to each radio button
+    radioButtons.forEach(function (radioButton) {
+      radioButton.addEventListener('click', function () {
+        // Get the associated address data
+        const addressData = JSON.parse(this.getAttribute('data-address'));
+        console.log(addressData)
+
+        const add = document.querySelector('.nameadd')
+
+        html = `
     
-    console.log(coupon);
-    console.log(qty);
-    console.log(total);
+      House no: ${addressData.houseno}, ${addressData.locality}, ${addressData.city}, ${addressData.district}, ${addressData.state}, ${addressData.country}, ${addressData.pincode}
+    `;
 
-    const response = await axios.post("/applycoupon", {
-      total: total,
-      qty: qty,
-      couponName: coupon
+        // console.log(html)
+        console.log(add)
+
+        add.innerHTML = html;
+        // Log the address data to console
+      });
     });
 
-    if (response.status === 200) {
+    const radioButton = document.querySelectorAll('.pay');
 
-      const totals = response.data.discountedTotal;
-      const discount = response.data.discountPercentage;
+    // Add click event listener to each radio button
+    radioButton.forEach(radioButton => {
+      radioButton.addEventListener('click', function () {
+        // Get the value of the selected radio button
+        const selectedValue = this.value;
 
-      console.log(totals, discount);
+        // Determine the selected payment method
+        if (selectedValue === 'OP') {
+          selectedMethod = 'RazorPay';
+        } else if (selectedValue === 'COD') {
+          selectedMethod = 'Cash On Delivery (COD)';
+        } else {
+          selectedMethod = 'Unknown'; // Handle any other cases
+        }
 
-      coupondis.innerHTML = discount
-      subtotal.innerHTML = totals
-      coupond.style.display = 'none';
-      
-      // Update HTML elements if necessary
-      const totalt = document.getElementById('sTotal');
-      // const discountt = document.getElementById('dPrice');
-      // totalt.innerHTML = total;
-      // discountt.innerHTML = discount;
-      // subtotal.innerHTML = totals;
+        // Display the selected payment method
+        console.log('Selected Payment Method:', selectedMethod);
+      });
+    });
 
-      // qty.innerHTML = quantity; // Update displayed quantity
-    } else if (response.status === 400) {
-      // Handle 400 Bad Request error
-      console.error("Bad Request:", response.data.error);
-    } else {
-      // Handle other status codes
-      console.error("Unexpected Error:", response.statusText);
-    }
-  } catch (error) {
-    // Handle network errors or any other errors
-    console.error("An error occurred:", error.message);
-  }
-}
-
-
+  
   </script>
   <!-- end of custom js -->
   <!-- fontawesome -->
