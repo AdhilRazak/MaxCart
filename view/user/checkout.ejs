@@ -14,6 +14,9 @@
   <link rel="stylesheet" href="/css/user/checkout .css" />
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
+  <!-- Razorpay SDK -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
   <!-- end of Style css -->
 </head>
 
@@ -220,7 +223,7 @@
               <div class="cartItems">
                 <div class="items position-relative mb-3">
                   <div class="d-flex payOptions align-items-center gap-3">
-                    <input class="pay" name="payMethode" value="OP" type="radio" id="creditCard" />
+                    <input class="pay" name="payMethode" value="OP" type="radio" id="creditCard" selected />
                     <h2 class="m-0">RazorPay</h2>
                   </div>
                   <!-- <div class="credit">
@@ -695,6 +698,9 @@
 
   <!-- custom js -->
   <!-- <script src="./js/userPayment.js"></script> -->
+
+
+
   <script>
     let add = document.querySelector('.nameadd')
 
@@ -825,8 +831,36 @@
           proid: products
         });
 
-        // Handle the response if needed
-        console.log("Response from server:", response.data);
+        if (response.status === 200) {
+          console.log(response);
+          const responseData = response.data;
+
+          const razorpayOptions = {
+            key: responseData.razorpay.key_id,
+            order_id: responseData.order.id,
+            amount: responseData.order.amount,
+            name: 'AR GROUP',
+            prefill: {
+              name: 'Customer Name',
+              email: 'customer@example.com',
+              contact: '9999999999'
+            },
+            handler: async function (response) {
+              // Handle Razorpay response
+              const res = await axios.get('/completeOrder')
+          window.location.href = '/home'
+
+            }
+          };
+
+          const razorpay = new Razorpay(razorpayOptions);
+          razorpay.open();
+          
+        } else {
+          window.location.href = '/completed'
+        }
+
+
       } catch (error) {
         // Handle errors here
         console.error("Error occurred:", error);

@@ -5,11 +5,11 @@ const { loginget, loginpost, signupget, signuppost, verificationget, verificatio
          otpVerifiedget, otpVerifiedpost } = require('../controllers/authcontroller');
 const { userhomeget, useraccountget, useraccounteditget, useraccounteditpost} = require('../controllers/user')
 const { categoryfilterget } = require('../controllers/categorycondroller')
-const { userallproducts,viewsingleproducts} = require('../controllers/productcondroller')
+const { userallproducts,viewsingleproducts,filterProduct,sort} = require('../controllers/productcondroller')
 const { addressget, addaddressget, addaddresspost, editaddress, editaddressget,deleteaddress } = require('../controllers/addresscontroller')
 const{addtocart,showcart,updatecartquantity,cartdelete}=require('../controllers/cartcont')
 const{addtowishlist,wishlistget,deletewishlist}=require('../controllers/wishlist')
-const{buyoneget,buyoneupdate,checkoutget,applyCoupon,checkoutpost}=require('../controllers/payment')
+const{buyoneget,buyoneupdate,checkoutget,applyCoupon,checkoutpost, completeOrder,completed}=require('../controllers/payment')
 
 router.get('/', loginget);
 router.post('/', loginpost);
@@ -37,6 +37,9 @@ router.post('/resetpassword', resetpassordpost)
 router.get('/home', userhomeget)
 
 router.get('/allproduct', userallproducts)
+router.post('/filterproduct',filterProduct)
+router.post('/sort',sort)
+
 
 router.get('/category', categoryfilterget)
 
@@ -69,6 +72,10 @@ router.post('/buyoneupdate',buyoneupdate)
 router.get('/checkout/:id',checkoutget)
 router.post('/applycoupon',applyCoupon)
 router.post('/checkpost',checkoutpost)
+router.get('/completeOrder', completeOrder)
+router.get('/completed',completed)
+
+
 
 
 

@@ -7,6 +7,14 @@ const usercollection = require('../model/userdatacollection')
 const userdatacollection = require('../model/userdatacollection')
 const Cart = require('../model/cartmodel')
 const order = require('../model/ordercollection')
+const Razorpay = require('razorpay')
+require('dotenv').config()
+
+
+const razorpay = new Razorpay({
+    key_id: process.env.RAZORPAY_KEY_ID,
+    key_secret: process.env.RAZORPAY_SECRET_KEY
+})
 
 
 module.exports = {
@@ -273,7 +281,6 @@ module.exports = {
     },
 
     checkoutpost: async (req, res) => {
-        console.log('hooop');
         try {
             if (!req.session.user) {
                 return res.redirect('/');
@@ -281,8 +288,6 @@ module.exports = {
 
             const userid = req.session.user;
             const { proid, total, qty, tint, address, method } = req.body;
-
-            console.log(total, qty, tint, address, method, proid, userid);
 
             let prodata;
 
@@ -295,17 +300,22 @@ module.exports = {
                 }
 
                 prodata = cart.productId;
+                req.session.payno = 0
 
-                console.log(prodata + 'jijij');
 
             } else if ((tint == 101 || tint == 102) && proid !== 0) {
+                console.log('yyyyy');
                 prodata = [{ id: proid, quantity: qty }];
+
+                req.session.payno = 100
+
+
             }
 
             const orderExists = await order.findOne({ userId: userid });
 
             if (orderExists) {
-                const updatedOrder = await order.findOneAndUpdate(
+                await order.findOneAndUpdate(
                     { userId: userid },
                     {
                         $push: {
@@ -332,46 +342,109 @@ module.exports = {
                 await orderdata.save();
             }
 
-            console.log('huuuuuhuhuhu');
-
             if (method === 'RazorPay') {
                 req.session.payment = prodata;
-            
-                console.log(req.session.payment);
-            
-                    const pay = req.session.payment;
-            
-                    const orderExists = await order.findOne({ userId: userid });
-            
-                    if (orderExists) {
-                        // Update the status of the matching product in the orderlist
-                        const updatedOrder = await order.findOneAndUpdate(
-                            { userId: userid, 'orderlist.productId': pay },
-                            { $set: { 'orderlist.$.status': 'completed' } }, // Update the status of the matched product
-                            { new: true }
-                        );
-            
-                        console.log('Product status updated successfully.');
-                    } else {
-                        console.log('No order found for the user.');
-                    }
-                // } catch (error) {
-                //     console.error('An error occurred while updating product status:', error.message);
-                //     // Handle the error, such as sending an error response to the client
-                //     res.status(500).json({ error: 'Internal Server Error' });
-                // }
+
+                const users = await usercollection.find({ _id: userid });
+
+                const options = {
+                    amount: total * 100,
+                    currency: 'INR',
+                }
+
+                try {
+                    const order = await razorpay.orders.create(options);
+                    console.log(order);
+                    return res.status(200).json({ order, razorpay, users });
+                } catch (error) {
+                    console.error('Error creating order:', error);
+                    return res.status(500).json({ error: 'Internal Server Error' });
+                }
             }
-            
 
+            // If method is not RazorPay, return success response
+            return res.status(201).json({ success: true });
 
-
-                return res.status(200).json({ message: "Order placed successfully" });
-            } catch (error) {
-                console.error("Error:", error);
-                return res.status(500).json({ error: "Internal server error" });
-            }
+        } catch (error) {
+            console.error("Error:", error);
+            return res.status(500).json({ error: "Internal server error" });
         }
-    
+    },
+
+    completeOrder: async (req, res) => {
+        if (!req.session.user) {
+            return res.redirect('/');
+        }
+        const userid = req.session.user;
+
+        const pays = req.session.payment;
+
+        const pay = req.session.payno
+
+        console.log(pays, pay);
+
+        console.log(pays[0].id);
+        console.log(pays[0].quantity);
+
+
+
+        try {
+            const orderExists = await order.findOne({ userId: userid });
+
+            if (orderExists) {
+                if (pay === 0) {
+                    // Update the status of the matching product in the orderlist
+                    const updatedOrder = await order.findOneAndUpdate(
+                        { userId: userid, 'orderlist.productId': pays },
+                        { $set: { 'orderlist.$.status': 'completed' } },
+                        { new: true }
+                    );
+                    if (updatedOrder) {
+                        console.log('Product status updated successfully.');
+                        return res.status(200).json({ success: true });
+                    } else {
+                        console.log('Error updating product status.');
+                        return res.status(500).json({ success: false, error: 'Error updating product status' });
+                    }
+                } else {
+                    // Iterate over the order list and find the matching product to update its status
+                    const updatedOrder = await order.findOneAndUpdate(
+                        { userId: userid, 'orderlist.productId.id': pays[0].id, 'orderlist.productId.quantity': pays[0].quantity },
+                        { $set: { 'orderlist.$.status': 'completed' } },
+                        { new: true }
+                    );
+                    if (updatedOrder) {
+                        console.log('Product status updated successfully.');
+                        return res.status(200).json({ success: true });
+                    } else {
+                        console.log('Error updating product status.');
+                        return res.status(500).json({ success: false, error: 'Error updating product status' });
+                    }
+                }
+            } else {
+                console.log('No order found for the user.');
+                return res.status(404).json({ success: false, error: 'No order found for the user' });
+            }
+        } catch (error) {
+            console.error('Error occurred:', error);
+            return res.status(500).json({ success: false, error: 'Internal server error' });
+        }
+    },
+
+
+    completed: async (req, res) => {
+        try {
+
+            res.render('user/orderplaced');
+        } catch (error) {
+            // Handle errors here
+            console.error(error);
+            res.status(500).send('An error occurred');
+        }
+    }
+
+
+
 
 
 
