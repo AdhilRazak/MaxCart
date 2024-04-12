@@ -343,8 +343,10 @@
       <div class="row">
         <div class="col-12">
           <div class="checkOut">
-            <form action="/userCartCheckOut">
-              <button>Proceed to payment</button>
+            <form>
+              <button type="button"
+                onclick="myFunction('<%=productstuff%>','<%=quantity%>','<%=tint%>','<%=total%>')">Proceed to
+                payment</button>
             </form>
           </div>
         </div>
@@ -694,7 +696,9 @@
   <!-- custom js -->
   <!-- <script src="./js/userPayment.js"></script> -->
   <script>
-    let html
+    let add = document.querySelector('.nameadd')
+
+    let html = add.innerHTML
     let selectedMethod
     let totals
 
@@ -762,7 +766,6 @@
         const addressData = JSON.parse(this.getAttribute('data-address'));
         console.log(addressData)
 
-        const add = document.querySelector('.nameadd')
 
         html = `
     
@@ -799,7 +802,38 @@
       });
     });
 
-  
+
+    async function myFunction(products, quantitys, tints, total) {
+      try {
+        console.log(html);
+        console.log(selectedMethod);
+        console.log(totals);
+        console.log(total);
+
+        if (totals === null || totals === undefined) {
+          totals = total;
+        }
+
+        console.log(totals);
+
+        const response = await axios.post("/checkpost", {
+          qty: quantitys,
+          tint: tints,
+          address: html,
+          method: selectedMethod,
+          total: totals,
+          proid: products
+        });
+
+        // Handle the response if needed
+        console.log("Response from server:", response.data);
+      } catch (error) {
+        // Handle errors here
+        console.error("Error occurred:", error);
+      }
+    }
+
+
   </script>
   <!-- end of custom js -->
   <!-- fontawesome -->

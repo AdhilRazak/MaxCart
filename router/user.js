@@ -9,7 +9,7 @@ const { userallproducts,viewsingleproducts} = require('../controllers/productcon
 const { addressget, addaddressget, addaddresspost, editaddress, editaddressget,deleteaddress } = require('../controllers/addresscontroller')
 const{addtocart,showcart,updatecartquantity,cartdelete}=require('../controllers/cartcont')
 const{addtowishlist,wishlistget,deletewishlist}=require('../controllers/wishlist')
-const{buyoneget,buyoneupdate,checkoutget,applyCoupon}=require('../controllers/payment')
+const{buyoneget,buyoneupdate,checkoutget,applyCoupon,checkoutpost}=require('../controllers/payment')
 
 router.get('/', loginget);
 router.post('/', loginpost);
@@ -68,6 +68,7 @@ router.post('/buyoneupdate',buyoneupdate)
 
 router.get('/checkout/:id',checkoutget)
 router.post('/applycoupon',applyCoupon)
+router.post('/checkpost',checkoutpost)
 
 
 
