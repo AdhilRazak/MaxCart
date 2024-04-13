@@ -348,7 +348,7 @@
           <div class="checkOut">
             <form>
               <button type="button"
-                onclick="myFunction('<%=productstuff%>','<%=quantity%>','<%=tint%>','<%=total%>','<%=discountTotal%>')">Proceed to
+                onclick="myFunction('<%=productstuff%>','<%=quantity%>','<%=tint%>','<%=total%>','<%=discountTotal%>','<%=subtotal%>')">Proceed to
                 payment</button>
             </form>
           </div>
@@ -810,7 +810,7 @@
     });
 
 
-    async function myFunction(products, quantitys, tints, total,discountTotal) {
+    async function myFunction(products, quantitys, tints, total,discountTotal,subtotal) {
       try {
         console.log(html);
         console.log(selectedMethod);
@@ -831,7 +831,8 @@
           total: totals,
           proid: products,
           discountTotals:discountTotal,
-          discounts:discount
+          discounts:discount,
+          subs:subtotal
         });
 
         if (response.status === 200) {

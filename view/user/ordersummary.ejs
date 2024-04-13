@@ -229,25 +229,25 @@
             </div>
             <div class="cartBody">
               <div class="ODhead">
-                <p>Order ID - OD428508037018935100</p>
+                <p>Order ID - <%=orderListItem._id%></p>
               </div>
               <div class="d-flex ODhead gap-3 justify-content-between align-items-center">
                 <div>
-                  <h2 class="m-0 p-0 text-capitalize">LAPCARE DCX-A101 2 FAN Cooling Pad</h2>
-                  <p class="m-0 p-0 text-capitalize">Black</p>
+                  <h2 class="m-0 p-0 text-capitalize"><%=productItem.productName%></h2>
+                  <p class="m-0 p-0 text-capitalize"><%=productItem.color%></p>
                   <div class="d-flex align-items-baseline price gap-2 mt-2">
-                    <p>₹704</p>
-                    <p>57% OFF</p>
+                    <p>₹<%=productItem.prices%></p>
+                    <p><%=productItem.discount%>% OFF</p>
                   </div>
                 </div>
                 <div class="imgOrder">
-                  <img src="./images/cartImg/1a.png" alt="">
+                  <img src="./images/product/<%=productItem.productImage%>" alt="">
                 </div>
               </div>
               <div class="ODhead pt-4 pb-4">
                 <div class="d-flex gap-3 align-items-center">
                   <p class="dot done"></p>
-                  <p id="oText">Ordered Confirmed, Jul 01, 2023</p>
+                  <p id="oText">Ordered Confirmed,<%=orderListItem.createdAt%></p>
                 </div>
                 <div class="lineParent position-relative">
                     <div class="line position-relative doneLine">
@@ -272,8 +272,8 @@
                 <p>Shipping Details</p>
               </div>
               <div class="ODhead pt-3 pb-3 SDetails">
-                <h2 class="text-capitalize">Priyanjith</h2>
-                <p class="text-capitalize">Nedinalil 1234, Jailroad, Kozhikode, Kozhikode, Kerala - 673004</p>
+                <h2 class="text-capitalize"><%=user.username%></h2>
+                <p class="text-capitalize"><%=orderListItem.address%></p>
                 <p>Phone: 9188336166</p>
               </div>
               <div class="ODhead sDetails">
@@ -282,7 +282,7 @@
               <div class="orderContent">
                 <div class="sTotal d-flex justify-content-between align-items-center">
                   <p class="commonText m-0 p-0">Subtotal</p>
-                  <p class="commonSub m-0 p-0" id="sTotal">₹27,598</p>
+                  <p class="commonSub m-0 p-0" id="sTotal">₹<%=orderListItem.subtotal%></p>
                 </div>
 
                 <div class="ship d-flex justify-content-between align-items-center">
@@ -292,21 +292,21 @@
 
                 <div class="ship d-flex justify-content-between align-items-center">
                   <p class="commonText m-0 p-0">Discount</p>
-                  <p class="commonSub m-0 p-0" id="dPrice">-19,600</p>
+                  <p class="commonSub m-0 p-0" id="dPrice">-<%=orderListItem.discount%></p>
                 </div>
 
                 <div class="ship d-flex justify-content-between align-items-center">
                   <p class="commonText m-0 p-0">Coupon Discount</p>
-                  <p class="commonSub m-0 p-0" id="cDPrice">0</p>
+                  <p class="commonSub m-0 p-0" id="cDPrice"><%=orderListItem.coupondiscount%></p>
                 </div>
               </div>
               <div class="Last">
                 <div class="commonText tPrice d-flex justify-content-between align-items-center">
                   <p class="m-0 p-0">Total</p>
-                  <p class="m-0 p-0" id="tPrice">₹7,998</p>
+                  <p class="m-0 p-0" id="tPrice">₹<%=orderListItem.total%></p>
                 </div>
               </div>
-              <a href="/userOrderDownloadInvoice/:productId/:orderId" class="text-dark fw-bolder">
+              <!-- <a href="/userOrderDownloadInvoice/:productId/:orderId" class="text-dark fw-bolder">
                 <div class="ODhead sDetails d-flex justify-content-between">
                   <div class="d-flex gap-2 align-items-center">
                     <div>
@@ -324,7 +324,7 @@
                     >
                   </div> 
                 </div>
-              </a>
+              </a> -->
               <a href="/userProductRate/:productId" class="text-dark fw-bolder ">
                 <div class="ODhead sDetails d-flex justify-content-between gap-3">
                   <div>

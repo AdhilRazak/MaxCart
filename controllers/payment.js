@@ -287,7 +287,7 @@ module.exports = {
             }
 
             const userid = req.session.user;
-            const { proid, total, qty, tint, address, method,discounts,discountTotals} = req.body;
+            const { proid, total, qty, tint, address, method, discounts, discountTotals,subs } = req.body;
 
             let prodata;
 
@@ -321,11 +321,12 @@ module.exports = {
                         $push: {
                             orderlist: {
                                 productId: prodata,
-                                subtotal: total,
+                                subtotal: subs,
                                 address: address,
                                 paymentmethod: method,
-                                coupondiscount:discounts,
-                                discount:discountTotals
+                                coupondiscount: discounts,
+                                discount: discountTotals,
+                                total:total
                             }
                         }
                     },
@@ -336,11 +337,13 @@ module.exports = {
                     userId: userid,
                     orderlist: [{
                         productId: prodata,
-                        subtotal: total,
+                        subtotal: subs,
                         address: address,
                         paymentmethod: method,
-                        coupondiscount:discounts,
-                        discount:discountTotals
+                        coupondiscount: discounts,
+                        discount: discountTotals,
+                        total:total
+
                     }]
                 });
                 await orderdata.save();
@@ -451,12 +454,11 @@ module.exports = {
         try {
             if (req.session.user) {
                 const userId = req.session.user;
-    
+
                 // Fetch orders for the user and populate the productId field
-                const orders = await order.findOne({ userId }).populate({path:'orderlist.productId.id', model:'ProductData'});
-                    console.log(orders);
-             
-    
+                const orders = await order.findOne({ userId }).populate({ path: 'orderlist.productId.id', model: 'ProductData' });
+
+
                 // Render the order list view with orders
                 res.render('user/orderlist', { orders });
             } else {
@@ -467,18 +469,62 @@ module.exports = {
             res.status(500).send("Internal Server Error");
         }
     },
-    ordersummary:(req,res)=>{
-        res.render('user/ordersummary')
-    }
+
+     ordersummary:async (req, res) => {
+        try {
+            if (!req.session.user) {
+                return res.redirect('/');
+            }
     
+            const userId = req.session.user;
+    
+            const orderListId = req.query.id;
+            const productId = req.query.pro.trim(); // Trim leading and trailing spaces
+    
+            if (!orderListId || !productId) {
+                return res.status(400).send("Order list ID and product ID are required.");
+            }
+            const user = await usercollection.findById(userId)
 
+            if (!user) {
+                return res.status(404).send("Product not found.");
+            }
 
-
-
-
-
-
+            const productItem = await product.findOne({ _id: productId });
+    
+            if (!productItem) {
+                return res.status(404).send("Product not found.");
+            }
+    
+            const orders = await order.findOne({ userId: userId });
+    
+            if (!orders) {
+                return res.status(404).send("Order not found.");
+            }
+    
+            const orderListItem = orders.orderlist.find(item => item._id.equals(orderListId));
+    
+            if (!orderListItem) {
+                return res.status(404).send("Order list item not found.");
+            }
+    
+            res.render('user/ordersummary', { orderListItem, productItem ,user});
+    
+        } catch (error) {
+            console.error("Error fetching order summary:", error);
+            res.status(500).send("Internal Server Error");
+        }
+    }
 }
+
+
+
+
+
+
+
+
+
 
 
 
