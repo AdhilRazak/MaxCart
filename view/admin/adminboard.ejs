@@ -8,6 +8,26 @@
     <link rel="stylesheet" href="/css/admin/dashboard.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.7.1.slim.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+<style>
+    .chartArea{
+        width: 100%;
+        height: 500px;
+        display: flex;
+        margin-top: 100px;
+        justify-content: space-evenly;
+    }
+    .chart1{
+        width: 48%;
+        height: 100%;
+
+    }
+    .chart2{
+        width: 48%;
+        height: 100%;
+    }
+</style>
 </head>
 
 <body>
@@ -18,15 +38,16 @@
             <h2>Maxcart</h2>
         </div>
         <div class="items">
-            <li ><i class="fa-solid fa-chart-pie"></i> <a href="#" >Dashboard</a></li>
+            <li><i class="fa-solid fa-chart-pie"></i> <a href="#">Dashboard</a></li>
             <li><i class="fa-solid fa-table-cells-large"></i> <a href="/admin/product">Products</a></li>
-            <li> <i class="fa-solid fa-list" style="color: #adb1b8;"></i> <a href="/admin/categories">Categories</a></li>
+            <li> <i class="fa-solid fa-list" style="color: #adb1b8;"></i> <a href="/admin/categories">Categories</a>
+            </li>
             <li><i class="fa-solid fa-credit-card"></i> <a href="#">Orders</a></li>
             <li><i class="fa-solid fa-user" style="color: #919191;"></i><a href="/admin/adminuserlist">Users</a></li>
             <li><i class="fa-solid fa-image"></i><a href="/admin/banner">banner</a></li>
             <li><i class="fa-solid fa-ticket" style="color: #919191;"></i><a href="/admin/coupon">coupen</a></li>
-            
-            
+
+
             <!-- <li><i class="fa-solid fa-chart-line"></i> <a href="#">Blank</a></li> -->
             <div class="logout">
                 <li><i class="fa-solid fa-right-from-bracket" style="color: #d40c48;"></i> <a href="#">Logout</a></li>
@@ -40,7 +61,7 @@
         <div class="navigation">
             <div class="n1">
                 <div>
-            
+
                     <i id="menu-btn" class="fa-solid fa-bars"></i>
                 </div>
                 <div class="search">
@@ -48,7 +69,7 @@
                     <input type="text" placeholder="Search">
                 </div>
             </div>
-           
+
             <div class="profile">
                 <button class="addbtn">Add Product</button>
                 <i class="fa-solid fa-bell"></i>
@@ -61,7 +82,7 @@
             <div class="val-box">
                 <i class="fa-solid fa-users"></i>
                 <div>
-                    <h3>8,267</h3>
+                    <h3><%=userCount%></h3>
                     <span>New Users</span>
                 </div>
             </div>
@@ -71,7 +92,7 @@
             <div class="val-box">
                 <i class="fa-solid fa-cart-shopping"></i>
                 <div>
-                    <h3>200,521</h3>
+                    <h3><%= orderCount%></h3>
                     <span>Total Orders</span>
                 </div>
             </div>
@@ -81,30 +102,126 @@
             <div class="val-box">
                 <i class="fa-regular fa-circle-check"></i>
                 <div>
-                    <h3>215,542</h3>
+                    <h3><%= completedCount%></h3>
                     <span>Products Sold</span>
                 </div>
             </div>
 
 
-            
+
             <div class="val-box">
                 <i class="fa-solid fa-dollar-sign"></i>
                 <div>
-                    <h3>$677.89</h3>
-                    <span>This Month</span>
+                    <h3><%= totalSubtotal%></h3>
+                    <span>Total Earnings</span>
                 </div>
             </div>
         </div>
+        <div class="chartArea">
+            <div class="chart1">
+                <canvas id="myChart"></canvas>
+            </div>
+            <div class="chart2">
+                <canvas id="myChart2"></canvas>
+            </div>
+        </div>
+
+        <p style="display: none;" class="products" productArray="<%= JSON.stringify(products) %>"></p>
+        <p style="display: none;" class="users" userDetails='<%= JSON.stringify(userDetails) %>'></p>
+
 
 
     </section>
 
     <script>
-        $('#menu-btn').click(function() {
-           $('#menu').toggleClass('active')
+        $('#menu-btn').click(function () {
+            $('#menu').toggleClass('active')
         })
     </script>
+    <script src="/js/admin/lib/chart.min.js"></script>
+    <!-- Template Javascript -->
+    <script src="/js/admin/common.js"></script>
+    <script>
+        const ctx = document.getElementById('myChart');
+        const products = document.querySelector('.products');
+        const values = JSON.parse(products.getAttribute('productArray'));
+
+        const categoryCounts = {};
+
+        values.forEach(element => {
+            if (categoryCounts[element.category]) {
+                categoryCounts[element.category]++;
+            } else {
+                categoryCounts[element.category] = 1;
+            }
+        });
+
+        const categories = Object.keys(categoryCounts);
+        const counts = Object.values(categoryCounts);
+
+        console.log(categories);
+        console.log(counts);
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: categories,
+                datasets: [{
+                    label: 'Number of products belong to category',
+                    data: counts,
+                    borderWidth: 1,
+                    borderColor: '#7B74EC',
+                    backgroundColor: 'white'
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+
+    <script>
+        const chart = document.getElementById('myChart2');
+        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        const userClass = document.querySelector('.users');
+        const userData = JSON.parse(userClass.getAttribute('userDetails'));
+        
+        const registrationDates = userData.map(user => new Date(user.createdAt));
+        console.log(registrationDates);
+        const registrationsPerMonth = registrationDates.reduce((acc, date) => {
+                const monthIndex = date.getMonth();
+                const monthName = months[monthIndex];
+                acc[monthName] = (acc[monthName] || 0) + 1;
+                return acc;
+            }, {});
+
+        new Chart(chart, {
+            type: 'bar',
+            data: {
+                labels: Object.keys(registrationsPerMonth),
+                datasets: [{
+                    label: 'Count of user in each month',
+                    data: Object.values(registrationsPerMonth),
+                    borderWidth: 1,
+                    borderColor: 'white',
+                    backgroundColor: '#7B74EC'
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>       
+
 </body>
 
 </html>

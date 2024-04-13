@@ -348,7 +348,7 @@
           <div class="checkOut">
             <form>
               <button type="button"
-                onclick="myFunction('<%=productstuff%>','<%=quantity%>','<%=tint%>','<%=total%>')">Proceed to
+                onclick="myFunction('<%=productstuff%>','<%=quantity%>','<%=tint%>','<%=total%>','<%=discountTotal%>')">Proceed to
                 payment</button>
             </form>
           </div>
@@ -707,6 +707,7 @@
     let html = add.innerHTML
     let selectedMethod
     let totals
+    let discount
 
     async function coupon(qty, total) {
       try {
@@ -731,7 +732,7 @@
         if (response.status === 200) {
 
           totals = response.data.discountedTotal;
-          const discount = response.data.discountPercentage;
+          discount = response.data.discountPercentage;
 
           console.log(totals, discount);
 
@@ -809,7 +810,7 @@
     });
 
 
-    async function myFunction(products, quantitys, tints, total) {
+    async function myFunction(products, quantitys, tints, total,discountTotal) {
       try {
         console.log(html);
         console.log(selectedMethod);
@@ -828,7 +829,9 @@
           address: html,
           method: selectedMethod,
           total: totals,
-          proid: products
+          proid: products,
+          discountTotals:discountTotal,
+          discounts:discount
         });
 
         if (response.status === 200) {

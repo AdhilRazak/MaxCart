@@ -21,7 +21,7 @@ const userdata = new mongoose.Schema({
         type: Boolean,
         default: true // Indicates whether OTP is verified
     }
-});
+}, { timestamps: true });
 
 const userdatacollection = mongoose.model('user', userdata);
 

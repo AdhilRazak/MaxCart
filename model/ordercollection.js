@@ -15,6 +15,7 @@ const order = new mongoose.Schema({
             }
 
         }],
+       
         subtotal: {
             type: String,
         },
@@ -24,11 +25,18 @@ const order = new mongoose.Schema({
         paymentmethod: {
             type: String
         },
+        discount: {
+            type: String
+        },
+        coupondiscount: {
+            type: String
+        },
         status: {
             type: String,
             default: 'pending'
         }
     }]
+
 
 })
 

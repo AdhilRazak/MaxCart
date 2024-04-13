@@ -287,7 +287,7 @@ module.exports = {
             }
 
             const userid = req.session.user;
-            const { proid, total, qty, tint, address, method } = req.body;
+            const { proid, total, qty, tint, address, method,discounts,discountTotals} = req.body;
 
             let prodata;
 
@@ -323,7 +323,9 @@ module.exports = {
                                 productId: prodata,
                                 subtotal: total,
                                 address: address,
-                                paymentmethod: method
+                                paymentmethod: method,
+                                coupondiscount:discounts,
+                                discount:discountTotals
                             }
                         }
                     },
@@ -336,7 +338,9 @@ module.exports = {
                         productId: prodata,
                         subtotal: total,
                         address: address,
-                        paymentmethod: method
+                        paymentmethod: method,
+                        coupondiscount:discounts,
+                        discount:discountTotals
                     }]
                 });
                 await orderdata.save();
@@ -441,7 +445,33 @@ module.exports = {
             console.error(error);
             res.status(500).send('An error occurred');
         }
+    },
+
+    orderlist: async (req, res) => {
+        try {
+            if (req.session.user) {
+                const userId = req.session.user;
+    
+                // Fetch orders for the user and populate the productId field
+                const orders = await order.findOne({ userId }).populate({path:'orderlist.productId.id', model:'ProductData'});
+                    console.log(orders);
+             
+    
+                // Render the order list view with orders
+                res.render('user/orderlist', { orders });
+            } else {
+                res.redirect('/');
+            }
+        } catch (error) {
+            console.error("Error fetching order list:", error);
+            res.status(500).send("Internal Server Error");
+        }
+    },
+    ordersummary:(req,res)=>{
+        res.render('user/ordersummary')
     }
+    
+
 
 
 
