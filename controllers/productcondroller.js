@@ -3,13 +3,15 @@ const CategoryModel = require('../model/categorycollection');
 const ProductModel = require('../model/productcollection');
 const review = require('../model/review')
 const orders = require('../model/ordercollection')
-
-
 const wish = require('../model/wishlist')
 const fs = require('fs')
 
+
 module.exports = {
     productget: async (req, res) => {
+        if(!req.session.admin){
+            return res.redirect('/admin')
+        }
         try {
             const productdat = await ProductModel.find({});
             res.render('admin/product', { productdat });
@@ -20,6 +22,9 @@ module.exports = {
     },
 
     addproductget: async (req, res) => {
+        if(!req.session.admin){
+            return res.redirect('/admin')
+        }
         try {
             const categorydata = await CategoryModel.find({});
             res.render('admin/addproduct', { categorydata });
@@ -30,6 +35,9 @@ module.exports = {
     },
 
     addproductspost: async (req, res) => {
+        if(!req.session.admin){
+            return res.redirect('/admin')
+        }
         try {
             if (!req.files || req.files.length > 5) {
                 return res.status(400).json({ message: "Please provide up to 5 images", success: false });
@@ -66,6 +74,9 @@ module.exports = {
     },
 
     blockproductvisibility: async (req, res) => {
+        if(!req.session.admin){
+            return res.redirect('/admin')
+        }
         try {
             const proID = req.query.id;
             const product = await ProductModel.findOne({ _id: proID });
@@ -92,6 +103,9 @@ module.exports = {
     },
 
     producteditget: async (req, res) => {
+        if(!req.session.admin){
+            return res.redirect('/admin')
+        }
         try {
             const productId = req.params.id;
             const productData = await ProductModel.findById(productId);
@@ -107,6 +121,9 @@ module.exports = {
     },
 
     producteditpost: async (req, res) => {
+        if(!req.session.admin){
+            return res.redirect('/admin')
+        }
         try {
             const productId = req.params.id;
             const productImages = req.files.map(file => file.filename);
@@ -148,6 +165,9 @@ module.exports = {
     },
 
     productdelete: async (req, res) => {
+        if(!req.session.admin){
+            return res.redirect('/admin')
+        }
         try {
             const proID = req.params.id;
             const product = await ProductModel.findOne({ _id: proID });

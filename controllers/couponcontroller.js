@@ -2,6 +2,9 @@ const coupondata = require('../model/couponcollection')
 
 module.exports = {
     couponget: async (req, res) => {
+        if(!req.session.admin){
+            return res.redirect('/admin')
+        }
         try {
             const coupon = await coupondata.find({})
             res.render('admin/coupon', { coupon })
@@ -11,10 +14,16 @@ module.exports = {
     },
 
     addcouponget: (req, res) => {
+        if(!req.session.admin){
+            return res.redirect('/admin')
+        }
         res.render('admin/addcoupon')
     },
 
     addcouponpost: async (req, res) => {
+        if(!req.session.admin){
+            return res.redirect('/admin')
+        }
         try {
             const { couponCode, discount, MinOrderAmount, MaxOrderAmount } = req.body
 
@@ -33,6 +42,9 @@ module.exports = {
         }
     },
     editcoupenget: async (req, res) => {
+        if(!req.session.admin){
+            return res.redirect('/admin')
+        }
         try {
             const couponId = req.query.id;
             const existingCoupon = await coupondata.findById(couponId);
@@ -46,6 +58,9 @@ module.exports = {
     },
 
     editCouponPost: async (req, res) => {
+        if(!req.session.admin){
+            return res.redirect('/admin')
+        }
         try {
             const { couponCode, discount, MinOrderAmount, MaxOrderAmount } = req.body;
             const couponId = req.query.id;
@@ -69,6 +84,9 @@ module.exports = {
     },
 
     deleteCoupon: async (req, res) => {
+        if(!req.session.admin){
+            return res.redirect('/admin')
+        }
         try {
             const couponId = req.query.id;
             const deletedCoupon = await coupondata.findByIdAndDelete(couponId);

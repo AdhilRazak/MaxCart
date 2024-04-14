@@ -35,6 +35,8 @@ module.exports = {
             return res.status(401).send('scret key is wrong')
         }
 
+        req.session.admin =userexist._id
+
         res.redirect('admin/dashboard')
     },
 

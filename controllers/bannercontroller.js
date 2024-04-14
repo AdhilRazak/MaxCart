@@ -2,15 +2,24 @@ const bannerdata = require('../model/bannercollection')
 
 module.exports = {
     bannerget: async (req, res) => {
+        if(!req.session.admin){
+            return res.redirect('/admin')
+        }
         const banner = await bannerdata.find({})
         res.render('admin/banners', { banner })
     },
 
     addbannerget: (req, res) => {
+        if(!req.session.admin){
+            return res.redirect('/admin')
+        }
         res.render('admin/addbanner')
     },
 
     addbannerpost: async (req, res) => {
+        if(!req.session.admin){
+            return res.redirect('/admin')
+        }
         try {
             if (!req.files || req.files.length === 0) {
                 return res.status(400).json({ message: "Please provide at least one image", success: false });
@@ -37,6 +46,9 @@ module.exports = {
 
 
     bannerdelete: async (req, res) => {
+        if(!req.session.admin){
+            return res.redirect('/admin')
+        }
         try {
             const deleteid = req.query.id;
 
@@ -53,6 +65,9 @@ module.exports = {
         }
     },
     editbannerget: async (req, res) => {
+        if(!req.session.admin){
+            return res.redirect('/admin')
+        }
         try {
             const existingbanner = await bannerdata.find({});
             if (!existingbanner || existingbanner.length === 0) {
@@ -66,6 +81,9 @@ module.exports = {
     },
 
     editbannerpost: async (req, res) => {
+        if(!req.session.admin){
+            return res.redirect('/admin')
+        }
         try {
             if (!req.file) {
                 return res.status(400).json({ message: "Please provide an image", success: false });

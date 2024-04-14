@@ -10,7 +10,6 @@ const phoneregex = /^\d{10}$/;
 const bcrypt = require('bcrypt');
 
 
-
 module.exports = {
     userhomeget: async (req, res) => {
         const banner = await bannerdata.find({})
@@ -133,18 +132,17 @@ module.exports = {
             res.status(500).send('Internal error');
         }
     },
+
     logout: (req, res) => {
-        // Destroy the session
         req.session.destroy(err => {
             if (err) {
                 console.error("Error destroying session:", err);
                 return res.status(500).send("Internal Server Error");
             }
-            // Redirect to homepage or login page
             res.redirect('/');
         });
 
 
     }
 
-    }
+}

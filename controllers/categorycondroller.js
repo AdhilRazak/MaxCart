@@ -3,6 +3,9 @@ const ProductModel = require('../model/productcollection');
 
 module.exports = {
     categoryget: async (req, res) => {
+        if(!req.session.admin){
+            return res.redirect('/admin')
+        }
         try {
             const categoryData = await categorydata.find({});
             res.render('admin/category', { categoryData });
@@ -13,6 +16,9 @@ module.exports = {
     },
 
     categorypost: async (req, res) => {
+         if(!req.session.admin){
+            return res.redirect('/admin')
+        }
         const { categoryName, subcategoryName } = req.body;
 
         try {
@@ -35,6 +41,9 @@ module.exports = {
         }
     },
     Editcategoryget: async (req, res) => {
+        if(!req.session.admin){
+            return res.redirect('/admin')
+        }
         const categoryId = req.query.id;
         try {
             const categoryDats = await categorydata.findById(categoryId);
@@ -48,6 +57,9 @@ module.exports = {
         }
     },
     editcategorypost: async (req, res) => {
+        if(!req.session.admin){
+            return res.redirect('/admin')
+        }
         try {
             const id = req.query.id;
             const { categoryName, subcategoryName } = req.body;
@@ -76,6 +88,9 @@ module.exports = {
     },
 
     deleteCategory: async (req, res) => {
+        if(!req.session.admin){
+            return res.redirect('/admin')
+        }
         const categoryID = req.query.id;
         try {
             const deletedCategory = await categorydata.findByIdAndDelete(categoryID);
@@ -90,6 +105,9 @@ module.exports = {
     },
 
     subCategorydelete: async (req, res) => {
+        if(!req.session.admin){
+            return res.redirect('/admin')
+        }
         try {
             const { categoryId, subcategoryName } = req.query;
 
@@ -113,6 +131,9 @@ module.exports = {
     },
 
     categoryfilterget: async (req, res) => {
+        if(!req.session.admin){
+            return res.redirect('/admin')
+        }
         try {
             const category = req.query.category;
             const product = await ProductModel.find({ category: category, status: false });

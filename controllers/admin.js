@@ -1,5 +1,4 @@
 const admindatacollection = require('../model/admindatacollection')
-
 const userdata = require('../model/userdatacollection')
 const productModel = require('../model/productcollection')
 const orderModel = require('../model/ordercollection')
@@ -7,6 +6,9 @@ const orderModel = require('../model/ordercollection')
 module.exports = {
 
     admindashboardget: async (req, res) => {
+        if(!req.session.admin){
+            return res.redirect('/admin')
+        }
         const products = await productModel.find()
         const userDetails = await userdata.find()
         userCount = await userdata.countDocuments()
@@ -40,11 +42,17 @@ module.exports = {
     },
 
     adminuserlistget: async (req, res) => {
+        if(!req.session.admin){
+            return res.redirect('/admin')
+        }
         const user = await userdata.find({})
         res.render('admin/adminuserlist', { user })
     },
 
     Blockuser: async (req, res) => {
+        if(!req.session.admin){
+            return res.redirect('/admin')
+        }
         try {
             const userID = req.query.id;
             const user = await userdata.findOne({ _id: userID });
@@ -70,12 +78,18 @@ module.exports = {
     },
 
     orders: async (req, res) => {
+        if(!req.session.admin){
+            return res.redirect('/admin')
+        }
         const orders = await orderModel.find({})
 
         res.render('admin/orders', { orders })
     },
 
     deliveryupdation: async (req, res) => {
+        if(!req.session.admin){
+            return res.redirect('/admin')
+        }
         try {
             const id = req.query.id;
             const user = req.query.userId.trim();
@@ -109,6 +123,16 @@ module.exports = {
             console.error("Error updating delivery:", error);
             res.status(500).send("Internal Server Error.");
         }
+    },
+    logout: (req, res) => {
+        req.session.destroy(err => {
+            if (err) {
+                console.error("Error destroying session:", err);
+                return res.status(500).send("Internal Server Error");
+            }
+            res.redirect('/admin');
+        });
+
     }
 
 
