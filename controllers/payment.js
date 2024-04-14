@@ -287,7 +287,7 @@ module.exports = {
             }
 
             const userid = req.session.user;
-            const { proid, total, qty, tint, address, method, discounts, discountTotals,subs } = req.body;
+            const { proid, total, qty, tint, address, method, discounts, discountTotals, subs } = req.body;
 
             let prodata;
 
@@ -326,7 +326,7 @@ module.exports = {
                                 paymentmethod: method,
                                 coupondiscount: discounts,
                                 discount: discountTotals,
-                                total:total
+                                total: total
                             }
                         }
                     },
@@ -342,7 +342,7 @@ module.exports = {
                         paymentmethod: method,
                         coupondiscount: discounts,
                         discount: discountTotals,
-                        total:total
+                        total: total
 
                     }]
                 });
@@ -470,17 +470,17 @@ module.exports = {
         }
     },
 
-     ordersummary:async (req, res) => {
+    ordersummary: async (req, res) => {
         try {
             if (!req.session.user) {
                 return res.redirect('/');
             }
-    
+
             const userId = req.session.user;
-    
+
             const orderListId = req.query.id;
             const productId = req.query.pro.trim(); // Trim leading and trailing spaces
-    
+
             if (!orderListId || !productId) {
                 return res.status(400).send("Order list ID and product ID are required.");
             }
@@ -491,30 +491,31 @@ module.exports = {
             }
 
             const productItem = await product.findOne({ _id: productId });
-    
+
             if (!productItem) {
                 return res.status(404).send("Product not found.");
             }
-    
+
             const orders = await order.findOne({ userId: userId });
-    
+
             if (!orders) {
                 return res.status(404).send("Order not found.");
             }
-    
+
             const orderListItem = orders.orderlist.find(item => item._id.equals(orderListId));
-    
+
             if (!orderListItem) {
                 return res.status(404).send("Order list item not found.");
             }
-    
-            res.render('user/ordersummary', { orderListItem, productItem ,user});
-    
+
+            res.render('user/ordersummary', { orderListItem, productItem, user });
+
         } catch (error) {
             console.error("Error fetching order summary:", error);
             res.status(500).send("Internal Server Error");
         }
-    }
+    },
+
 }
 
 

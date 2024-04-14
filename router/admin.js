@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-const {admindashboardget,adminuserlistget,Blockuser}=require('../controllers/admin')
+const {admindashboardget,adminuserlistget,Blockuser,orders,deliveryupdation}=require('../controllers/admin')
 const {adminlogin,adminloginpost}=require('../controllers/authcontroller')
 const{productget,addproductget, addproductspost,blockproductvisibility,producteditget,producteditpost,productdelete}=require('../controllers/productcondroller')
 const{categoryget,categorypost,Editcategoryget,deleteCategory, editcategorypost,subCategorydelete}=require('../controllers/categorycondroller')
@@ -62,6 +62,9 @@ router.delete('/deletebanner',bannerdelete)
 
 router.get('/editbanner',editbannerget)
 router.post('/editbanner', uploadBannerImages.array('image', 5),editbannerpost)
+
+router.get('/orders',orders)
+router.post('/deliveryupdation',deliveryupdation)
 
 
 

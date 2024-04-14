@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/css/Admin/Product.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+
+    <section id="menu">
+        <div class="logo">
+            <img src="/images/logo.png" alt="">
+            <h2>Admin</h2>
+        </div>
+        <div class="items">
+            <li><i class="fa-solid fa-chart-pie"></i> <a href="/admin/dashboard">Dashboard</a></li>
+            <li><i class="fa-solid fa-table-cells-large"></i> <a href="#">Products</a></li>
+            <li><i class="fa-solid fa-list" style="color: #adb1b8;"></i> <a href="/admin/Category">Categories</a></li>
+            <li><i class="fa-solid fa-credit-card"></i> <a href="#">Orders</a></li>
+            <li><i class="fa-solid fa-credit-card"></i> <a href="/admin/banner">Banners</a></li>
+            <li><i class="fa-solid fa-credit-card"></i> <a href="/admin/coupon">Coupons</a></li>
+            <li><i class="fa-solid fa-user" style="color: #c4c8cf;"></i><a href="/admin/Userslist">Users</a></li>
+
+
+            <!-- <li><i class="fa-solid fa-chart-line"></i> <a href="#">Blank</a></li> -->
+            <div class="logout">
+                <li><i class="fa-solid fa-right-from-bracket" style="color: #d40c48;"></i> <a href="#">Logout</a></li>
+            </div>
+        </div>
+
+    </section>
+
+
+    <section id="interface">
+        <div class="navigation">
+            <div class="n1">
+                <div>
+
+                    <i id="menu-btn" class="fa-solid fa-bars"></i>
+                </div>
+                <div class="search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Search">
+                </div>
+            </div>
+
+
+            <div class="Addproducts">
+                <a href="/admin/addProduct" class="category" id="add">Add Products</a>
+            </div>
+
+
+        </div>
+
+        <h3 class="i-name">Product Lists</h3>
+
+
+
+        <div class="board">
+            <table width="100%">
+                <thead>
+                    <tr>
+                        <td>Order Id</td>
+                        <td>Total Price</td>
+                        <td>status</td>
+                        <td>delivery</td>
+                        <td>control</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% if (orders) { %>
+                        <% orders.forEach(order=> { %>
+                            <% if (order.orderlist) { %>
+                                <% order.orderlist.forEach(orderItem=> { %>
+                                    <tr class="row<%= order._id %>">
+                                        <td class="people-des">
+                                            <h5>
+                                                <%= order._id %>
+                                            </h5>
+                                        </td>
+                                        <td class="people-des">
+                                            <h5>
+                                                <%= orderItem.total %>
+                                            </h5>
+                                        </td>
+                                        <td class="people-des">
+                                            <h5 class="pls<%=orderItem._id%>">$<%= orderItem.status %>
+                                            </h5>
+                                        </td>
+                                        <td class="edit">
+
+                                            <% if(orderItem.delivery=='not delivered' ) { %>
+                                                <button
+                                                    style="padding: .6rem;  border-radius: 5px; border: none; width: 100px; color: rgb(0, 0, 0); background-color: rgb(249, 117, 117);"
+                                                    class="blockBtn blockbtn<%=orderItem._id%>" onclick="delivery(event,'<%=orderItem._id%>')">
+                                                    Notdelivered
+                                                </button>
+                                                <% }else { %>
+                                                    <button
+                                                        style="padding: .6rem; ; border-radius: 5px; border: none; width: 100px; color: rgb(0, 0, 0); background-color: rgb(132, 255, 159);"
+                                                        class="blockBtn blockbtn<%=orderItem._id%>" onclick="delivery(event,'<%=orderItem._id%>')">
+                                                        Delivered
+                                                    </button>
+                                                    <% } %>
+                                        </td>
+
+                                        <td class="edit">
+
+
+                                            <% if(orderItem.status=='cancelled' ) { %>
+                                                <button
+                                                    style="padding: .6rem;  border-radius: 5px; border: none; width: 100px; color: rgb(199, 215, 199); background-color: green;"
+                                                    class="blockBtns blockBtns<%=orderItem._id%>" onclick="ordercancel(event,'<%=orderItem._id%>')">
+                                                    ACTIVATE
+                                                </button>
+                                                <% }else { %>
+                                                    <button
+                                                        style="padding: .6rem; ; border-radius: 5px; border: none; width: 100px; color: rgb(199, 215, 199); background-color: red;"
+                                                        class="blockBtns blockBtns<%=orderItem._id%>" onclick="ordercancel(event,'<%=orderItem._id%>')">
+                                                        CANCEL
+                                                    </button>
+                                                    <% } %>
+
+                                        </td>
+                                    </tr>
+                                    <% }) %>
+                                        <% } %>
+                                            <% }) %>
+                                                <% } else { %>
+                                                    <p>No orders found.</p>
+                                                    <% } %>
+
+                </tbody>
+            </table>
+
+        </div>
+    </section>
+
+
+    <script>
+        async function delivery(event, productId) {
+            event.preventDefault();
+            try {
+                const blockBtn = document.querySelector('.blockbtn' + productId);
+
+
+                const response = await axios.post(`/admin/deliveryupdation?id=${productId}`, {}, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                const result = response.data
+                console.log(result);
+
+                if (result) {
+                    blockBtn.innerText = 'Delivered';
+                    blockBtn.style.backgroundColor = 'rgb(132, 255, 159)';
+                    blockBtn.style.color = 'black';
+                } else {
+                    blockBtn.innerText = 'Notdelivered';
+                    blockBtn.style.backgroundColor = 'rgb(249, 117, 117)';
+                    blockBtn.style.color = 'black';
+                }
+
+            } catch (error) {
+                console.log('Error in block product', error);
+            }
+        }
+
+        async function ordercancel(event, productId) {
+    // Prevent the default behavior of the event (e.g., form submission)
+    event.preventDefault();
+    
+    // Log a message to the console
+    console.log('lololop');
+
+    try {
+        // Find the button associated with the productId
+        const blockBtn = document.querySelector('.blockBtns' + productId);
+        const sta= document.querySelector('.pls' + productId);
+
+        console.log(blockBtn);
+
+        // Send a POST request to cancel the order
+        const response = await axios.post(`/ordercancel?id=${productId}`, {}, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        // Get the response data
+        const result = response.data.state
+        const status = response.data.status
+        console.log(result);
+
+        // Update the button text and style based on the response
+        if (result) {
+            blockBtn.innerText = 'Activate';
+            blockBtn.style.backgroundColor = 'green';
+            blockBtn.style.color = 'white';
+        } else {
+            blockBtn.innerText = 'cancel';
+            blockBtn.style.backgroundColor = 'red';
+            blockBtn.style.color = 'white';
+        }
+
+        sta.innerHTML = status
+
+    } catch (error) {
+        // Log any errors that occur during the process
+        console.log('Error in block product', error);
+    }
+}
+
+
+        $('#menu-btn').click(function () {
+            $('#menu').toggleClass('active')
+        });
+    </script>
+</body>
+
+</html>

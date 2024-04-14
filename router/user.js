@@ -10,7 +10,7 @@ const { addressget, addaddressget, addaddresspost, editaddress, editaddressget,d
 const{addtocart,showcart,updatecartquantity,cartdelete}=require('../controllers/cartcont')
 const{addtowishlist,wishlistget,deletewishlist}=require('../controllers/wishlist')
 const{buyoneget,buyoneupdate,checkoutget,applyCoupon,
-    checkoutpost, completeOrder,completed,orderlist,ordersummary}=require('../controllers/payment')
+    checkoutpost, completeOrder,completed,orderlist,ordersummary,ordercancel}=require('../controllers/payment')
 
 router.get('/', loginget);
 router.post('/', loginpost);
@@ -78,6 +78,8 @@ router.get('/completed',completed)
 
 router.get('/orderlist',orderlist)
 router.get('/ordersummary',ordersummary)
+router.post('/ordercancel',ordercancel)
+
 
 
 

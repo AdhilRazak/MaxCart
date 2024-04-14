@@ -70,4 +70,52 @@ module.exports = {
         }
     },
 
+    orders:async(req,res)=>{
+        const orders = await orderModel.find({})
+
+        console.log(orders);
+
+        res.render('admin/orders',{orders})
+    },
+
+    deliveryupdation: async (req, res) => {
+        try {
+            const id = req.query.id;
+            console.log('pleelelele');
+            console.log(id);
+    
+            const orders = await orderModel.findOne({});
+    
+            if (!orders) {
+                return res.status(404).send("Order not found.");
+            }
+    
+            const orderListItem = orders.orderlist.find(item => item._id.equals(id));
+    
+            if (!orderListItem) {
+                return res.status(404).send("Order list item not found.");
+            }
+    
+            let state
+            if (orderListItem.delivery === 'not delivered') {
+                orderListItem.delivery = 'delivered';
+                await orders.save();
+                state = true
+            } else if (orderListItem.delivery === 'delivered') {
+                orderListItem.delivery = 'not delivered';
+                await orders.save();
+                state = false
+
+            }
+    
+            console.log(orderListItem);
+    
+            res.status(200).send(state);
+        } catch (error) {
+            console.error("Error updating delivery:", error);
+            res.status(500).send("Internal Server Error.");
+        }
+    }
+    
+
 }

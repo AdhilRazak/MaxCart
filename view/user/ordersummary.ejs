@@ -258,6 +258,8 @@
                   <p class="dot done"></p>
                   <p id="oText">Shipped</p>
                 </div>
+                <% if(orderListItem.delivery=='delivered' ) { %>
+
                 <div class="lineParent position-relative">
                     <div class="line position-relative doneLine">
 
@@ -268,6 +270,7 @@
                   <p id="oText">Delivered</p>
                 </div>
               </div>
+              <%}%>
               <div class="ODhead sDetails">
                 <p>Shipping Details</p>
               </div>

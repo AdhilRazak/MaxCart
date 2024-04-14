@@ -12,6 +12,8 @@
     <!-- end of Bootstrap css cdn link -->
     <!-- Style css -->
     <link rel="stylesheet" href="/css/user/orderlist.css" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
     <!-- end of Style css -->
 </head>
 
@@ -198,9 +200,9 @@
                             <% if(orders) { %>
                                     <% orders.orderlist.forEach(orderItem=> { %>
                                         <% orderItem.productId.forEach(product => {%>
-                                        <div class="cartItems d-flex w-100 justify-content-between align-items-center">
+                                        <div class="cartItems d-flex w-100 justify-content-between align-items-center" >
                                             <div class="d-flex align-items-center gap-3">
-                                                <img src="./images/product/<%=product.id.productImage%>" alt="" onclick="window.location.href='/ordersummary?id=<%=orderItem._id%>&&pro= <%=product.id._id%>'">
+                                                <img src="./images/product/<%=product.id.productImage%>" alt="">
                                                 <div class="textOrder d-flex flex-column gap-2">
                                                     <h2 class="m-0">
                                                         <%=product.id.productName%>
@@ -214,13 +216,27 @@
                                                     <div class="lPrice marginRes">
                                                         <p class="m-0">₹<%=product.id.prices * product.quantity%></p>
                                                     </div>
+                                                    <% if(orderItem.delivery=='not delivered' ) { %>
                                                     <div class="d-flex align-items-center gap-2">
                                                         <div class="statusCircle"></div>
                                                         <p class="statusOrder me-3">Ordered</p>
                                                     </div>
-                                                    <a href="/userOrderCancled">
-                                                        <button class="cancelBtn margin">Cancel</button>
+                                                <% }else { %>
+                                                    <div class="d-flex align-items-center gap-2">
+                                                        <div class="statusCircle"></div>
+                                                        <p class="statusOrder me-3">delivered</p>
+                                                    </div>
+                                                    <% } %>
+
+                                                    <a>
+                                                        <% if(orderItem.status=='cancelled' ) { %>
+                                                        <button class="cancelBtn cancelBtn<%=orderItem._id%>" onclick="ordercancel(event,'<%=orderItem._id%>')" >Cancelled</button>
+                                                        <% }else { %>
+                                                        <button class="cancelBtn cancelBtn<%=orderItem._id%>" onclick="ordercancel(event,'<%=orderItem._id%>')" >Cancel</button>
+                                                        <% } %>
+
                                                     </a>
+                                                    <p  onclick="window.location.href='/ordersummary?id=<%=orderItem._id%>&&pro= <%=product.id._id%>'">></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -599,6 +615,36 @@
 
     <!-- custom js -->
     <script src="./js/userOrderPage.js"></script>
+    <script>
+        async function ordercancel(event, productId) {
+            event.preventDefault();
+            console.log('lololop');
+            try {
+                const blockBtn = document.querySelector('.cancelBtn' + productId);
+
+                const response = await axios.post(`/ordercancel?id=${productId}`, {}, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                const result = response.data.state
+                console.log(result);
+
+                if (result) {
+                    blockBtn.innerText = 'cancelled';
+                    blockBtn.style.backgroundColor = 'black';
+                    blockBtn.style.color = 'white';
+                } else {
+                    blockBtn.innerText = 'cancel';
+                    blockBtn.style.backgroundColor = 'black';
+                    blockBtn.style.color = 'white';
+                }
+            } catch (error) {
+                console.log('Error in block product', error);
+            }
+        }
+        </script>
     <!-- end of custom js -->
     <!-- fontawesome -->
     <script src="https://kit.fontawesome.com/23d1247997.js" crossorigin="anonymous"></script>
