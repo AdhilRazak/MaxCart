@@ -7,20 +7,20 @@ const review = new mongoose.Schema({
     reviews: [{
         userId: {
             type: mongoose.Schema.Types.ObjectId,
-            ref:'user'
+            ref: 'user'
         },
-        rating:{
-            type:Number
+        rating: {
+            type: Number
         },
-        title:{
-            type:String
+        title: {
+            type: String
         },
-        comment:{
-            type:String
+        comment: {
+            type: String
         }
     }]
 })
 
-const reviews = mongoose.model('reviews',review)
+const reviews = mongoose.model('reviews', review)
 
 module.exports = reviews

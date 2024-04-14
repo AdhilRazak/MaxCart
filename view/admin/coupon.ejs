@@ -29,8 +29,8 @@
             <li><i class="fa-solid fa-credit-card"></i> <a href="/admin/coupon">Coupons</a></li>
             <li><i class="fa-solid fa-user" style="color: #c4c8cf;"></i><a href="/admin/Userslist">Users</a></li>
 
-          
-            
+
+
             <!-- <li><i class="fa-solid fa-chart-line"></i> <a href="#">Blank</a></li> -->
             <div class="logout">
                 <li><i class="fa-solid fa-right-from-bracket" style="color: #d40c48;"></i> <a href="#">Logout</a></li>
@@ -44,7 +44,7 @@
         <div class="navigation">
             <div class="n1">
                 <div>
-            
+
                     <i id="menu-btn" class="fa-solid fa-bars"></i>
                 </div>
                 <div class="search">
@@ -52,7 +52,7 @@
                     <input type="text" placeholder="Search">
                 </div>
             </div>
-           
+
             <div class="profile">
                 <button class="addbtn" onclick="window.location.href='/admin/addcoupon'">Add Coupon</button>
                 <i class="fa-solid fa-bell"></i>
@@ -61,66 +61,74 @@
         </div>
 
         <h3 class="i-name">Coupons</h3>
-        
+
         <div class="board">
-            <table width="100%"> 
+            <table width="100%">
                 <thead>
                     <tr>
-                    
+
                         <td>name</td>
                         <td>discount</td>
                         <td>minOrderAmount</td>
                         <td>maxOrderAmount</td>
                         <td>edit</td>
                         <td>Delete</td>
-                      
+
                     </tr>
                 </thead>
                 <tbody>
                     <% coupon.forEach((data)=>{ %>
-                    <tr class="coupon-row-<%= data._id %>"" id="coupon_deleted">
-                        </td>
+                        <tr class="coupon-row-<%= data._id %>"" id=" coupon_deleted">
+                            </td>
 
-                        <td class="people-des">
-                          <h5><%=data.couponCode%></h5>
-                        </td>
-                     
-                        <td class="people-des">
-                          <h5><%=data.discount%></h5>
-                        </td>
-                        <td class="people-des">
-                          <h5><%=data.MinOrderAmount%></h5>
-                        </td>
-                        <td class="people-des">
-                          <h5><%=data.MaxOrderAmount%></h5>
-                        </td>
-                        <td class="role">
-                            <a href="/admin/editcoupon?id=<%= data._id %>"><i class="fa-solid fa-pen"></i></a>
-                        </td>
+                            <td class="people-des">
+                                <h5>
+                                    <%=data.couponCode%>
+                                </h5>
+                            </td>
+
+                            <td class="people-des">
+                                <h5>
+                                    <%=data.discount%>
+                                </h5>
+                            </td>
+                            <td class="people-des">
+                                <h5>
+                                    <%=data.MinOrderAmount%>
+                                </h5>
+                            </td>
+                            <td class="people-des">
+                                <h5>
+                                    <%=data.MaxOrderAmount%>
+                                </h5>
+                            </td>
+                            <td class="role">
+                                <a href="/admin/editcoupon?id=<%= data._id %>"><i class="fa-solid fa-pen"></i></a>
+                            </td>
 
 
 
 
-                        <td class="edit">
-                            <a href="#" onclick="CouponDelete(event,'<%= data._id %>')"><i
-                                    class="fa-solid fa-trash"></i></a>
-                        </td>
+                            <td class="edit">
+                                <a href="#" onclick="CouponDelete(event,'<%= data._id %>')"><i
+                                        class="fa-solid fa-trash"></i></a>
+                            </td>
 
 
-                     
-                    </tr>
-                                     
-             <% }) %>
+
+                        </tr>
+
+                        <% }) %>
                 </tbody>
             </table>
-            
+
         </div>
 
 
 
     </section>
     <script>
-   async function CouponDelete(event, id) {
+        async function CouponDelete(event, id) {
             console.log(`${id}`);
             event.preventDefault();
             try {
@@ -159,8 +167,8 @@
 
     </script>
 
-  
-      
+
+
 </body>
 
 </html>

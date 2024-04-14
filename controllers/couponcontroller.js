@@ -48,20 +48,18 @@ module.exports = {
     editCouponPost: async (req, res) => {
         try {
             const { couponCode, discount, MinOrderAmount, MaxOrderAmount } = req.body;
-            const couponId = req.query.id; // Retrieve coupon ID from query parameters
+            const couponId = req.query.id;
             const existingCoupon = await coupondata.findById(couponId);
 
             if (!existingCoupon) {
                 return res.status(404).json({ message: 'Coupon not found' });
             }
 
-            // Update the coupon data with new values
             existingCoupon.couponCode = couponCode;
             existingCoupon.discount = discount;
             existingCoupon.MinOrderAmount = MinOrderAmount;
             existingCoupon.MaxOrderAmount = MaxOrderAmount;
 
-            // Save the updated coupon
             await existingCoupon.save();
 
             res.status(200).json({ message: 'Coupon updated successfully' });
@@ -70,7 +68,7 @@ module.exports = {
         }
     },
 
-    deleteCoupon:async (req, res) => {
+    deleteCoupon: async (req, res) => {
         try {
             const couponId = req.query.id;
             const deletedCoupon = await coupondata.findByIdAndDelete(couponId);

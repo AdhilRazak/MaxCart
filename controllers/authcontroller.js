@@ -31,7 +31,6 @@ module.exports = {
         }
 
         const scretkeyog = userexist.secretkey
-        console.log(scretkeyog);
         if (scretkeyog !== secretkey) {
             return res.status(401).send('scret key is wrong')
         }
@@ -275,8 +274,6 @@ module.exports = {
     forgotpasswordOpost: async (req, res) => {
         console.log('hai');
         const { otp } = req.body;
-        console.log(otpgen);
-        console.log(otp)
 
         if (otpgen != otp) {
             throw new Error('OTP verification failed');
@@ -348,7 +345,8 @@ module.exports = {
             res.send(err)
         }
 
-    }
+    },
+    
 
 
 }

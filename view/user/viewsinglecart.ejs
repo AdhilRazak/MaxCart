@@ -203,24 +203,20 @@
               <img class="demo-trigger mainFistImg" src="./images/product/<%=product.productImage[0]%>"
                 data-zoom="./images/Items/1c.png" alt="" />
               <div class="detail"></div>
-              <% if(isWishlist == true){ %>
+              <% if(isWishlist==true){ %>
 
                 <a href="" onclick="Addwishlist(event,'<%=product._id%>')">
-                  <div
-                    class="favIcon position-absolute d-flex justify-content-center align-items-center"
-                  >
-                  <i class="fa-solid wishlistIcon fa-heart" style="color: #e30c0c;"></i>
+                  <div class="favIcon position-absolute d-flex justify-content-center align-items-center">
+                    <i class="fa-solid wishlistIcon fa-heart" style="color: #e30c0c;"></i>
                   </div>
                 </a>
-            <% }else{ %>
-                <a href="" onclick="Addwishlist(event,'<%=product._id%>')">
-                  <div
-                    class="favIcon position-absolute d-flex justify-content-center align-items-center"
-                  >
-                  <i class="fa-solid wishlistIcon fa-heart" style="color: #beb7b7;"></i>
-                  </div>
-                </a>
-           <% } %>
+                <% }else{ %>
+                  <a href="" onclick="Addwishlist(event,'<%=product._id%>')">
+                    <div class="favIcon position-absolute d-flex justify-content-center align-items-center">
+                      <i class="fa-solid wishlistIcon fa-heart" style="color: #beb7b7;"></i>
+                    </div>
+                  </a>
+                  <% } %>
             </div>
 
             <div class="d-flex align-items-center">
@@ -291,86 +287,36 @@
             <div class="review d-flex align-items-center justify-content-between">
               <h2>Ratings & Reviews</h2>
               <a>
-                <button>Rate Product</button>
+                <button>Customer's review</button>
               </a>
             </div>
             <div class="content">
-              <div class="userReview">
-                <h2>Great product</h2>
-                <div class="rating d-flex">
-                  <p class="ratedStar">★</p>
-                  <p class="ratedStar">★</p>
-                  <p class="ratedStar">★</p>
-                  <p class="ratedStar">★</p>
-                  <p class="ratedStar">★</p>
-                </div>
-                <p class="reviewDetails">
-                  It's sound quality is perfect as well as very loud and
-                  clear. It's built quality is upto the mark because it's
-                  woofer is made up of wood which is very good and it's bass
-                  and treble is very amazing after all you can listen any song
-                  and watch any movie like cinema hall experience. Overall it
-                  is best for this price.
-                </p>
-                <p class="ratedUserName">User 1</p>
-              </div>
-              <div class="userReview">
-                <h2>Great product</h2>
-                <div class="rating d-flex">
-                  <p class="ratedStar">★</p>
-                  <p class="ratedStar">★</p>
-                  <p class="ratedStar">★</p>
-                  <p class="ratedStar">★</p>
-                  <p class="ratedStar">★</p>
-                </div>
-                <p class="reviewDetails">
-                  It's sound quality is perfect as well as very loud and
-                  clear. It's built quality is upto the mark because it's
-                  woofer is made up of wood which is very good and it's bass
-                  and treble is very amazing after all you can listen any song
-                  and watch any movie like cinema hall experience. Overall it
-                  is best for this price.
-                </p>
-                <p class="ratedUserName">User 1</p>
-              </div>
-              <div class="userReview">
-                <h2>Great product</h2>
-                <div class="rating d-flex">
-                  <p class="ratedStar">★</p>
-                  <p class="ratedStar">★</p>
-                  <p class="ratedStar">★</p>
-                  <p class="ratedStar">★</p>
-                  <p class="ratedStar">★</p>
-                </div>
-                <p class="reviewDetails">
-                  It's sound quality is perfect as well as very loud and
-                  clear. It's built quality is upto the mark because it's
-                  woofer is made up of wood which is very good and it's bass
-                  and treble is very amazing after all you can listen any song
-                  and watch any movie like cinema hall experience. Overall it
-                  is best for this price.
-                </p>
-                <p class="ratedUserName">User 1</p>
-              </div>
-              <div class="userReview">
-                <h2>Great product</h2>
-                <div class="rating d-flex">
-                  <p class="ratedStar">★</p>
-                  <p class="ratedStar">★</p>
-                  <p class="ratedStar">★</p>
-                  <p class="ratedStar">★</p>
-                  <p class="ratedStar">★</p>
-                </div>
-                <p class="reviewDetails">
-                  It's sound quality is perfect as well as very loud and
-                  clear. It's built quality is upto the mark because it's
-                  woofer is made up of wood which is very good and it's bass
-                  and treble is very amazing after all you can listen any song
-                  and watch any movie like cinema hall experience. Overall it
-                  is best for this price.
-                </p>
-                <p class="ratedUserName">User 1</p>
-              </div>
+              <% if(proreview){%>
+                <%proreview.reviews.forEach((data)=>{%>
+                  <div class="userReview">
+                    <h2>
+                      <%=data.title%>
+                    </h2>
+                    <div class="rating d-flex">
+                      <% for(let i=0; i < 5; i++) { %>
+                        <% if(i < data.rating) { %>
+                          <p class="ratedStar">★</p> <!-- Filled star -->
+                          <% } else { %>
+                            <p class="unratedStar">☆</p> <!-- Unfilled star -->
+                            <% } %>
+                              <% } %>
+                    </div>
+                    <p class="reviewDetails">
+                      <%=data.comment%>
+                    </p>
+                    <p class="ratedUserName">User 1</p>
+                  </div>
+                  <%})%>
+                    <%}else{%>
+                      <h1 style="color: red; font-size: large; font-weight: 700; font-family: sans-serif;">
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;No
+                        Reviews</h1>
+                      <%}%>
             </div>
           </div>
         </div>
@@ -786,19 +732,19 @@
     }
 
     async function Addwishlist(event, productId) {
-    event.preventDefault();
-    try {
+      event.preventDefault();
+      try {
         console.log(productId);
         const response = await axios.post(`/addtowishlist?id=${productId}`);
         console.log(response);
         // Check if the request was successful (status code 200)
         if (response.status === 200) {
-            // Handle the successful addition of the product to the wishlist
-            // alert('Product added to wishlist successfully!');
+          // Handle the successful addition of the product to the wishlist
+          // alert('Product added to wishlist successfully!');
         } else {
-            console.log("Failed to add product to wishlist.");
-            // Redirect to home page if adding to wishlist fails
-            window.location.href = '/';
+          console.log("Failed to add product to wishlist.");
+          // Redirect to home page if adding to wishlist fails
+          window.location.href = '/';
         }
 
         // Extract the state from the response data
@@ -807,16 +753,16 @@
         // Update the heart icon color based on the state
         const icon = document.querySelector('.wishlistIcon');
         if (result) {
-            icon.style.color = 'red'; // Change the heart icon color to red
+          icon.style.color = 'red'; // Change the heart icon color to red
         } else {
-            icon.style.color = '#beb7b7'; // Change the heart icon color to green
+          icon.style.color = '#beb7b7'; // Change the heart icon color to green
         }
-    } catch (error) {
+      } catch (error) {
         // Handle any errors that occur during the request
         console.error("An error occurred:", error);
         alert('An error occurred while adding the product to wishlist.');
+      }
     }
-}
 
 
   </script>

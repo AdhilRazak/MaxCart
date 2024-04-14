@@ -12,21 +12,22 @@ require('dotenv').config()
 const port = process.env.port
 
 mongoose.connect('mongodb://localhost:27017/mongoecommerce')
-.then(()=>{
-    console.log('mongodb connected');
-})
-.catch((err)=>{
-    console.log(err);
-})
+    .then(() => {
+        console.log('mongodb connected');
+        startserver()
+    })
+    .catch((err) => {
+        console.log(err);
+    })
 
-app.set('view engine','ejs')
-app.set('views',path.join(__dirname,'view'))
+app.set('view engine', 'ejs')
+app.set('views', path.join(__dirname, 'view'))
 app.use(express.static("public"))
 
 app.use(express.json())
-app.use(express.urlencoded({extended:true}))
+app.use(express.urlencoded({ extended: true }))
 app.use(session({
-    secret: 'your_secret_key', // Change this to a random secret key
+    secret: 'your_secret_key',
     resave: false,
     saveUninitialized: false
 }));
@@ -34,12 +35,14 @@ app.use(session({
 const user = require('./router/user')
 const admin = require('./router/admin')
 
-app.use('/',user)
-app.use('/admin',admin)
+app.use('/', user)
+app.use('/admin', admin)
 
-app.listen(port,()=>{
-    console.log('running on 4516');
-})
+function startserver() {
+    app.listen(port, () => {
+        console.log('running on 4516');
+    })
+}
 
 
 

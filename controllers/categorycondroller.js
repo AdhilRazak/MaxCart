@@ -28,53 +28,44 @@ module.exports = {
             }
             await category.save();
 
-            res.redirect('/admin/categories'); // Redirect to the categories page after successful creation
+            res.redirect('/admin/categories');
         } catch (error) {
             console.error('Error creating category:', error);
             res.status(500).json({ message: 'Error in creating category.' });
         }
     },
     Editcategoryget: async (req, res) => {
-        console.log('haisrdcfghbjm');
-        const categoryId = req.query.id; // Adjusted variable name for clarity
-        console.log(categoryId);
+        const categoryId = req.query.id;
         try {
             const categoryDats = await categorydata.findById(categoryId);
             if (!categoryDats) {
-                // If category data is not found, render an error view or handle it appropriately
                 return res.status(404).send("Category not found");
             }
             res.render('admin/editcategory', { categoryDats });
         } catch (error) {
             console.error("Error:", error);
-            // Handle the error, perhaps by sending an error response
             res.status(500).send("Internal Server Error");
         }
     },
     editcategorypost: async (req, res) => {
         try {
             const id = req.query.id;
-            console.log("Category ID:", id); // Debugging console log
             const { categoryName, subcategoryName } = req.body;
 
-            // Assuming categorydata is your model
             const category = await categorydata.findById(id);
 
             if (!category) {
                 return res.status(404).json({ error: 'Category not found' });
             }
 
-            // Update categoryName if provided
             if (categoryName) {
-                category.category = categoryName; // Corrected assignment
+                category.category = categoryName;
             }
 
-            // Add subcategoryName if provided
             if (subcategoryName) {
                 category.subCategory.push(subcategoryName);
             }
 
-            // Save the updated category
             await category.save();
 
             res.status(200).json({ message: 'Category updated successfully', category });
@@ -85,9 +76,7 @@ module.exports = {
     },
 
     deleteCategory: async (req, res) => {
-        console.log('hoooi');
         const categoryID = req.query.id;
-        console.log(categoryID);
         try {
             const deletedCategory = await categorydata.findByIdAndDelete(categoryID);
             if (!deletedCategory) {
@@ -100,18 +89,15 @@ module.exports = {
         }
     },
 
-    // In your category controller
     subCategorydelete: async (req, res) => {
         try {
             const { categoryId, subcategoryName } = req.query;
 
-            // Assuming categorydata is your model
             const category = await categorydata.findById(categoryId);
             if (!category) {
                 return res.status(404).json({ error: 'Category not found' });
             }
 
-            // Remove the subcategory from the category's subCategory array
             const index = category.subCategory.indexOf(subcategoryName);
             if (index !== -1) {
                 category.subCategory.splice(index, 1);
@@ -129,7 +115,6 @@ module.exports = {
     categoryfilterget: async (req, res) => {
         try {
             const category = req.query.category;
-            console.log(category);
             const product = await ProductModel.find({ category: category, status: false });
             res.render('user/showallproduct', { product });
         } catch (error) {
@@ -137,5 +122,5 @@ module.exports = {
             res.status(500).send('Internal Server Error');
         }
     }
-    
+
 }

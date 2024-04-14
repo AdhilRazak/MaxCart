@@ -15,7 +15,7 @@ const order = new mongoose.Schema({
             }
 
         }],
-       
+
         subtotal: {
             type: String,
         },
@@ -37,11 +37,11 @@ const order = new mongoose.Schema({
         status: {
             type: String,
             default: 'pending'
-        },  
+        },
         delivery: {
             type: String,
             default: 'not delivered'
-        },  
+        },
         createdAt: {
             type: Date,
             default: Date.now

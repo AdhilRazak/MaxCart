@@ -9,13 +9,13 @@
 
 body {
     width: 100%;
-     background:#5f7783;
+    background: #5f7783;
     position: relative;
     display: flex;
 }
 
 
-.addbtn{
+.addbtn {
     background-color: rgb(24, 194, 24);
     color: white;
     width: 100px;
@@ -23,8 +23,9 @@ body {
     border: none;
     border-radius: 3px;
 }
+
 #menu {
-    background: linear-gradient(135deg,#8fa4aa  0%, #607d8b 100%, #cfd8dc 100%);
+    background: linear-gradient(135deg, #8fa4aa 0%, #607d8b 100%, #cfd8dc 100%);
     width: 300px;
     height: 100%;
     position: fixed;
@@ -34,41 +35,41 @@ body {
 }
 
 #menu .logo {
-display: flex;
-align-items: center;
-color: #000000;
-padding: 30px 0 0 30px;
+    display: flex;
+    align-items: center;
+    color: #000000;
+    padding: 30px 0 0 30px;
 }
 
-#menu .logo img{
-width: 40px;
-margin-right: 15px;
+#menu .logo img {
+    width: 40px;
+    margin-right: 15px;
 }
 
-#menu .items{
-margin-top: 40px;
+#menu .items {
+    margin-top: 40px;
 }
 
-#menu .items li{
-list-style: none;
-padding: 15px 0;
-transition: 0.3s ease;
+#menu .items li {
+    list-style: none;
+    padding: 15px 0;
+    transition: 0.3s ease;
 }
 
-#menu .items li:hover{
-background: #253047;
-cursor: pointer;
+#menu .items li:hover {
+    background: #253047;
+    cursor: pointer;
 }
 
-#menu .items li:nth-child(2){
-border-left: 5px solid #000000;
-border-bottom:1px solid #000000 ;
-border-top:1px solid #000000 ;
+#menu .items li:nth-child(2) {
+    border-left: 5px solid #000000;
+    border-bottom: 1px solid #000000;
+    border-top: 1px solid #000000;
 
 }
 
-#menu .items li i{
-    color:  rgb(0, 0, 0) ;
+#menu .items li i {
+    color: rgb(0, 0, 0);
     width: 30px;
     height: 30px;
     line-height: 30px;
@@ -78,22 +79,22 @@ border-top:1px solid #000000 ;
 }
 
 #menu .items li:hover i,
-#menu .items li:hover a{
-color: #F3F4F6;
+#menu .items li:hover a {
+    color: #F3F4F6;
 }
 
 #menu .items li a {
-text-decoration: none;
-color: rgb(0, 0, 0);
-font-weight: 300px;
-transition: 0.3s ease;
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    font-weight: 300px;
+    transition: 0.3s ease;
 }
 
 #interface {
     width: 1236px;
-width: calc(100%-300px);
-margin-left: 300px;
-position: relative;
+    width: calc(100%-300px);
+    margin-left: 300px;
+    position: relative;
 }
 
 #interface .navigation {
@@ -109,7 +110,7 @@ position: relative;
 }
 
 
-#interface .navigation .search{
+#interface .navigation .search {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -120,17 +121,17 @@ position: relative;
 }
 
 
-#interface .navigation .search input{
-border: none;
-outline: none;
-font-size: 14px;
+#interface .navigation .search input {
+    border: none;
+    outline: none;
+    font-size: 14px;
 }
 
 #interface .navigation .search i {
     margin-right: 14px;
 }
 
-#interface .navigation .profile{
+#interface .navigation .profile {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -175,31 +176,31 @@ font-size: 14px;
     align-items: center;
 }
 
-.values .val-box i{
-font-size: 25px;
-width: 60px;
-height: 60px;
-line-height: 60px;
-border-radius: 50%;
-text-align: center;
-color: #fff;
-margin-right: 15px;
+.values .val-box i {
+    font-size: 25px;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    border-radius: 50%;
+    text-align: center;
+    color: #fff;
+    margin-right: 15px;
 }
 
 .values .val-box:nth-child(1) i {
-background: #7B74EC;
+    background: #7B74EC;
 }
 
 .values .val-box:nth-child(2) i {
-background: #5C8AF0;
+    background: #5C8AF0;
 }
 
 .values .val-box:nth-child(3) i {
-background: #E45D99;
+    background: #E45D99;
 }
 
 .values .val-box:nth-child(4) i {
-background: #74daec;
+    background: #74daec;
 }
 
 .values .val-box h3 {
@@ -207,9 +208,9 @@ background: #74daec;
     font-weight: 600;
 }
 
-.values .val-box span{
+.values .val-box span {
     font-size: 15px;
-   color: #828997;
+    color: #828997;
 }
 
 .board {
@@ -227,11 +228,13 @@ background: #74daec;
     border-radius: 50%;
     margin-right: 15px;
 }
-.logout{
-   background-color: #5f7783 ;
-   margin-top: 39px;
+
+.logout {
+    background-color: #5f7783;
+    margin-top: 39px;
 }
-.board h5{
+
+.board h5 {
     font-weight: 600;
     font-size: 14px;
 }
@@ -311,7 +314,7 @@ tbody tr td {
         left: 0px;
     }
 
-  
+
 
     #menu-btn {
         display: initial;
@@ -319,15 +322,15 @@ tbody tr td {
 
     #interface {
         width: 100%;
-    margin-left: 0px;
-    display: inline-block;
-    transition: 0.8s ease;
+        margin-left: 0px;
+        display: inline-block;
+        transition: 0.8s ease;
     }
 
-    #menu.active ~ #interface {
-    width: calc(100% - 270px);
-    margin-left: 270px;
-    transition: 0.8s ease;
+    #menu.active~#interface {
+        width: calc(100% - 270px);
+        margin-left: 270px;
+        transition: 0.8s ease;
     }
 
     #interface .navigation {
@@ -342,13 +345,13 @@ tbody tr td {
     .values .val-box {
         padding: 16px 20px;
         margin: 10px 20px 10px 0;
-        
+
     }
 
     .board {
         width: 88%;
-       padding: 0;
-       overflow-x: auto;
+        padding: 0;
+        overflow-x: auto;
     }
 
     table {
@@ -357,14 +360,15 @@ tbody tr td {
     }
 }
 
-.frame{
+.frame {
     width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.gap_div{
+
+.gap_div {
     width: 90%;
     height: 90%;
     display: flex;
@@ -376,10 +380,12 @@ tbody tr td {
     overflow: hidden;
     padding-bottom: 2rem;
 }
-.gap_div:hover{
+
+.gap_div:hover {
     box-shadow: 0px 0px 1.5rem 0.1rem rgba(128, 128, 128, 0.704);
 }
-.card_div{
+
+.card_div {
     width: 50%;
     height: 100%;
     overflow: auto;
@@ -389,19 +395,22 @@ tbody tr td {
     padding-top: 2.5rem;
     overflow: hidden;
 }
-.img_div{
+
+.img_div {
     width: 50%;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 1rem; 
+    padding: 1rem;
 }
-.content_part form{
+
+.content_part form {
     width: 100%;
     height: 100%;
     overflow: auto;
 }
+
 .form-group {
     display: flex;
     flex-direction: column;
@@ -411,6 +420,7 @@ tbody tr td {
 label {
     margin-bottom: 0.5rem;
 }
+
 input,
 select,
 textarea {
@@ -418,20 +428,23 @@ textarea {
     border: 1px solid #e3dad6;
     border-radius: 4px;
 }
-.image_space{
-    margin-top:-510px;
+
+.image_space {
+    margin-top: -510px;
     width: 20rem;
     height: 20rem;
     border: 1px solid;
 }
-.image_buttn{
+
+.image_buttn {
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    
+
 }
-.buttonsubmit{
+
+.buttonsubmit {
     background-color: rgb(0, 0, 0);
     width: 360px;
     color: white;
@@ -439,11 +452,12 @@ textarea {
     border-radius: 5px;
     border: none;
 }
-.buttonsubmit:hover{
-   background-color: #1cb745;
+
+.buttonsubmit:hover {
+    background-color: #1cb745;
 }
 
-#productImage{
+#productImage {
     margin-top: 10px;
     margin-left: 118px;
     background-color: rgb(0, 0, 0);
@@ -455,11 +469,11 @@ textarea {
 @media (max-width:477px) {
 
     #interface .navigation {
-        padding: 15px;   
-}
+        padding: 15px;
+    }
 
-#interface .navigation .search input{
-    width: 150px;
+    #interface .navigation .search input {
+        width: 150px;
     }
 
     .i-name {
@@ -468,16 +482,16 @@ textarea {
 
     .values {
         padding: 15px 15px 0 15px;
-        
+
     }
 
     .values .val-box {
-    width: 100%;
-    margin: 8px 0;
+        width: 100%;
+        margin: 8px 0;
     }
 
     .board {
-       margin: 30px 15px 30px 15px;
+        margin: 30px 15px 30px 15px;
     }
 
 

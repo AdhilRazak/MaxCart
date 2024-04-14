@@ -14,27 +14,31 @@
     padding: 20px;
     background-color: #fff;
     border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);    
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
     position: absolute;
     right: 10px;
     top: 20px;
 }
-.exit{
- display: flex;
- justify-content: flex-end;
+
+.exit {
+    display: flex;
+    justify-content: flex-end;
 
 }
-#subcat_para{
+
+#subcat_para {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 1rem;
     height: 2rem;
 }
-.Deletebtn{
+
+.Deletebtn {
     background-color: #ffffff;
     border: solid white;
 }
+
 .categoriesAdd h2 {
     text-align: center;
     margin-bottom: 20px;
@@ -73,7 +77,8 @@
 .categoriesAdd button:hover {
     background-color: #0056b3;
 }
-.categoryDelete{
+
+.categoryDelete {
     background-color: rgb(97, 9, 72);
     border-radius: 6px;
     /* border: none;     */
@@ -92,11 +97,13 @@ body {
     position: relative;
     display: flex;
 }
-.profile{
+
+.profile {
     display: flex;
     gap: 20px;
 }
-.addbtn{
+
+.addbtn {
     background-color: rgb(24, 194, 24);
     color: white;
     width: 100px;
@@ -104,6 +111,7 @@ body {
     border: none;
     border-radius: 3px;
 }
+
 #menu {
     background-color: #111827;
     width: 300px;
@@ -115,38 +123,38 @@ body {
 }
 
 #menu .logo {
-display: flex;
-align-items: center;
-color: #fff;
-padding: 30px 0 0 30px;
+    display: flex;
+    align-items: center;
+    color: #fff;
+    padding: 30px 0 0 30px;
 }
 
-#menu .logo img{
-width: 40px;
-margin-right: 15px;
+#menu .logo img {
+    width: 40px;
+    margin-right: 15px;
 }
 
-#menu .items{
-margin-top: 40px;
+#menu .items {
+    margin-top: 40px;
 }
 
-#menu .items li{
-list-style: none;
-padding: 15px 0;
-transition: 0.3s ease;
+#menu .items li {
+    list-style: none;
+    padding: 15px 0;
+    transition: 0.3s ease;
 }
 
-#menu .items li:hover{
-background: #253047;
-cursor: pointer;
+#menu .items li:hover {
+    background: #253047;
+    cursor: pointer;
 }
 
-#menu .items li:nth-child(1){
-border-left: 4px solid #fff;
+#menu .items li:nth-child(1) {
+    border-left: 4px solid #fff;
 }
 
-#menu .items li i{
-    color:  rgb(134, 141, 151) ;
+#menu .items li i {
+    color: rgb(134, 141, 151);
     width: 30px;
     height: 30px;
     line-height: 30px;
@@ -156,22 +164,22 @@ border-left: 4px solid #fff;
 }
 
 #menu .items li:hover i,
-#menu .items li:hover a{
-color: #F3F4F6;
+#menu .items li:hover a {
+    color: #F3F4F6;
 }
 
 #menu .items li a {
-text-decoration: none;
-color: rgb(134, 141, 151);
-font-weight: 300px;
-transition: 0.3s ease;
+    text-decoration: none;
+    color: rgb(134, 141, 151);
+    font-weight: 300px;
+    transition: 0.3s ease;
 }
 
 #interface {
     width: 1236px;
-width: calc(100%-300px);
-margin-left: 300px;
-position: relative;
+    width: calc(100%-300px);
+    margin-left: 300px;
+    position: relative;
 }
 
 #interface .navigation {
@@ -185,13 +193,15 @@ position: relative;
     position: fixed;
     width: calc(100%-300px);
 }
-.categoryone{
+
+.categoryone {
     width: 50%;
     height: 500px;
     background-color: #f7f0f3;
     display: flex;
 }
-.category{
+
+.category {
     width: 100px;
     background-color: #4f031b;
     height: 34px;
@@ -202,13 +212,13 @@ position: relative;
     text-decoration: none;
     font-size: small;
     font-family: sans-serif;
-    font-weight:400;
+    font-weight: 400;
     border-radius: 5px;
 }
 
 
 
-.subcategory{
+.subcategory {
     width: 100px;
     background-color: #b90ea8;
     height: 34px;
@@ -219,11 +229,11 @@ position: relative;
     text-decoration: none;
     font-size: small;
     font-family: sans-serif;
-    font-weight:400;
+    font-weight: 400;
     border-radius: 5px;
 }
 
-#interface .navigation .search{
+#interface .navigation .search {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -234,17 +244,17 @@ position: relative;
 }
 
 
-#interface .navigation .search input{
-border: none;
-outline: none;
-font-size: 14px;
+#interface .navigation .search input {
+    border: none;
+    outline: none;
+    font-size: 14px;
 }
 
 #interface .navigation .search i {
     margin-right: 14px;
 }
 
-#interface .navigation .profile{
+#interface .navigation .profile {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -289,31 +299,31 @@ font-size: 14px;
     align-items: center;
 }
 
-.values .val-box i{
-font-size: 25px;
-width: 60px;
-height: 60px;
-line-height: 60px;
-border-radius: 50%;
-text-align: center;
-color: #fff;
-margin-right: 15px;
+.values .val-box i {
+    font-size: 25px;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    border-radius: 50%;
+    text-align: center;
+    color: #fff;
+    margin-right: 15px;
 }
 
 .values .val-box:nth-child(1) i {
-background: #7B74EC;
+    background: #7B74EC;
 }
 
 .values .val-box:nth-child(2) i {
-background: #5C8AF0;
+    background: #5C8AF0;
 }
 
 .values .val-box:nth-child(3) i {
-background: #E45D99;
+    background: #E45D99;
 }
 
 .values .val-box:nth-child(4) i {
-background: #74daec;
+    background: #74daec;
 }
 
 .values .val-box h3 {
@@ -321,9 +331,9 @@ background: #74daec;
     font-weight: 600;
 }
 
-.values .val-box span{
+.values .val-box span {
     font-size: 15px;
-   color: #828997;
+    color: #828997;
 }
 
 .board {
@@ -341,11 +351,13 @@ background: #74daec;
     border-radius: 50%;
     margin-right: 15px;
 }
-.logout{
-   background-color: rgb(121, 10, 10);
-   margin-top: 39px;
+
+.logout {
+    background-color: rgb(121, 10, 10);
+    margin-top: 39px;
 }
-.board h5{
+
+.board h5 {
     font-weight: 600;
     font-size: 14px;
 }
@@ -425,7 +437,7 @@ tbody tr td {
         left: 0px;
     }
 
-  
+
 
     #menu-btn {
         display: initial;
@@ -433,15 +445,15 @@ tbody tr td {
 
     #interface {
         width: 100%;
-    margin-left: 0px;
-    display: inline-block;
-    transition: 0.8s ease;
+        margin-left: 0px;
+        display: inline-block;
+        transition: 0.8s ease;
     }
 
-    #menu.active ~ #interface {
-    width: calc(100% - 270px);
-    margin-left: 270px;
-    transition: 0.8s ease;
+    #menu.active~#interface {
+        width: calc(100% - 270px);
+        margin-left: 270px;
+        transition: 0.8s ease;
     }
 
     #interface .navigation {
@@ -456,13 +468,13 @@ tbody tr td {
     .values .val-box {
         padding: 16px 20px;
         margin: 10px 20px 10px 0;
-        
+
     }
 
     .board {
         width: 88%;
-       padding: 0;
-       overflow-x: auto;
+        padding: 0;
+        overflow-x: auto;
     }
 
     table {
@@ -476,11 +488,11 @@ tbody tr td {
 @media (max-width:477px) {
 
     #interface .navigation {
-        padding: 15px;   
-}
+        padding: 15px;
+    }
 
-#interface .navigation .search input{
-    width: 150px;
+    #interface .navigation .search input {
+        width: 150px;
     }
 
     .i-name {
@@ -489,19 +501,19 @@ tbody tr td {
 
     .values {
         padding: 15px 15px 0 15px;
-        
+
     }
 
     .values .val-box {
-    width: 100%;
-    margin: 8px 0;
+        width: 100%;
+        margin: 8px 0;
     }
 
     .board {
-       margin: 30px 15px 30px 15px;
+        margin: 30px 15px 30px 15px;
     }
 
-    
+
 
 
 

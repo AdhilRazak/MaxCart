@@ -68,6 +68,7 @@
                 <thead>
                     <tr>
                         <td>Order Id</td>
+                        <td>user Id</td>
                         <td>Total Price</td>
                         <td>status</td>
                         <td>delivery</td>
@@ -87,6 +88,11 @@
                                         </td>
                                         <td class="people-des">
                                             <h5>
+                                                <%= order.userId %>
+                                            </h5>
+                                        </td>
+                                        <td class="people-des">
+                                            <h5>
                                                 <%= orderItem.total %>
                                             </h5>
                                         </td>
@@ -99,13 +105,15 @@
                                             <% if(orderItem.delivery=='not delivered' ) { %>
                                                 <button
                                                     style="padding: .6rem;  border-radius: 5px; border: none; width: 100px; color: rgb(0, 0, 0); background-color: rgb(249, 117, 117);"
-                                                    class="blockBtn blockbtn<%=orderItem._id%>" onclick="delivery(event,'<%=orderItem._id%>')">
+                                                    class="blockBtn blockbtn<%=orderItem._id%>"
+                                                    onclick="delivery(event,'<%=orderItem._id%>',' <%= order._id %>')">
                                                     Notdelivered
                                                 </button>
                                                 <% }else { %>
                                                     <button
                                                         style="padding: .6rem; ; border-radius: 5px; border: none; width: 100px; color: rgb(0, 0, 0); background-color: rgb(132, 255, 159);"
-                                                        class="blockBtn blockbtn<%=orderItem._id%>" onclick="delivery(event,'<%=orderItem._id%>')">
+                                                        class="blockBtn blockbtn<%=orderItem._id%>"
+                                                        onclick="delivery(event,'<%=orderItem._id%>',' <%= order._id %>')">
                                                         Delivered
                                                     </button>
                                                     <% } %>
@@ -117,13 +125,15 @@
                                             <% if(orderItem.status=='cancelled' ) { %>
                                                 <button
                                                     style="padding: .6rem;  border-radius: 5px; border: none; width: 100px; color: rgb(199, 215, 199); background-color: green;"
-                                                    class="blockBtns blockBtns<%=orderItem._id%>" onclick="ordercancel(event,'<%=orderItem._id%>')">
+                                                    class="blockBtns blockBtns<%=orderItem._id%>"
+                                                    onclick="ordercancel(event,'<%=orderItem._id%>',' <%= order._id %>')">
                                                     ACTIVATE
                                                 </button>
                                                 <% }else { %>
                                                     <button
                                                         style="padding: .6rem; ; border-radius: 5px; border: none; width: 100px; color: rgb(199, 215, 199); background-color: red;"
-                                                        class="blockBtns blockBtns<%=orderItem._id%>" onclick="ordercancel(event,'<%=orderItem._id%>')">
+                                                        class="blockBtns blockBtns<%=orderItem._id%>"
+                                                        onclick="ordercancel(event,'<%=orderItem._id%>',' <%= order._id %>')">
                                                         CANCEL
                                                     </button>
                                                     <% } %>
@@ -145,17 +155,17 @@
 
 
     <script>
-        async function delivery(event, productId) {
-            event.preventDefault();
-            try {
-                const blockBtn = document.querySelector('.blockbtn' + productId);
+      async function delivery(event, productId, userId) {
+    event.preventDefault();
+    try {
+        console.log(userId);
+        const blockBtn = document.querySelector('.blockbtn' + productId);
 
-
-                const response = await axios.post(`/admin/deliveryupdation?id=${productId}`, {}, {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                });
+        const response = await axios.post(`/admin/deliveryupdation?id=${productId}&userId=${userId}`, {}, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
 
                 const result = response.data
                 console.log(result);
@@ -175,50 +185,50 @@
             }
         }
 
-        async function ordercancel(event, productId) {
-    // Prevent the default behavior of the event (e.g., form submission)
-    event.preventDefault();
-    
-    // Log a message to the console
-    console.log('lololop');
+        async function ordercancel(event, productId,user) {
+            // Prevent the default behavior of the event (e.g., form submission)
+            event.preventDefault();
 
-    try {
-        // Find the button associated with the productId
-        const blockBtn = document.querySelector('.blockBtns' + productId);
-        const sta= document.querySelector('.pls' + productId);
+            // Log a message to the console
+            console.log('lololop');
 
-        console.log(blockBtn);
+            try {
+                // Find the button associated with the productId
+                const blockBtn = document.querySelector('.blockBtns' + productId);
+                const sta = document.querySelector('.pls' + productId);
 
-        // Send a POST request to cancel the order
-        const response = await axios.post(`/ordercancel?id=${productId}`, {}, {
-            headers: {
-                'Content-Type': 'application/json'
+                console.log(blockBtn);
+
+                // Send a POST request to cancel the order
+                const response = await axios.post(`/ordercancel?id=${productId}&userid=${user}`, {}, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                // Get the response data
+                const result = response.data.state
+                const status = response.data.status
+                console.log(result);
+
+                // Update the button text and style based on the response
+                if (result) {
+                    blockBtn.innerText = 'Activate';
+                    blockBtn.style.backgroundColor = 'green';
+                    blockBtn.style.color = 'white';
+                } else {
+                    blockBtn.innerText = 'cancel';
+                    blockBtn.style.backgroundColor = 'red';
+                    blockBtn.style.color = 'white';
+                }
+
+                sta.innerHTML = status
+
+            } catch (error) {
+                // Log any errors that occur during the process
+                console.log('Error in block product', error);
             }
-        });
-
-        // Get the response data
-        const result = response.data.state
-        const status = response.data.status
-        console.log(result);
-
-        // Update the button text and style based on the response
-        if (result) {
-            blockBtn.innerText = 'Activate';
-            blockBtn.style.backgroundColor = 'green';
-            blockBtn.style.color = 'white';
-        } else {
-            blockBtn.innerText = 'cancel';
-            blockBtn.style.backgroundColor = 'red';
-            blockBtn.style.color = 'white';
         }
-
-        sta.innerHTML = status
-
-    } catch (error) {
-        // Log any errors that occur during the process
-        console.log('Error in block product', error);
-    }
-}
 
 
         $('#menu-btn').click(function () {

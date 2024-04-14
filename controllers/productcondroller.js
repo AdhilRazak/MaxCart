@@ -4,6 +4,7 @@ const ProductModel = require('../model/productcollection');
 const review = require('../model/review')
 const orders = require('../model/ordercollection')
 
+
 const wish = require('../model/wishlist')
 const fs = require('fs')
 
@@ -11,7 +12,7 @@ module.exports = {
     productget: async (req, res) => {
         try {
             const productdat = await ProductModel.find({});
-            res.render('admin/product', { productdat }); // Pass productData to the template
+            res.render('admin/product', { productdat });
         } catch (error) {
             console.error('Error in fetching product data:', error);
             res.status(500).json({ message: 'Error in fetching product data' });
@@ -174,15 +175,12 @@ module.exports = {
         try {
             const searchWord = req.query.search ? req.query.search.toString() : '';
 
-            console.log(searchWord);
-
             const product = await ProductModel.find(
                 { status: false, productName: { $regex: searchWord, $options: "i" } }
             );
 
             res.render('user/showallproduct', { product });
         } catch (error) {
-            // Handle errors, e.g., log them or send an error response
             console.error(error);
             res.status(500).send('Internal Server Error');
         }
@@ -191,10 +189,8 @@ module.exports = {
 
 
     filterProduct: async (req, res) => {
-        console.log('jjoi');
         const minimum = req.query.min;
         const maximum = req.query.max;
-        console.log(minimum, maximum);
 
         try {
             const product = await ProductModel.find({
@@ -220,18 +216,18 @@ module.exports = {
     viewsingleproducts: async (req, res) => {
         try {
             const productid = req.query.id;
-            let isWishlist
+            let isWishlist, proreview = ''
 
 
-            // Find the product by ID
+            proreview = await review.findOne({ productId: productid })
+
+
             const product = await ProductModel.findById(productid);
 
-            // If product is not found, send a 404 response
             if (!product) {
                 return res.status(404).send("Product not found");
             }
 
-            // Find the user's wishlist
             if (req.session.user) {
                 const userid = req.session.user;
                 isWishlist = false
@@ -240,9 +236,7 @@ module.exports = {
                 const wishlist = await wish.findOne({ userId: userid });
 
 
-                // Check if the product is in the wishlist
                 if (wishlist) {
-                    // Check if the product is in the wishlist
                     const existingProduct = await wish.findOne(
                         { userId: userid, 'productId.id': productid }
                     );
@@ -251,11 +245,9 @@ module.exports = {
                     }
                 }
             }
-            // Render the view with the product and wishlist status
-            res.render('user/viewsinglecart', { product, isWishlist });
+            res.render('user/viewsinglecart', { product, isWishlist, proreview });
 
         } catch (error) {
-            // Handle any errors
             console.error("Error occurred in viewsingleproducts:", error);
             res.status(500).send("Internal Server Error");
         }
@@ -270,8 +262,6 @@ module.exports = {
         const productId = req.query.id;
         const ordId = req.query.ordid;
 
-        console.log(productId);
-
         try {
             const order = await orders.findOne({ userId: userId });
 
@@ -279,15 +269,12 @@ module.exports = {
                 return res.status(404).send("Order not found.");
             }
 
-            // Find the order list item with the given ordId
             const orderListItem = order.orderlist.find(item => item._id.equals(ordId));
 
             if (!orderListItem) {
                 return res.status(404).send("Order list item not found.");
             }
 
-            console.log(orderListItem);
-            console.log(orderListItem.status);
             if (orderListItem.status == 'cancelled') {
                 return res.status(404).send("You are not able to review on this product.");
             }
@@ -298,7 +285,6 @@ module.exports = {
                 return res.status(404).send("Product ID does not match.");
             }
 
-            // Find the product by productId
             const product = await ProductModel.findById(productId);
 
             res.render('user/review', { product });
@@ -313,12 +299,9 @@ module.exports = {
         if (!req.session.user) {
             return res.redirect('/');
         }
-        console.log('theettam');
         const { rating, description, title } = req.body;
-        console.log(rating, description, title);
         const userId = req.session.user;
         const productId = req.query.id;
-        console.log(productId);
 
         try {
 
@@ -327,7 +310,6 @@ module.exports = {
 
 
             if (!productReview) {
-                // If there's no existing review for the product, create a new one
                 const newReview = new review({
                     productId: productId,
                     reviews: [{
@@ -340,7 +322,6 @@ module.exports = {
                 await newReview.save();
                 res.redirect('/orderlist')
             } else {
-                // If there's an existing review for the product, update it
                 productReview.reviews.push({
                     userId: userId,
                     rating: rating,

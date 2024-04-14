@@ -198,53 +198,61 @@
                     <div class="cartBody d-flex">
                         <div class="col-12 oneSection">
                             <% if(orders) { %>
-                                    <% orders.orderlist.forEach(orderItem=> { %>
-                                        <% orderItem.productId.forEach(product => {%>
-                                        <div class="cartItems d-flex w-100 justify-content-between align-items-center" >
+                                <% orders.orderlist.forEach(orderItem=> { %>
+                                    <% orderItem.productId.forEach(product=> {%>
+                                        <div class="cartItems d-flex w-100 justify-content-between align-items-center">
                                             <div class="d-flex align-items-center gap-3">
                                                 <img src="./images/product/<%=product.id.productImage%>" alt="">
                                                 <div class="textOrder d-flex flex-column gap-2">
                                                     <h2 class="m-0">
                                                         <%=product.id.productName%>
                                                     </h2>
-                                                        <p class="m-0">COLOR<span>:<%=product.id.color%> </span></p>
-                                                    <p class="m-0">Qty:<%=product.quantity%> </p>
+                                                    <p class="m-0">COLOR<span>:<%=product.id.color%> </span></p>
+                                                    <p class="m-0">Qty:<%=product.quantity%>
+                                                    </p>
                                                 </div>
                                             </div>
                                             <div>
                                                 <div class="d-flex align-items-center gap-2 prices">
                                                     <div class="lPrice marginRes">
-                                                        <p class="m-0">₹<%=product.id.prices * product.quantity%></p>
+                                                        <p class="m-0">₹<%=product.id.prices * product.quantity%>
+                                                        </p>
                                                     </div>
                                                     <% if(orderItem.delivery=='not delivered' ) { %>
-                                                    <div class="d-flex align-items-center gap-2">
-                                                        <div class="statusCircle"></div>
-                                                        <p class="statusOrder me-3">Ordered</p>
-                                                    </div>
-                                                <% }else { %>
-                                                    <div class="d-flex align-items-center gap-2">
-                                                        <div class="statusCircle"></div>
-                                                        <p class="statusOrder me-3">delivered</p>
-                                                    </div>
-                                                    <% } %>
-
-                                                    <a>
-                                                        <% if(orderItem.status=='cancelled' ) { %>
-                                                        <button class="cancelBtn cancelBtn<%=orderItem._id%>" onclick="ordercancel(event,'<%=orderItem._id%>')" >Cancelled</button>
+                                                        <div class="d-flex align-items-center gap-2">
+                                                            <div class="statusCircle"></div>
+                                                            <p class="statusOrder me-3">Ordered</p>
+                                                        </div>
                                                         <% }else { %>
-                                                        <button class="cancelBtn cancelBtn<%=orderItem._id%>" onclick="ordercancel(event,'<%=orderItem._id%>')" >Cancel</button>
-                                                        <% } %>
+                                                            <div class="d-flex align-items-center gap-2">
+                                                                <div class="statusCircle"></div>
+                                                                <p class="statusOrder me-3">delivered</p>
+                                                            </div>
+                                                            <% } %>
 
-                                                    </a>
-                                                    <p  onclick="window.location.href='/ordersummary?id=<%=orderItem._id%>&&pro= <%=product.id._id%>'">></p>
+                                                                <a>
+                                                                    <% if(orderItem.status=='cancelled' ) { %>
+                                                                        <button
+                                                                            class="cancelBtn cancelBtn<%=orderItem._id%>"
+                                                                            onclick="ordercancel(event,'<%=orderItem._id%>','<%=orders._id%>')">Cancelled</button>
+                                                                        <% }else { %>
+                                                                            <button
+                                                                                class="cancelBtn cancelBtn<%=orderItem._id%>"
+                                                                                onclick="ordercancel(event,'<%=orderItem._id%>','<%=orders._id%>')">Cancel</button>
+                                                                            <% } %>
+
+                                                                </a>
+                                                                <p
+                                                                    onclick="window.location.href='/ordersummary?id=<%=orderItem._id%>&&pro= <%=product.id._id%>'">
+                                                                    ></p>
                                                 </div>
                                             </div>
                                         </div>
                                         <%}) %>
-                                        <% })%>
-                                    <% } else { %>
-                                        <p>No orders found.</p>
-                                        <% } %>
+                                            <% })%>
+                                                <% } else { %>
+                                                    <p>No orders found.</p>
+                                                    <% } %>
                         </div>
                     </div>
                 </div>
@@ -616,21 +624,21 @@
     <!-- custom js -->
     <script src="./js/userOrderPage.js"></script>
     <script>
-        async function ordercancel(event, productId) {
+        async function ordercancel(event, productId,user) {
             event.preventDefault();
             console.log('lololop');
             try {
                 const blockBtns = document.querySelectorAll('.cancelBtn' + productId);
-                
-             
-                const response = await axios.post(`/ordercancel?id=${productId}`, {}, {
+
+
+                const response = await axios.post(`/ordercancel?id=${productId}&userid=${user}`, {}, {
                     headers: {
                         'Content-Type': 'application/json'
                     }
                 });
 
                 const result = response.data.state
-    
+
                 blockBtns.forEach(btn => {
                     if (result) {
                         btn.innerText = 'Cancelled';
@@ -647,7 +655,7 @@
             }
         }
     </script>
-    
+
     <!-- end of custom js -->
     <!-- fontawesome -->
     <script src="https://kit.fontawesome.com/23d1247997.js" crossorigin="anonymous"></script>

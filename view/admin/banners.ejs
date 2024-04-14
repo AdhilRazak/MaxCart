@@ -89,8 +89,7 @@
                             </td>
 
                             <td class="people-des">
-                                <img src='/images/banner/<%=data.image[0]%>' alt=""
-                                    style="object-fit: contain;">
+                                <img src='/images/banner/<%=data.image[0]%>' alt="" style="object-fit: contain;">
                             </td>
                             <td class="people-des">
                                 <h5>
@@ -102,16 +101,16 @@
                                     <%=data.offer %>
                                 </h5>
                             </td>
-                           
+
                             <td class="people-des">
                                 <h5>
                                     <%=data.name %>
                                 </h5>
                             </td>
-                           
 
 
-                        
+
+
                             <td class="edit"> <a href="/admin/editbanner?id=<%=data._id %>"><i
                                         class="fa-solid fa-pen-to-square" style="color: #961320;"></i></a></td>
                             <td class="edit">
@@ -129,7 +128,7 @@
 
 
     <script>
-        
+
         async function deletebanner(event, id) {
             event.preventDefault();
             console.log(id)

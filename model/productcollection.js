@@ -6,22 +6,22 @@ const productSchema = new mongoose.Schema({
         required: true
     },
     productImage: {
-        type: Array, // Or String if you're storing a single image URL
+        type: Array,
         required: true
     },
-    title:{
-        type:String,
-        required:true
+    title: {
+        type: String,
+        required: true
     },
-    write:{
-        type:String,
-        required:true
+    write: {
+        type: String,
+        required: true
     },
     prices: {
         type: Number,
         required: true
     },
-    discount: { // Adjusted to match the case
+    discount: {
         type: String,
         required: true
     },
@@ -29,7 +29,7 @@ const productSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    category: { // Adjusted to match the case
+    category: {
         type: String,
         required: true
     },
@@ -58,8 +58,8 @@ const productSchema = new mongoose.Schema({
         default: false,
         required: true
     },
-    discounted:{
-        type:String,
+    discounted: {
+        type: String,
     }
 
 });

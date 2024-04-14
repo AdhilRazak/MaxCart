@@ -348,7 +348,8 @@
           <div class="checkOut">
             <form>
               <button type="button"
-                onclick="myFunction('<%=productstuff%>','<%=quantity%>','<%=tint%>','<%=total%>','<%=discountTotal%>','<%=subtotal%>')">Proceed to
+                onclick="myFunction('<%=productstuff%>','<%=quantity%>','<%=tint%>','<%=total%>','<%=discountTotal%>','<%=subtotal%>')">Proceed
+                to
                 payment</button>
             </form>
           </div>
@@ -810,7 +811,7 @@
     });
 
 
-    async function myFunction(products, quantitys, tints, total,discountTotal,subtotal) {
+    async function myFunction(products, quantitys, tints, total, discountTotal, subtotal) {
       try {
         console.log(html);
         console.log(selectedMethod);
@@ -830,9 +831,9 @@
           method: selectedMethod,
           total: totals,
           proid: products,
-          discountTotals:discountTotal,
-          discounts:discount,
-          subs:subtotal
+          discountTotals: discountTotal,
+          discounts: discount,
+          subs: subtotal
         });
 
         if (response.status === 200) {
@@ -852,14 +853,14 @@
             handler: async function (response) {
               // Handle Razorpay response
               const res = await axios.get('/completeOrder')
-          window.location.href = '/home'
+              window.location.href = '/home'
 
             }
           };
 
           const razorpay = new Razorpay(razorpayOptions);
           razorpay.open();
-          
+
         } else {
           window.location.href = '/completed'
         }

@@ -113,9 +113,9 @@
                       <%=sub%>
                     </span>
                     <!-- Update the trash icon button to call Deletesubcategory function -->
-<button class="Deletebtn" onclick="Deletesubcategory(event, '<%=data._id%>', '<%=sub%>')">
-  <i class="fa-solid fa-trash" style="color: #c74141"></i>
-</button>
+                    <button class="Deletebtn" onclick="Deletesubcategory(event, '<%=data._id%>', '<%=sub%>')">
+                      <i class="fa-solid fa-trash" style="color: #c74141"></i>
+                    </button>
 
                   </p>
                   <% })%>
@@ -186,34 +186,34 @@
     }
 
     async function Deletesubcategory(event, categoryId, subcategoryName) {
-  event.preventDefault();
-  try {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!"
-    }).then(async (res) => {
-      if (res.isConfirmed) {
-        const response = await axios.delete(`/admin/subcategorydelete?categoryId=${categoryId}&subcategoryName=${subcategoryName}`);
-        if (response.data.success) {
-          // Optionally, you can remove the deleted subcategory from the UI
-          document.querySelector(`.subcat_paragraph${subcategoryName}`).remove();
-          Swal.fire({
-            title: "Deleted!",
-            text: "Your subcategory has been deleted.",
-            icon: "success"
-          });
-        }
+      event.preventDefault();
+      try {
+        Swal.fire({
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, delete it!"
+        }).then(async (res) => {
+          if (res.isConfirmed) {
+            const response = await axios.delete(`/admin/subcategorydelete?categoryId=${categoryId}&subcategoryName=${subcategoryName}`);
+            if (response.data.success) {
+              // Optionally, you can remove the deleted subcategory from the UI
+              document.querySelector(`.subcat_paragraph${subcategoryName}`).remove();
+              Swal.fire({
+                title: "Deleted!",
+                text: "Your subcategory has been deleted.",
+                icon: "success"
+              });
+            }
+          }
+        });
+      } catch (error) {
+        console.log(error);
       }
-    });
-  } catch (error) {
-    console.log(error);
-  }
-}
+    }
 
 
 

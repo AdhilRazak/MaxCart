@@ -21,7 +21,7 @@ module.exports = {
             });
         });
         let completedCount = 0;
-        const result =await orderModel.aggregate([
+        const result = await orderModel.aggregate([
             {
                 $unwind: "$orderlist"
             },
@@ -35,8 +35,7 @@ module.exports = {
             }
         ])
         completedCount = result.length > 0 ? result[0].completedCount : 0;
-        console.log(completedCount)
-        res.render('admin/adminboard', { products, userDetails, userCount, orderCount, completedCount,totalSubtotal })
+        res.render('admin/adminboard', { products, userDetails, userCount, orderCount, completedCount, totalSubtotal })
 
     },
 
@@ -70,32 +69,29 @@ module.exports = {
         }
     },
 
-    orders:async(req,res)=>{
+    orders: async (req, res) => {
         const orders = await orderModel.find({})
 
-        console.log(orders);
-
-        res.render('admin/orders',{orders})
+        res.render('admin/orders', { orders })
     },
 
     deliveryupdation: async (req, res) => {
         try {
             const id = req.query.id;
-            console.log('pleelelele');
-            console.log(id);
-    
-            const orders = await orderModel.findOne({});
-    
+            const user = req.query.userId.trim();
+
+            const orders = await orderModel.findById(user)
+
             if (!orders) {
                 return res.status(404).send("Order not found.");
             }
-    
+
             const orderListItem = orders.orderlist.find(item => item._id.equals(id));
-    
+
             if (!orderListItem) {
                 return res.status(404).send("Order list item not found.");
             }
-    
+
             let state
             if (orderListItem.delivery === 'not delivered') {
                 orderListItem.delivery = 'delivered';
@@ -107,15 +103,13 @@ module.exports = {
                 state = false
 
             }
-    
-            console.log(orderListItem);
-    
+
             res.status(200).send(state);
         } catch (error) {
             console.error("Error updating delivery:", error);
             res.status(500).send("Internal Server Error.");
         }
     }
-    
+
 
 }

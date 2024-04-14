@@ -9,25 +9,27 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.7.1.slim.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  
-<style>
-    .chartArea{
-        width: 100%;
-        height: 500px;
-        display: flex;
-        margin-top: 100px;
-        justify-content: space-evenly;
-    }
-    .chart1{
-        width: 48%;
-        height: 100%;
 
-    }
-    .chart2{
-        width: 48%;
-        height: 100%;
-    }
-</style>
+    <style>
+        .chartArea {
+            width: 100%;
+            height: 500px;
+            display: flex;
+            margin-top: 100px;
+            justify-content: space-evenly;
+        }
+
+        .chart1 {
+            width: 48%;
+            height: 100%;
+
+        }
+
+        .chart2 {
+            width: 48%;
+            height: 100%;
+        }
+    </style>
 </head>
 
 <body>
@@ -82,7 +84,9 @@
             <div class="val-box">
                 <i class="fa-solid fa-users"></i>
                 <div>
-                    <h3><%=userCount%></h3>
+                    <h3>
+                        <%=userCount%>
+                    </h3>
                     <span>New Users</span>
                 </div>
             </div>
@@ -92,7 +96,9 @@
             <div class="val-box">
                 <i class="fa-solid fa-cart-shopping"></i>
                 <div>
-                    <h3><%= orderCount%></h3>
+                    <h3>
+                        <%= orderCount%>
+                    </h3>
                     <span>Total Orders</span>
                 </div>
             </div>
@@ -102,7 +108,9 @@
             <div class="val-box">
                 <i class="fa-regular fa-circle-check"></i>
                 <div>
-                    <h3><%= completedCount%></h3>
+                    <h3>
+                        <%= completedCount%>
+                    </h3>
                     <span>Products Sold</span>
                 </div>
             </div>
@@ -112,7 +120,9 @@
             <div class="val-box">
                 <i class="fa-solid fa-dollar-sign"></i>
                 <div>
-                    <h3><%= totalSubtotal%></h3>
+                    <h3>
+                        <%= totalSubtotal%>
+                    </h3>
                     <span>Total Earnings</span>
                 </div>
             </div>
@@ -189,15 +199,15 @@
         const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
         const userClass = document.querySelector('.users');
         const userData = JSON.parse(userClass.getAttribute('userDetails'));
-        
+
         const registrationDates = userData.map(user => new Date(user.createdAt));
         console.log(registrationDates);
         const registrationsPerMonth = registrationDates.reduce((acc, date) => {
-                const monthIndex = date.getMonth();
-                const monthName = months[monthIndex];
-                acc[monthName] = (acc[monthName] || 0) + 1;
-                return acc;
-            }, {});
+            const monthIndex = date.getMonth();
+            const monthName = months[monthIndex];
+            acc[monthName] = (acc[monthName] || 0) + 1;
+            return acc;
+        }, {});
 
         new Chart(chart, {
             type: 'bar',
@@ -220,7 +230,7 @@
             }
         });
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>       
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </body>
 

@@ -54,50 +54,47 @@
 
             <!-- Inside the content_part div -->
             <div class="content_part">
-                    <form id="edit" action="/admin/addbanner"
-                        method="post" enctype="multipart/form-data">
-                        <div class="frame">
-                            <div class="gap_div">
-                                <div class="card_div">
-                                    <div class="form-group">
-                                        <label for="productName">Name</label>
-                                        <input type="text" id="name" name="name" 
-                                            placeholder="Enter name">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="title">Title</label>
-                                        <input type="text" id="title" name="title" 
-                                            placeholder="Enter title">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="offer">Offer</label>
-                                        <input type="text" id="offer" name="offer" 
-                                            placeholder="Enter offer">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <div class="message"
-                                            style="color: red; margin-bottom: 10px; font-weight: bold;"></div>
-                                        <button class="buttonsubmit" type="submit">Submit</button>
-                                    </div>
+                <form id="edit" action="/admin/addbanner" method="post" enctype="multipart/form-data">
+                    <div class="frame">
+                        <div class="gap_div">
+                            <div class="card_div">
+                                <div class="form-group">
+                                    <label for="productName">Name</label>
+                                    <input type="text" id="name" name="name" placeholder="Enter name">
                                 </div>
-                                <div class="img_div">
-                                    <div class="form-group img_centr">
-                                        <div class="image_space">
-                                            <img src="" alt="" id="imagePreview" style="width: 100%; height: 100%;">
-                                        </div>
-                                        <div id="add_product_image_error"></div>
-                                        <div class="image_buttn">
-                                            <input type="file" id="image" name="image" onchange="previewImage(this)" multiple>
-                                        </div>
-                                        <div id="errorMain" style="color: brown; margin-top: 1rem;"></div>
+
+                                <div class="form-group">
+                                    <label for="title">Title</label>
+                                    <input type="text" id="title" name="title" placeholder="Enter title">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="offer">Offer</label>
+                                    <input type="text" id="offer" name="offer" placeholder="Enter offer">
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="message" style="color: red; margin-bottom: 10px; font-weight: bold;">
                                     </div>
+                                    <button class="buttonsubmit" type="submit">Submit</button>
+                                </div>
+                            </div>
+                            <div class="img_div">
+                                <div class="form-group img_centr">
+                                    <div class="image_space">
+                                        <img src="" alt="" id="imagePreview" style="width: 100%; height: 100%;">
+                                    </div>
+                                    <div id="add_product_image_error"></div>
+                                    <div class="image_buttn">
+                                        <input type="file" id="image" name="image" onchange="previewImage(this)"
+                                            multiple>
+                                    </div>
+                                    <div id="errorMain" style="color: brown; margin-top: 1rem;"></div>
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </div>
+                </form>
             </div>
 
 

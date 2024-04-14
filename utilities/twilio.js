@@ -2,7 +2,6 @@ const client = require('twilio')(process.env.Acountsid, process.env.Acountauthto
 
 
 module.exports = {
-    // Function to send OTP via Twilio
     async sendPhoneOtp(phone) {
         try {
             await client.verify.services(process.env.servicesid)
@@ -14,7 +13,6 @@ module.exports = {
                 });
         } catch (error) {
             console.error('Error sending OTP:', error);
-            // Handle error appropriately, such as logging or throwing an exception
             throw new Error('Failed to send OTP');
         }
     },
@@ -31,7 +29,6 @@ module.exports = {
             console.log('OTP resent successfully to:', phone);
         } catch (error) {
             console.error('Error resending OTP:', error);
-            // Handle error appropriately, such as logging or throwing an exception
             throw new Error('Failed to resend OTP');
         }
     }
