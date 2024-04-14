@@ -516,6 +516,45 @@ module.exports = {
         }
     },
 
+    ordercancel: async (req, res) => {
+        console.log('lililil');
+        try {
+            const orderid = req.query.id;
+            console.log(orderid);
+            const orders = await order.findOne({});
+    
+            if (!orders) {
+                return res.status(404).send("Order not found.");
+            }
+    
+            const orderListItem = orders.orderlist.find(item => item._id.equals(orderid));
+    
+            if (!orderListItem) {
+                return res.status(404).send("Order list item not found.");
+            }
+    
+            let state;
+            console.log(orderListItem.status);
+            if (orderListItem.status === 'pending' || orderListItem.status === 'completed') {
+                orderListItem.status = 'cancelled';
+                await orders.save();
+                state = true;
+            } else if (orderListItem.status === 'cancelled') {
+                orderListItem.status = 'completed'; // Update status instead of delivery
+                await orders.save();
+                state = false;
+            }
+    
+            console.log(orderListItem+'999');
+            const status = orderListItem.status
+    
+            res.status(200).send({state,status});
+        } catch (error) {
+            console.error("Error updating delivery:", error);
+            res.status(500).send("Internal Server Error.");
+        }
+    }
+    
 }
 
 
