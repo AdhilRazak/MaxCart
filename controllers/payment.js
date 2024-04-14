@@ -517,6 +517,9 @@ module.exports = {
     },
 
     ordercancel: async (req, res) => {
+        if (!req.session.user) {
+            return res.redirect('/');
+        }
         console.log('lililil');
         try {
             const orderid = req.query.id;

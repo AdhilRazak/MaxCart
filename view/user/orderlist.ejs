@@ -620,8 +620,9 @@
             event.preventDefault();
             console.log('lololop');
             try {
-                const blockBtn = document.querySelector('.cancelBtn' + productId);
-
+                const blockBtns = document.querySelectorAll('.cancelBtn' + productId);
+                
+             
                 const response = await axios.post(`/ordercancel?id=${productId}`, {}, {
                     headers: {
                         'Content-Type': 'application/json'
@@ -629,22 +630,24 @@
                 });
 
                 const result = response.data.state
-                console.log(result);
-
-                if (result) {
-                    blockBtn.innerText = 'cancelled';
-                    blockBtn.style.backgroundColor = 'black';
-                    blockBtn.style.color = 'white';
-                } else {
-                    blockBtn.innerText = 'cancel';
-                    blockBtn.style.backgroundColor = 'black';
-                    blockBtn.style.color = 'white';
-                }
+    
+                blockBtns.forEach(btn => {
+                    if (result) {
+                        btn.innerText = 'Cancelled';
+                        btn.style.backgroundColor = 'black';
+                        btn.style.color = 'white';
+                    } else {
+                        btn.innerText = 'Cancel';
+                        btn.style.backgroundColor = ''; // Reset background color
+                        btn.style.color = ''; // Reset text color
+                    }
+                });
             } catch (error) {
                 console.log('Error in block product', error);
             }
         }
-        </script>
+    </script>
+    
     <!-- end of custom js -->
     <!-- fontawesome -->
     <script src="https://kit.fontawesome.com/23d1247997.js" crossorigin="anonymous"></script>

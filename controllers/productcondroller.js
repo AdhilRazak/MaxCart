@@ -1,6 +1,9 @@
 const { json } = require('express');
 const CategoryModel = require('../model/categorycollection');
 const ProductModel = require('../model/productcollection');
+const review = require('../model/review')
+const orders = require('../model/ordercollection')
+
 const wish = require('../model/wishlist')
 const fs = require('fs')
 
@@ -168,16 +171,31 @@ module.exports = {
         }
     },
     userallproducts: async (req, res) => {
-        const product = await ProductModel.find({ status: false })
-        res.render('user/showallproduct', { product })
+        try {
+            const searchWord = req.query.search ? req.query.search.toString() : '';
+
+            console.log(searchWord);
+
+            const product = await ProductModel.find(
+                { status: false, productName: { $regex: searchWord, $options: "i" } }
+            );
+
+            res.render('user/showallproduct', { product });
+        } catch (error) {
+            // Handle errors, e.g., log them or send an error response
+            console.error(error);
+            res.status(500).send('Internal Server Error');
+        }
     },
+
+
 
     filterProduct: async (req, res) => {
         console.log('jjoi');
         const minimum = req.query.min;
         const maximum = req.query.max;
         console.log(minimum, maximum);
-    
+
         try {
             const product = await ProductModel.find({
                 prices: { $gte: minimum, $lte: maximum }
@@ -188,7 +206,7 @@ module.exports = {
             res.status(500).json({ error: "Internal Server Error" });
         }
     },
-    
+
     sort: async (req, res) => {
         const sortvalue = JSON.parse(req.query.sort)
         try {
@@ -241,7 +259,103 @@ module.exports = {
             console.error("Error occurred in viewsingleproducts:", error);
             res.status(500).send("Internal Server Error");
         }
+    },
+
+    reviewget: async (req, res) => {
+        if (!req.session.user) {
+            return res.redirect('/');
+        }
+
+        const userId = req.session.user;
+        const productId = req.query.id;
+        const ordId = req.query.ordid;
+
+        console.log(productId);
+
+        try {
+            const order = await orders.findOne({ userId: userId });
+
+            if (!order) {
+                return res.status(404).send("Order not found.");
+            }
+
+            // Find the order list item with the given ordId
+            const orderListItem = order.orderlist.find(item => item._id.equals(ordId));
+
+            if (!orderListItem) {
+                return res.status(404).send("Order list item not found.");
+            }
+
+            console.log(orderListItem);
+            console.log(orderListItem.status);
+            if (orderListItem.status == 'cancelled') {
+                return res.status(404).send("You are not able to review on this product.");
+            }
+
+            const productExist = orderListItem.productId.some(product => product.id.equals(productId));
+
+            if (!productExist) {
+                return res.status(404).send("Product ID does not match.");
+            }
+
+            // Find the product by productId
+            const product = await ProductModel.findById(productId);
+
+            res.render('user/review', { product });
+        } catch (err) {
+            console.error("Error:", err);
+            return res.status(500).send("Internal Server Error");
+        }
+    },
+
+
+    reviewpost: async (req, res) => {
+        if (!req.session.user) {
+            return res.redirect('/');
+        }
+        console.log('theettam');
+        const { rating, description, title } = req.body;
+        console.log(rating, description, title);
+        const userId = req.session.user;
+        const productId = req.query.id;
+        console.log(productId);
+
+        try {
+
+            let productReview = await review.findOne({ productId: productId })
+
+
+
+            if (!productReview) {
+                // If there's no existing review for the product, create a new one
+                const newReview = new review({
+                    productId: productId,
+                    reviews: [{
+                        userId: userId,
+                        rating: rating,
+                        title: title,
+                        comment: description
+                    }]
+                });
+                await newReview.save();
+                res.redirect('/orderlist')
+            } else {
+                // If there's an existing review for the product, update it
+                productReview.reviews.push({
+                    userId: userId,
+                    rating: rating,
+                    title: title,
+                    comment: description
+                });
+                await productReview.save();
+                res.redirect('/orderlist')
+            }
+        } catch (error) {
+            return res.status(500).json(error);
+        }
+
     }
+
 
 
 

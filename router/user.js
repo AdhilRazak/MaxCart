@@ -5,7 +5,7 @@ const { loginget, loginpost, signupget, signuppost, verificationget, verificatio
          otpVerifiedget, otpVerifiedpost } = require('../controllers/authcontroller');
 const { userhomeget, useraccountget, useraccounteditget, useraccounteditpost} = require('../controllers/user')
 const { categoryfilterget } = require('../controllers/categorycondroller')
-const { userallproducts,viewsingleproducts,filterProduct,sort} = require('../controllers/productcondroller')
+const { userallproducts,viewsingleproducts,filterProduct,sort,reviewget,reviewpost} = require('../controllers/productcondroller')
 const { addressget, addaddressget, addaddresspost, editaddress, editaddressget,deleteaddress } = require('../controllers/addresscontroller')
 const{addtocart,showcart,updatecartquantity,cartdelete}=require('../controllers/cartcont')
 const{addtowishlist,wishlistget,deletewishlist}=require('../controllers/wishlist')
@@ -79,6 +79,10 @@ router.get('/completed',completed)
 router.get('/orderlist',orderlist)
 router.get('/ordersummary',ordersummary)
 router.post('/ordercancel',ordercancel)
+
+router.get('/productreview',reviewget)
+router.post('/productreview',reviewpost)
+
 
 
 
