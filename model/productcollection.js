@@ -59,7 +59,7 @@ const productSchema = new mongoose.Schema({
         required: true
     },
     discounted: {
-        type: String,
+        type: Number
     }
 
 });

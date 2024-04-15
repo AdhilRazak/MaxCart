@@ -3,7 +3,7 @@ const ProductModel = require('../model/productcollection');
 
 module.exports = {
     categoryget: async (req, res) => {
-        if(!req.session.admin){
+        if (!req.session.admin) {
             return res.redirect('/admin')
         }
         try {
@@ -16,7 +16,7 @@ module.exports = {
     },
 
     categorypost: async (req, res) => {
-         if(!req.session.admin){
+        if (!req.session.admin) {
             return res.redirect('/admin')
         }
         const { categoryName, subcategoryName } = req.body;
@@ -41,7 +41,7 @@ module.exports = {
         }
     },
     Editcategoryget: async (req, res) => {
-        if(!req.session.admin){
+        if (!req.session.admin) {
             return res.redirect('/admin')
         }
         const categoryId = req.query.id;
@@ -57,7 +57,7 @@ module.exports = {
         }
     },
     editcategorypost: async (req, res) => {
-        if(!req.session.admin){
+        if (!req.session.admin) {
             return res.redirect('/admin')
         }
         try {
@@ -88,7 +88,7 @@ module.exports = {
     },
 
     deleteCategory: async (req, res) => {
-        if(!req.session.admin){
+        if (!req.session.admin) {
             return res.redirect('/admin')
         }
         const categoryID = req.query.id;
@@ -105,7 +105,7 @@ module.exports = {
     },
 
     subCategorydelete: async (req, res) => {
-        if(!req.session.admin){
+        if (!req.session.admin) {
             return res.redirect('/admin')
         }
         try {
@@ -131,17 +131,30 @@ module.exports = {
     },
 
     categoryfilterget: async (req, res) => {
-        if(!req.session.admin){
-            return res.redirect('/admin')
+        if (!req.session.user) {
+            return res.redirect('/');
         }
         try {
             const category = req.query.category;
-            const product = await ProductModel.find({ category: category, status: false });
-            res.render('user/showallproduct', { product });
+            const page = parseInt(req.query.page) || 1;
+            const limit = 1;
+
+            const skip = (page - 1) * limit;
+
+            const totalCount = await ProductModel.countDocuments({ category: category, status: false });
+
+            const totalPages = Math.ceil(totalCount / limit);
+
+            const product = await ProductModel.find({ category: category, status: false })
+                .skip(skip)
+                .limit(limit);
+
+            res.render('user/catergoryfilter', { product, totalPages, currentPage: page, category });
         } catch (error) {
             console.error('Error:', error);
             res.status(500).send('Internal Server Error');
         }
     }
+
 
 }

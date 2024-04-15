@@ -12,6 +12,10 @@
   <!-- end of Bootstrap css cdn link -->
   <!-- Style css -->
   <link rel="stylesheet" href="/css/user/ordersummary.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
   <!-- end of Style css -->
 </head>
 
@@ -307,6 +311,7 @@
                 </div>
               </a> -->
               <a href="/productreview?id=<%=productItem._id%>&&ordid=<%=orderListItem._id%>"
+                onclick="return handleProductReviewLink(event)"
                 class="text-dark fw-bolder ">
                 <div class="ODhead sDetails d-flex justify-content-between gap-3">
                   <div>
@@ -664,6 +669,40 @@
 
   <!-- custom js -->
   <script src="./js/userOrderSummaryPage.js"></script>
+  <script>
+    function handleProductReviewLink(event) {
+      console.log('kilili');
+      event.preventDefault(); // Prevent default link behavior
+      
+      // Assuming you're using AJAX to load the product review page
+      $.ajax({
+        url: '/productreview?id=<%=productItem._id%>&&ordid=<%=orderListItem._id%>',
+        type: 'GET',
+        success: function(data) {
+          // Handle success, maybe redirect to the product review page
+          window.location.href = '/productreview?id=<%=productItem._id%>&&ordid=<%=orderListItem._id%>';
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          // Handle error
+          var errorMessage = jqXHR.responseText; // Accessing the error message passed from the server
+          showErrorAlert(errorMessage);
+        }
+      });
+    }
+  
+    // Define a function to display SweetAlert for error messages
+    function showErrorAlert(message) {
+  swal({
+    title: "Error!",
+    text: message,
+    icon: "error",
+    timer: 2000, // Timer in milliseconds (3 seconds)
+    buttons: false // Hide the "OK" button
+  });
+}
+
+  </script>
+  
   <!-- end of custom js -->
   <!-- fontawesome -->
   <script src="https://kit.fontawesome.com/23d1247997.js" crossorigin="anonymous"></script>

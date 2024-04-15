@@ -48,8 +48,8 @@ router.post('/resetpassword', resetpassordpost)
 router.get('/home', userhomeget)
 
 router.get('/allproduct', userallproducts)
-router.post('/filterproduct', filterProduct)
-router.post('/sort', sort)
+router.get('/filterproduct', filterProduct)
+router.get('/sort', sort)
 
 
 router.get('/category', categoryfilterget)

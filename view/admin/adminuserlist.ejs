@@ -95,7 +95,7 @@
                                 </h5>
                             </td>
                             <td class="people-des">
-                                <h5>
+                                <h5 class="lodo<%=data._id %>">
                                     <%=data.otpVerified %>
                                 </h5>
                             </td>
@@ -135,6 +135,8 @@
             event.preventDefault();
             try {
                 const blockBtn = document.querySelector('.blockbtn' + productId);
+                const verify = document.querySelector('.lodo' + productId);
+
 
                 const response = await axios.post(`/admin/blockuser?id=${productId}`, {}, {
                     headers: {
@@ -142,7 +144,7 @@
                     }
                 });
 
-                const result = response.data;
+                const result = response.data
 
                 if (result.state) {
                     blockBtn.innerText = 'BLOCK';
@@ -153,6 +155,8 @@
                     blockBtn.style.backgroundColor = 'green';
                     blockBtn.style.color = 'white';
                 }
+
+                verify.innerHTML = result.state
             } catch (error) {
                 console.log('Error in block product', error);
             }

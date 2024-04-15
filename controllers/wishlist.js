@@ -8,20 +8,22 @@ module.exports = {
             if (req.session.user) {
                 const userId = req.session.user;
                 const productId = req.query.id;
-                let state
-
+                let state;
+                let message;
+    
                 let wishData = await wish.findOne({ userId: userId });
-
+    
                 if (!wishData) {
                     const wishing = new wish({
                         userId: userId,
                         productId: [{ id: productId }]
                     });
                     await wishing.save();
-                    state = true
-                    return res.status(200).json({ success: true, state });
+                    state = true;
+                    message = "Product added to wishlist.";
+                    return res.status(200).json({ success: true, state, message });
                 }
-
+    
                 const existingProduct = await wish.findOne(
                     { userId: userId, 'productId.id': productId })
                 if (existingProduct) {
@@ -30,13 +32,15 @@ module.exports = {
                         { $pull: { productId: { id: productId } } },
                         { new: true }
                     );
-                    state = false
-                    return res.status(200).json({ success: false, state });
+                    state = false;
+                    message = "Product removed from wishlist.";
+                    return res.status(200).json({ success: false, state, message });
                 } else {
                     wishData.productId.push({ id: productId });
                     await wishData.save();
-                    state = true
-                    return res.status(200).json({ success: true, state });
+                    state = true;
+                    message = "Product added to wishlist.";
+                    return res.status(200).json({ success: true, state, message });
                 }
             } else {
                 return res.status(202).json({ success: false, error: 'User not authenticated' });
@@ -46,7 +50,7 @@ module.exports = {
             return res.status(500).json({ success: false, error: 'Internal Server Error' });
         }
     },
-
+    
     wishlistget: async (req, res) => {
         try {
             if (req.session.user) {

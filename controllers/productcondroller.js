@@ -9,7 +9,7 @@ const fs = require('fs')
 
 module.exports = {
     productget: async (req, res) => {
-        if(!req.session.admin){
+        if (!req.session.admin) {
             return res.redirect('/admin')
         }
         try {
@@ -22,7 +22,7 @@ module.exports = {
     },
 
     addproductget: async (req, res) => {
-        if(!req.session.admin){
+        if (!req.session.admin) {
             return res.redirect('/admin')
         }
         try {
@@ -35,7 +35,7 @@ module.exports = {
     },
 
     addproductspost: async (req, res) => {
-        if(!req.session.admin){
+        if (!req.session.admin) {
             return res.redirect('/admin')
         }
         try {
@@ -74,7 +74,7 @@ module.exports = {
     },
 
     blockproductvisibility: async (req, res) => {
-        if(!req.session.admin){
+        if (!req.session.admin) {
             return res.redirect('/admin')
         }
         try {
@@ -103,7 +103,7 @@ module.exports = {
     },
 
     producteditget: async (req, res) => {
-        if(!req.session.admin){
+        if (!req.session.admin) {
             return res.redirect('/admin')
         }
         try {
@@ -121,7 +121,7 @@ module.exports = {
     },
 
     producteditpost: async (req, res) => {
-        if(!req.session.admin){
+        if (!req.session.admin) {
             return res.redirect('/admin')
         }
         try {
@@ -165,7 +165,7 @@ module.exports = {
     },
 
     productdelete: async (req, res) => {
-        if(!req.session.admin){
+        if (!req.session.admin) {
             return res.redirect('/admin')
         }
         try {
@@ -194,45 +194,99 @@ module.exports = {
     userallproducts: async (req, res) => {
         try {
             const searchWord = req.query.search ? req.query.search.toString() : '';
+            const page = parseInt(req.query.page) || 1;
+            const limit = 10;
+
+            const skip = (page - 1) * limit;
+
+            const totalCount = await ProductModel.countDocuments({ status: false, productName: { $regex: searchWord, $options: "i" } });
+
+            const totalPages = Math.ceil(totalCount / limit);
 
             const product = await ProductModel.find(
                 { status: false, productName: { $regex: searchWord, $options: "i" } }
-            );
+            )
+                .skip(skip)
+                .limit(limit);
 
-            res.render('user/showallproduct', { product });
+            res.render('user/showallproduct', { product, totalPages, currentPage: page, searchWord });
         } catch (error) {
             console.error(error);
             res.status(500).send('Internal Server Error');
         }
     },
 
-
-
     filterProduct: async (req, res) => {
-        const minimum = req.query.min;
-        const maximum = req.query.max;
+        console.log('popopop');
+
+        const minimum = req.query.minPrice;
+        const maximum = req.query.maxPrice;
+        console.log(minimum, maximum);
+
+        const page = parseInt(req.query.page) || 1;
+        const limit = 5
 
         try {
-            const product = await ProductModel.find({
-                prices: { $gte: minimum, $lte: maximum }
+            const count = await ProductModel.countDocuments({
+                $and: [
+                    { discounted: { $gte: minimum, $lte: maximum } },
+                    { status: false }
+                ]
             });
-            res.render('user/showallproduct', { product });
+
+            const totalPages = Math.ceil(count / limit);
+            const skip = (page - 1) * limit;
+
+            const product = await ProductModel.find({
+                $and: [
+                    { discounted: { $gte: minimum, $lte: maximum } },
+                    { status: false }
+                ]
+            })
+                .skip(skip)
+                .limit(limit);
+
+            console.log(product);
+
+            res.render('user/filterallproduct', { product, totalPages, currentPage: page, minimum, maximum });
         } catch (error) {
             console.error("Error filtering products:", error);
             res.status(500).json({ error: "Internal Server Error" });
         }
     },
+
 
     sort: async (req, res) => {
-        const sortvalue = JSON.parse(req.query.sort)
         try {
-            const product = await ProductModel.find().sort({ prices: sortvalue })
-            res.render('user/showallproduct', { product })
+            console.log('lolilil');
+            const { sort, page } = req.query;
+            console.log(sort, page);
+            const currentPage = parseInt(page) || 1;
+            const pageSize = 1;
+
+            const skip = (currentPage - 1) * pageSize;
+
+            const product = await ProductModel.find({ status: false })
+                .sort({ discounted: JSON.parse(sort), _id: 1 })
+                .skip(skip)
+                .limit(pageSize);
+
+            const totalProducts = await ProductModel.countDocuments({ status: false });
+
+            const totalPages = Math.ceil(totalProducts / pageSize);
+
+            res.render('user/sortshowall', { product, currentPage, totalPages, sort });
+            console.log(currentPage);
+
         } catch (error) {
             console.error("Error filtering products:", error);
             res.status(500).json({ error: "Internal Server Error" });
         }
     },
+
+
+
+
     viewsingleproducts: async (req, res) => {
         try {
             const productid = req.query.id;
@@ -273,46 +327,49 @@ module.exports = {
         }
     },
 
+    
+
     reviewget: async (req, res) => {
         if (!req.session.user) {
             return res.redirect('/');
         }
-
+    
         const userId = req.session.user;
         const productId = req.query.id;
         const ordId = req.query.ordid;
-
+    
         try {
             const order = await orders.findOne({ userId: userId });
-
+    
             if (!order) {
-                return res.status(404).send("Order not found.");
+                throw new Error("Order not found.");
             }
-
+    
             const orderListItem = order.orderlist.find(item => item._id.equals(ordId));
-
+    
             if (!orderListItem) {
-                return res.status(404).send("Order list item not found.");
+                throw new Error("Order list item not found.");
             }
-
+    
             if (orderListItem.status == 'cancelled') {
-                return res.status(404).send("You are not able to review on this product.");
+                throw new Error("You are not able to review on this product.");
             }
-
+    
             const productExist = orderListItem.productId.some(product => product.id.equals(productId));
-
+    
             if (!productExist) {
-                return res.status(404).send("Product ID does not match.");
+                throw new Error("Product ID does not match.");
             }
-
+    
             const product = await ProductModel.findById(productId);
-
+    
             res.render('user/review', { product });
         } catch (err) {
             console.error("Error:", err);
-            return res.status(500).send("Internal Server Error");
+            return res.status(500).send(err.message);
         }
     },
+    
 
 
     reviewpost: async (req, res) => {
@@ -356,8 +413,5 @@ module.exports = {
         }
 
     }
-
-
-
 
 };

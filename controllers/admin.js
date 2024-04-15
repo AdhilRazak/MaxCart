@@ -70,7 +70,8 @@ module.exports = {
                 await userdata.updateOne({ _id: userID }, { $set: { otpVerified: true } });
                 state = true;
             }
-            res.json({ state });
+
+            res.json({ state});
         } catch (error) {
             console.error("Error in blocking/unblocking product:", error);
             res.status(500).json({ message: "Internal Server Error" });
