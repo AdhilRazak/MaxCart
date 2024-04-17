@@ -57,7 +57,7 @@ module.exports = {
                 subCategory,
                 deliveryDate,
                 description,
-                size,
+                size, 
                 color,
                 title,
                 write,
@@ -69,7 +69,8 @@ module.exports = {
             res.redirect('/admin/product');
         } catch (error) {
             console.error("Error saving data to the database:", error);
-            res.status(500).json({ message: "Internal Server Error", success: false });
+            res.status(500).json({ message: "Internal Server Error" });
+
         }
     },
 
@@ -198,9 +199,13 @@ module.exports = {
             const limit = 10;
 
             const skip = (page - 1) * limit;
+            let isWishlist
 
             const totalCount = await ProductModel.countDocuments({ status: false, productName: { $regex: searchWord, $options: "i" } });
-
+            if (req.session.user) {
+                const userid = req.session.user
+                isWishlist = await wish.findOne({ userId: userid });
+            }
             const totalPages = Math.ceil(totalCount / limit);
 
             const product = await ProductModel.find(
@@ -209,7 +214,7 @@ module.exports = {
                 .skip(skip)
                 .limit(limit);
 
-            res.render('user/showallproduct', { product, totalPages, currentPage: page, searchWord });
+            res.render('user/showallproduct', { product, totalPages, isWishlist, currentPage: page, searchWord });
         } catch (error) {
             console.error(error);
             res.status(500).send('Internal Server Error');
@@ -217,14 +222,12 @@ module.exports = {
     },
 
     filterProduct: async (req, res) => {
-        console.log('popopop');
 
         const minimum = req.query.minPrice;
         const maximum = req.query.maxPrice;
-        console.log(minimum, maximum);
 
         const page = parseInt(req.query.page) || 1;
-        const limit = 5
+        const limit = 10
 
         try {
             const count = await ProductModel.countDocuments({
@@ -246,8 +249,6 @@ module.exports = {
                 .skip(skip)
                 .limit(limit);
 
-            console.log(product);
-
             res.render('user/filterallproduct', { product, totalPages, currentPage: page, minimum, maximum });
         } catch (error) {
             console.error("Error filtering products:", error);
@@ -258,11 +259,9 @@ module.exports = {
 
     sort: async (req, res) => {
         try {
-            console.log('lolilil');
             const { sort, page } = req.query;
-            console.log(sort, page);
             const currentPage = parseInt(page) || 1;
-            const pageSize = 1;
+            const pageSize = 10;
 
             const skip = (currentPage - 1) * pageSize;
 
@@ -276,7 +275,6 @@ module.exports = {
             const totalPages = Math.ceil(totalProducts / pageSize);
 
             res.render('user/sortshowall', { product, currentPage, totalPages, sort });
-            console.log(currentPage);
 
         } catch (error) {
             console.error("Error filtering products:", error);
@@ -284,16 +282,13 @@ module.exports = {
         }
     },
 
-
-
-
     viewsingleproducts: async (req, res) => {
         try {
             const productid = req.query.id;
             let isWishlist, proreview = ''
 
 
-            proreview = await review.findOne({ productId: productid })
+            proreview = await review.findOne({ productId: productid }).populate('reviews.userId')
 
 
             const product = await ProductModel.findById(productid);
@@ -327,49 +322,49 @@ module.exports = {
         }
     },
 
-    
+
 
     reviewget: async (req, res) => {
         if (!req.session.user) {
             return res.redirect('/');
         }
-    
+
         const userId = req.session.user;
         const productId = req.query.id;
         const ordId = req.query.ordid;
-    
+
         try {
             const order = await orders.findOne({ userId: userId });
-    
+
             if (!order) {
                 throw new Error("Order not found.");
             }
-    
+
             const orderListItem = order.orderlist.find(item => item._id.equals(ordId));
-    
+
             if (!orderListItem) {
                 throw new Error("Order list item not found.");
             }
-    
+
             if (orderListItem.status == 'cancelled') {
                 throw new Error("You are not able to review on this product.");
             }
-    
+
             const productExist = orderListItem.productId.some(product => product.id.equals(productId));
-    
+
             if (!productExist) {
                 throw new Error("Product ID does not match.");
             }
-    
+
             const product = await ProductModel.findById(productId);
-    
+
             res.render('user/review', { product });
         } catch (err) {
             console.error("Error:", err);
             return res.status(500).send(err.message);
         }
     },
-    
+
 
 
     reviewpost: async (req, res) => {

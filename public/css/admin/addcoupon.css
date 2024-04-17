@@ -20,7 +20,7 @@ body {
 }
 
 .addbtn {
-    background-color: rgb(24, 194, 24);
+    background-color: rgb(0, 0, 0);
     color: white;
     width: 100px;
     height: 40px;
@@ -29,7 +29,7 @@ body {
 }
 
 #menu {
-    background-color: #111827;
+    background-color: #000000;
     width: 300px;
     height: 100%;
     position: fixed;
@@ -37,11 +37,25 @@ body {
     left: 0;
 
 }
+.Addproducts {
+    width: 130px;
+    height: 40px;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6px;
+    font-size: medium;
+    font-family: sans-serif;
+    font-weight: 500;
+    color: white;
 
+
+}
 #menu .logo {
     display: flex;
     align-items: center;
-    color: #fff;
+    color: #ffffff;
     padding: 30px 0 0 30px;
 }
 
@@ -65,9 +79,13 @@ body {
     cursor: pointer;
 }
 
-#menu .items li:nth-child(1) {
-    border-left: 4px solid #fff;
+#menu .items li:nth-child(7) {
+    border-left: 5px solid #ffffff;
+    border-bottom: 1px solid #ffffff;
+    border-top: 1px solid #ffffff;
+
 }
+
 
 #menu .items li i {
     color: rgb(134, 141, 151);
@@ -86,7 +104,7 @@ body {
 
 #menu .items li a {
     text-decoration: none;
-    color: rgb(134, 141, 151);
+    color: rgb(255, 255, 255);
     font-weight: 300px;
     transition: 0.3s ease;
 }
@@ -428,7 +446,7 @@ tbody tr td {
 
 .coupon_div button {
     padding: 0.5rem 1rem;
-    background-color: #6c840c;
+    background-color: #000000;
     color: #e2e0ef;
     border: none;
     border-radius: 4px;

@@ -15,21 +15,23 @@
     <section id="menu">
         <div class="logo">
             <img src="/images/logo.png" alt="">
-            <h2>Dynamic</h2>
+            <h2>Maxcart</h2>
         </div>
         <div class="items">
             <li><i class="fa-solid fa-chart-pie"></i> <a href="/admin/dashboard">Dashboard</a></li>
-            <li><i class="fa-solid fa-table-cells-large"></i> <a href="/admin/products">Products</a></li>
-            <li> <i class="fa-solid fa-list" style="color: #000000;"></i> <a href="/admin/Category">Categories</a></li>
-            <li><i class="fa-solid fa-credit-card"></i> <a href="#">Orders</a></li>
-            <li><i class="fa-solid fa-credit-card"></i> <a href="/admin/banner">Banners</a></li>
-            <li><i class="fa-solid fa-credit-card"></i> <a href="/admin/coupon">Coupons</a></li>
-            <li><i class="fa-solid fa-user" style="color: #000000;"></i><a href="/admin/Userslist">Users</a></li>
+            <li><i class="fa-solid fa-table-cells-large"></i> <a href="/admin/product">Products</a></li>
+            <li> <i class="fa-solid fa-list" style="color: #adb1b8;"></i> <a href="/admin/categories">Categories</a>
+            </li>
+            <li><i class="fa-solid fa-credit-card"></i> <a href="/admin/orders">Orders</a></li>
+            <li><i class="fa-solid fa-user" style="color: #919191;"></i><a href="/admin/adminuserlist">Users</a></li>
+            <li><i class="fa-solid fa-image"></i><a href="/admin/banner">Banner</a></li>
+            <li><i class="fa-solid fa-ticket" style="color: #919191;"></i><a href="/admin/coupon">Coupen</a></li>
 
 
             <!-- <li><i class="fa-solid fa-chart-line"></i> <a href="#">Blank</a></li> -->
             <div class="logout">
-                <li><i class="fa-solid fa-right-from-bracket" style="color: #a10c39;"></i> <a href="#">Logout</a></li>
+                <li><i class="fa-solid fa-right-from-bracket" style="color: #d40c48;"></i> <a
+                        href="/admin/logout">Logout</a></li>
             </div>
         </div>
 
@@ -49,9 +51,8 @@
 
         </div>
 
-        <h3 class="i-name">Add Products</h3>
+        <h3 class="i-name">Add Banner</h3>
         <div class="content_part">
-
             <!-- Inside the content_part div -->
             <div class="content_part">
                 <form id="edit" action="/admin/addbanner" method="post" enctype="multipart/form-data">
@@ -60,17 +61,17 @@
                             <div class="card_div">
                                 <div class="form-group">
                                     <label for="productName">Name</label>
-                                    <input type="text" id="name" name="name" placeholder="Enter name">
+                                    <input type="text" id="name" name="name" placeholder="Enter name" required>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="title">Title</label>
-                                    <input type="text" id="title" name="title" placeholder="Enter title">
+                                    <input type="text" id="title" name="title" placeholder="Enter title" required>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="offer">Offer</label>
-                                    <input type="text" id="offer" name="offer" placeholder="Enter offer">
+                                    <input type="text" id="offer" name="offer" placeholder="Enter offer" required>
                                 </div>
 
                                 <div class="form-group">
@@ -113,8 +114,7 @@
                 document.getElementById("imagePreview").setAttribute('src', 'https://via.placeholder.com/150');
             }
         }
-    </script>
-    <script>
+
         $('#menu-btn').click(function () {
             $('#menu').toggleClass('active')
         })

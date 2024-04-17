@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <link rel="stylesheet" href="/css/Admin/Product.css">
+    <link rel="stylesheet" href="/css/admin/banners.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.7.1.slim.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -17,21 +17,23 @@
     <section id="menu">
         <div class="logo">
             <img src="/images/logo.png" alt="">
-            <h2>Admin</h2>
+            <h2>Maxcart</h2>
         </div>
         <div class="items">
             <li><i class="fa-solid fa-chart-pie"></i> <a href="/admin/dashboard">Dashboard</a></li>
-            <li><i class="fa-solid fa-table-cells-large"></i> <a href="#">Products</a></li>
-            <li><i class="fa-solid fa-list" style="color: #adb1b8;"></i> <a href="/admin/Category">Categories</a></li>
-            <li><i class="fa-solid fa-credit-card"></i> <a href="#">Orders</a></li>
-            <li><i class="fa-solid fa-credit-card"></i> <a href="/admin/banner">Banners</a></li>
-            <li><i class="fa-solid fa-credit-card"></i> <a href="/admin/coupon">Coupons</a></li>
-            <li><i class="fa-solid fa-user" style="color: #c4c8cf;"></i><a href="/admin/Userslist">Users</a></li>
+            <li><i class="fa-solid fa-table-cells-large"></i> <a href="/admin/product">Products</a></li>
+            <li> <i class="fa-solid fa-list" style="color: #adb1b8;"></i> <a href="/admin/categories">Categories</a>
+            </li>
+            <li><i class="fa-solid fa-credit-card"></i> <a href="/admin/orders">Orders</a></li>
+            <li><i class="fa-solid fa-user" style="color: #919191;"></i><a href="/admin/adminuserlist">Users</a></li>
+            <li><i class="fa-solid fa-image"></i><a href="/admin/banner">Banner</a></li>
+            <li><i class="fa-solid fa-ticket" style="color: #919191;"></i><a href="/admin/coupon">Coupen</a></li>
 
 
             <!-- <li><i class="fa-solid fa-chart-line"></i> <a href="#">Blank</a></li> -->
             <div class="logout">
-                <li><i class="fa-solid fa-right-from-bracket" style="color: #d40c48;"></i> <a href="#">Logout</a></li>
+                <li><i class="fa-solid fa-right-from-bracket" style="color: #d40c48;"></i> <a
+                        href="/admin/logout">Logout</a></li>
             </div>
         </div>
 
@@ -45,21 +47,21 @@
 
                     <i id="menu-btn" class="fa-solid fa-bars"></i>
                 </div>
-                <div class="search">
+                <!-- <div class="search">
                     <i class="fa-solid fa-magnifying-glass"></i>
                     <input type="text" placeholder="Search">
-                </div>
+                </div> -->
             </div>
 
 
             <div class="Addproducts">
-                <a href="/admin/addbanner" class="category" id="add">Add Products</a>
+                <a href="/admin/addbanner" class="category" id="add">Add Banner</a>
             </div>
 
 
         </div>
 
-        <h3 class="i-name">Product Lists</h3>
+        <h3 class="i-name">Banner List</h3>
 
 
 

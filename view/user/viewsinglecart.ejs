@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ecart</title>
+  <title>MaxCart</title>
   <!-- Bootstrap css cdn link -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
@@ -53,20 +53,22 @@
               </div>
 
               <a href="/home">
-                <h1 class="MaxCart" style="background: linear-gradient(135deg, #b7ced4 0%, #607d8b 100%, #cfd8dc 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; ">MaxCart</h1>
-              
-              
+                <h1 class="MaxCart"
+                  style="background: linear-gradient(135deg, #b7ced4 0%, #607d8b 100%, #cfd8dc 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; ">
+                  MaxCart</h1>
+
+
               </a>
             </div>
 
             <div class="navigationnavbar">
               <ul class="d-flex list-unstyled m-0 p-0 align-items-center">
-               
+
                 <li>
-                  <a href="/"> Home </a>
+                  <a href="/home"> Home </a>
                 </li>
                 <li>
-                  <a href="/category?category=men"> Mobile </a>
+                  <a href="/category?category=mobile"> Mobile </a>
                 </li>
                 <li>
                   <a href="/category?category=laptop"> Laptops </a>
@@ -75,7 +77,7 @@
                   <a href="/category?category=speaker"> Speakers </a>
                 </li>
                 <li>
-                  <a href="/category?category=hearphones">Hearphones</a>
+                  <a href="/category?category=hearphones">Earphones</a>
                 </li>
                 <li>
                   <a href="/category?category=watch">Smartwatch</a>
@@ -171,7 +173,7 @@
   <main>
     <div class="container-fluid">
       <div class="row">
-        <div class="col-12 searchBar d-flex align-items-center justify-content-center position-relative">
+        <!-- <div class="col-12 searchBar d-flex align-items-center justify-content-center position-relative">
           <div class="sortOption position-absolute d-flex align-items-center gap-3">
             <div class="fliterIcon">
               <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -191,7 +193,7 @@
               </svg>
             </button>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
     <div class="container-fluid">
@@ -311,7 +313,7 @@
                     <p class="reviewDetails">
                       <%=data.comment%>
                     </p>
-                    <p class="ratedUserName">User 1</p>
+                    <p class="ratedUserName"><%= data.userId.username %></p>
                   </div>
                   <%})%>
                     <%}else{%>
@@ -384,14 +386,13 @@
                 <h2>About Us</h2>
                 <div class="descriptionThree d-flex">
                   <div class="descriptionTwo">
-                    <a href="/earbuds">Earbuds</a> <br />
-                    <a href="/earphone">Earphone</a> <br />
-                    <a href="/speakers">Speakers</a>
+                    <a href="/category?category=mobile">Mobiles</a> <br />
+                    <a href="/category?category=Earphones">Earphones</a> <br />
+                    <a href="/category?category=speaker">Speakers</a>
                   </div>
                   <div class="descriptionTwo">
-                    <a href="/soundbars">Soundbars</a> <br />
-                    <a href="/smartwatch">Smartwatch</a> <br />
-                    <a href="/cables">Cables</a>
+                    <a href="/category?category=laptop">Laptops</a> <br />
+                    <a href="/category?category=watch">Smartwatchs</a> <br />
                   </div>
                 </div>
               </div>
@@ -489,18 +490,18 @@
               <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour"
                 data-bs-parent="#accordionFlushExample">
                 <div class="accordion-body">
-                  <div class="descriptionThree d-flex">
+                  <!-- <div class="descriptionThree d-flex">
                     <div class="descriptionTwo">
-                      <a href="/earbuds">Earbuds</a> <br />
+                      <a href="/earbuds"></a> <br />
                       <a href="/earphone">Earphone</a> <br />
                       <a href="/speakers">Speakers</a>
                     </div>
                     <div class="descriptionTwo">
                       <a href="/soundbars">Soundbars</a> <br />
-                      <a href="/smartwatch">Smartwatch</a> <br />
+                      <a href="/smartwatch">Smartuuuwatch</a> <br />
                       <a href="/cables">Cables</a>
                     </div>
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </div>
@@ -571,31 +572,29 @@
         <div class="col-3">
           <div class="catgory">
             <div class="catgoryDiv">
-              <a href="/earbuds">Shop Earbuds</a>
+              <a href="/category?category=mobile">Shop Mobiles</a>
             </div>
             <div class="catgoryDiv">
-              <a href="/soundbars">Shop Soundbars</a>
+              <a href="/category?category=speaker">Shop Speakers</a>
             </div>
           </div>
         </div>
         <div class="col-3">
           <div class="catgory">
             <div class="catgoryDiv">
-              <a href="/earphones">Shop Earphones</a>
+              <a href="/category?category=laptop">Shop Laptops</a>
             </div>
             <div class="catgoryDiv">
-              <a href="/smartwatch">Shop Smartwatch</a>
+              <a href="/category?category=watch">Shop Smartwatch</a>
             </div>
           </div>
         </div>
         <div class="col-3">
           <div class="catgory">
             <div class="catgoryDiv">
-              <a href="/speakers">Shop Speakers</a>
+              <a href="/category?category=Earphones">Shop Earphones</a>
             </div>
-            <div class="catgoryDiv">
-              <a href="/cables">Shop Cables</a>
-            </div>
+
           </div>
         </div>
       </div>
@@ -709,41 +708,41 @@
     });
   </script>
   <script>
-   async function addtocart(event, productId) {
-  event.preventDefault();
-  console.log(productId);
+    async function addtocart(event, productId) {
+      event.preventDefault();
+      console.log(productId);
 
-  try {
-    console.log('bhfbf');
-    const response = await axios.post(`/addtocart?id=${productId}`);
-    console.log(response)
-    // Check if the request was successful (status code 200)
-    if (response.status === 200) {
-      // Extract message from response data
-      const message = response.data.message;
-      // Show message using SweetAlert
-      showSuccessAlert(message);
-    } else {
-      window.location.href = '/';
-      console.log("Failed to add product to cart.");
+      try {
+        console.log('bhfbf');
+        const response = await axios.post(`/addtocart?id=${productId}`);
+        console.log(response)
+        // Check if the request was successful (status code 200)
+        if (response.status === 200) {
+          // Extract message from response data
+          const message = response.data.message;
+          // Show message using SweetAlert
+          showSuccessAlert(message);
+        } else {
+          window.location.href = '/';
+          console.log("Failed to add product to cart.");
+        }
+      } catch (error) {
+        // Handle any errors that occur during the request
+        console.error("An error occurred:", error);
+        alert('An error occurred while adding the product to cart.');
+      }
     }
-  } catch (error) {
-    // Handle any errors that occur during the request
-    console.error("An error occurred:", error);
-    alert('An error occurred while adding the product to cart.');
-  }
-}
 
-// Define a function to display SweetAlert for success messages
-function showSuccessAlert(message) {
-  swal({
-    title: "Success!",
-    text: message,
-    icon: "success",
-    timer:2000,
-    buttons:false
-  });
-}
+    // Define a function to display SweetAlert for success messages
+    function showSuccessAlert(message) {
+      swal({
+        title: "Success!",
+        text: message,
+        icon: "success",
+        timer: 2000,
+        buttons: false
+      });
+    }
 
 
     async function Addwishlist(event, productId) {
@@ -755,7 +754,7 @@ function showSuccessAlert(message) {
         // Check if the request was successful (status code 200)
         if (response.status === 200) {
           const message = response.data.message;
-      showSuccessAlert(message);
+          showSuccessAlert(message);
         } else {
           console.log("Failed to add product to wishlist.");
           // Redirect to home page if adding to wishlist fails
@@ -780,14 +779,14 @@ function showSuccessAlert(message) {
     }
 
     function showSuccessAlert(message) {
-  swal({
-    title: "Success!",
-    text: message,
-    icon: "success",
-    timer:2000,
-    buttons:false
-  });
-}
+      swal({
+        title: "Success!",
+        text: message,
+        icon: "success",
+        timer: 2000,
+        buttons: false
+      });
+    }
 
 
   </script>

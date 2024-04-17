@@ -16,20 +16,25 @@
 
     <section id="menu">
         <div class="logo">
-            <!-- <img src="/images/logo.png" alt=""> -->
-            <h2>Dynamic</h2>
+            <img src="/images/logo.png" alt="">
+            <h2>Maxcart</h2>
         </div>
         <div class="items">
-            <li><i class="fa-solid fa-chart-pie"></i> <a href="/admin/home">Dashboard</a></li>
-            <li><i class="fa-solid fa-table-cells-large"></i> <a href="/admin/productslist">Products</li>
-            <li> <i class="fa-regular fa-pen-to-square"></i> <a href="/admin/userslist">Users</a></li>
-            <li> <i class="fa-regular fa-pen-to-square"></i> <a href="/admin/blockeduser">Blocked Users</a></li>
-            <li><i class="fa-solid fa-credit-card"></i> <a href="/admin/categorylist">Category</a></li>
-            <li><i class="fa-solid fa-credit-card"></i> <a href="/admin/order">Orders</a></li>
-            <li><i class="fa-solid fa-burger"></i> <a href="/admin/couponslist">coupon</a></li>
-            <li><i class="fa-solid fa-burger"></i> <a href='/admin/bannerlist'>Banner</a></li>
-            <li><i class="fa-solid fa-chart-line"></i> <a href="/admin/addproducts">Add products</a></li>
+            <li><i class="fa-solid fa-chart-pie"></i> <a href="/admin/dashboard">Dashboard</a></li>
+            <li><i class="fa-solid fa-table-cells-large"></i> <a href="/admin/product">Products</a></li>
+            <li> <i class="fa-solid fa-list" style="color: #adb1b8;"></i> <a href="/admin/categories">Categories</a>
+            </li>
+            <li><i class="fa-solid fa-credit-card"></i> <a href="/admin/orders">Orders</a></li>
+            <li><i class="fa-solid fa-user" style="color: #919191;"></i><a href="/admin/adminuserlist">Users</a></li>
+            <li><i class="fa-solid fa-image"></i><a href="/admin/banner">Banner</a></li>
+            <li><i class="fa-solid fa-ticket" style="color: #919191;"></i><a href="/admin/coupon">Coupen</a></li>
 
+
+            <!-- <li><i class="fa-solid fa-chart-line"></i> <a href="#">Blank</a></li> -->
+            <div class="logout">
+                <li><i class="fa-solid fa-right-from-bracket" style="color: #d40c48;"></i> <a
+                        href="/admin/logout">Logout</a></li>
+            </div>
         </div>
 
     </section>
@@ -62,5 +67,10 @@
 </body>
 <!-- <script src="/js/addcatagory.js"></script> -->
 <!-- <script src="/js/updateCategory.js"></script> -->
+<script>
+    $('#menu-btn').click(function () {
+        $('#menu').toggleClass('active')
+    })
+</script>
 
 </html>

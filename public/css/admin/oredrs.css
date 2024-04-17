@@ -28,8 +28,29 @@ body {
     border-radius: 3px;
 }
 
+.Addproducts {
+    width: 130px;
+    height: 40px;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6px;
+    font-size: medium;
+    font-family: sans-serif;
+    font-weight: 500;
+    color: white;
+
+
+}
+
+.category {
+    text-decoration: none;
+    color: white;
+}
+
 #menu {
-    background-color: #111827;
+    background-color: #000000;
     width: 300px;
     height: 100%;
     position: fixed;
@@ -48,7 +69,7 @@ body {
 #menu .logo img {
     width: 40px;
     margin-right: 15px;
-    background-size: auto;
+
 }
 
 #menu .items {
@@ -66,8 +87,11 @@ body {
     cursor: pointer;
 }
 
-#menu .items li:nth-child(1) {
-    border-left: 4px solid #fff;
+#menu .items li:nth-child(4) {
+    border-left: 5px solid #ffffff;
+    border-bottom: 1px solid #ffffff;
+    border-top: 1px solid #ffffff;
+
 }
 
 #menu .items li i {
@@ -87,7 +111,7 @@ body {
 
 #menu .items li a {
     text-decoration: none;
-    color: rgb(134, 141, 151);
+    color: rgb(255, 255, 255);
     font-weight: 300px;
     transition: 0.3s ease;
 }
@@ -283,12 +307,8 @@ tbody tr td {
     color: #2b2b2b;
 }
 
-.edit a {
-    text-decoration: none;
-    font-style: 14px;
-    color: #8f8bba;
-    font-weight: 600;
-}
+
+
 
 .n1 {
     display: flex;

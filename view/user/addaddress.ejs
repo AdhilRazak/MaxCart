@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Add Address</title>
+  <title>MaxCart Add Address</title>
   <!-- <link rel="shortcut icon" href="#" type="image/x-icon" /> -->
   <!-- Bootstrap css cdn link -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -12,6 +12,9 @@
   <!-- end of Bootstrap css cdn link -->
   <!-- Style css -->
   <link rel="stylesheet" href="/css/user/addaddress.css" />
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   <!-- end of Style css -->
 </head>
 
@@ -50,20 +53,22 @@
               </div>
 
               <a href="/home">
-                <h1 class="MaxCart" style="background: linear-gradient(135deg, #b7ced4 0%, #607d8b 100%, #cfd8dc 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; ">MaxCart</h1>
-              
-              
+                <h1 class="MaxCart"
+                  style="background: linear-gradient(135deg, #b7ced4 0%, #607d8b 100%, #cfd8dc 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; ">
+                  MaxCart</h1>
+
+
               </a>
             </div>
 
             <div class="navigationnavbar">
               <ul class="d-flex list-unstyled m-0 p-0 align-items-center">
-               
+
                 <li>
-                  <a href="/"> Home </a>
+                  <a href="/home"> Home </a>
                 </li>
                 <li>
-                  <a href="/category?category=men"> Mobile </a>
+                  <a href="/category?category=mobile"> Mobile </a>
                 </li>
                 <li>
                   <a href="/category?category=laptop"> Laptops </a>
@@ -72,7 +77,7 @@
                   <a href="/category?category=speaker"> Speakers </a>
                 </li>
                 <li>
-                  <a href="/category?category=hearphones">Hearphones</a>
+                  <a href="/category?category=hearphones">Earphones</a>
                 </li>
                 <li>
                   <a href="/category?category=watch">Smartwatch</a>
@@ -295,14 +300,13 @@
                 <h2>About Us</h2>
                 <div class="descriptionThree d-flex">
                   <div class="descriptionTwo">
-                    <a href="/earbuds">Earbuds</a> <br />
-                    <a href="/earphone">Earphone</a> <br />
-                    <a href="/speakers">Speakers</a>
+                    <a href="/category?category=mobile">Mobiles</a> <br />
+                    <a href="/category?category=Earphones">Earphones</a> <br />
+                    <a href="/category?category=speaker">Speakers</a>
                   </div>
                   <div class="descriptionTwo">
-                    <a href="/soundbars">Soundbars</a> <br />
-                    <a href="/smartwatch">Smartwatch</a> <br />
-                    <a href="/cables">Cables</a>
+                    <a href="/category?category=laptop">Laptops</a> <br />
+                    <a href="/category?category=watch">Smartwatchs</a> <br />
                   </div>
                 </div>
               </div>
@@ -400,18 +404,18 @@
               <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour"
                 data-bs-parent="#accordionFlushExample">
                 <div class="accordion-body">
-                  <div class="descriptionThree d-flex">
+                  <!-- <div class="descriptionThree d-flex">
                     <div class="descriptionTwo">
-                      <a href="/earbuds">Earbuds</a> <br />
+                      <a href="/earbuds"></a> <br />
                       <a href="/earphone">Earphone</a> <br />
                       <a href="/speakers">Speakers</a>
                     </div>
                     <div class="descriptionTwo">
                       <a href="/soundbars">Soundbars</a> <br />
-                      <a href="/smartwatch">Smartwatch</a> <br />
+                      <a href="/smartwatch">Smartuuuwatch</a> <br />
                       <a href="/cables">Cables</a>
                     </div>
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </div>
@@ -482,31 +486,29 @@
         <div class="col-3">
           <div class="catgory">
             <div class="catgoryDiv">
-              <a href="/earbuds">Shop Earbuds</a>
+              <a href="/category?category=mobile">Shop Mobiles</a>
             </div>
             <div class="catgoryDiv">
-              <a href="/soundbars">Shop Soundbars</a>
+              <a href="/category?category=speaker">Shop Speakers</a>
             </div>
           </div>
         </div>
         <div class="col-3">
           <div class="catgory">
             <div class="catgoryDiv">
-              <a href="/earphones">Shop Earphones</a>
+              <a href="/category?category=laptop">Shop Laptops</a>
             </div>
             <div class="catgoryDiv">
-              <a href="/smartwatch">Shop Smartwatch</a>
+              <a href="/category?category=watch">Shop Smartwatch</a>
             </div>
           </div>
         </div>
         <div class="col-3">
           <div class="catgory">
             <div class="catgoryDiv">
-              <a href="/speakers">Shop Speakers</a>
+              <a href="/category?category=Earphones">Shop Earphones</a>
             </div>
-            <div class="catgoryDiv">
-              <a href="/cables">Shop Cables</a>
-            </div>
+
           </div>
         </div>
       </div>
@@ -577,7 +579,6 @@
   <!-- end of footer -->
 
   <!-- custom js -->
-  <script src="./js/addAddress.js"></script>
   <!-- end of custom js -->
   <!-- fontawesome -->
   <script src="https://kit.fontawesome.com/23d1247997.js" crossorigin="anonymous"></script>
@@ -707,6 +708,46 @@
             `;
       }
     });
+
+    // Function to handle form submission
+    function handleSubmit(event) {
+      event.preventDefault(); // Prevent the default form submission
+
+      // Serialize form data
+      const formData = new FormData(event.target);
+      const data = {};
+      formData.forEach((value, key) => {
+        data[key] = value;
+      });
+
+      // Make an AJAX request to submit the form data
+      axios.post(event.target.action, data)
+        .then(response => {
+          // If response is ok, reload the page or do whatever you want
+          window.location.href = '/useraddress'
+        })
+        .catch(error => {
+          // Check if the error response contains an error message
+          if (error.response && error.response.data && error.response.data.error) {
+            // Display the error message using SweetAlert
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: error.response.data.error
+            });
+          } else {
+            // If no specific error message, show a generic error message
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Something went wrong. Please try again later.'
+            });
+          }
+        });
+    }
+
+    // Attach event listener to the form submission
+    document.querySelector('form').addEventListener('submit', handleSubmit);
   </script>
   <!--end of Bootstrap script file -->
 </body>

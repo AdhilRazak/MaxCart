@@ -69,7 +69,8 @@ module.exports = {
             return res.redirect('/admin')
         }
         try {
-            const existingbanner = await bannerdata.find({});
+            const id = req.query.id
+            const existingbanner = await bannerdata.findById(id)
             if (!existingbanner || existingbanner.length === 0) {
                 throw new Error("No banners found");
             }

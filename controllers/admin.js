@@ -6,7 +6,7 @@ const orderModel = require('../model/ordercollection')
 module.exports = {
 
     admindashboardget: async (req, res) => {
-        if(!req.session.admin){
+        if (!req.session.admin) {
             return res.redirect('/admin')
         }
         const products = await productModel.find()
@@ -42,7 +42,7 @@ module.exports = {
     },
 
     adminuserlistget: async (req, res) => {
-        if(!req.session.admin){
+        if (!req.session.admin) {
             return res.redirect('/admin')
         }
         const user = await userdata.find({})
@@ -50,7 +50,7 @@ module.exports = {
     },
 
     Blockuser: async (req, res) => {
-        if(!req.session.admin){
+        if (!req.session.admin) {
             return res.redirect('/admin')
         }
         try {
@@ -71,7 +71,7 @@ module.exports = {
                 state = true;
             }
 
-            res.json({ state});
+            res.json({ state });
         } catch (error) {
             console.error("Error in blocking/unblocking product:", error);
             res.status(500).json({ message: "Internal Server Error" });
@@ -79,7 +79,7 @@ module.exports = {
     },
 
     orders: async (req, res) => {
-        if(!req.session.admin){
+        if (!req.session.admin) {
             return res.redirect('/admin')
         }
         const orders = await orderModel.find({})
@@ -88,7 +88,7 @@ module.exports = {
     },
 
     deliveryupdation: async (req, res) => {
-        if(!req.session.admin){
+        if (!req.session.admin) {
             return res.redirect('/admin')
         }
         try {

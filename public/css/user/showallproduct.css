@@ -97,8 +97,8 @@ a {
 
 .topheaderone {
     justify-content: flex-end;
-    border-right: 0.8px solid rgba(0, 255, 0, 0.05);
-    background: linear-gradient(44deg, #111216 -4.62%, rgba(91, 99, 120, 0.00) 804.71%);
+    border-right: 0.8px solid rgba(0, 0, 0, 0.05);
+    background: linear-gradient(44deg, #000000 -4.62%, rgba(91, 99, 120, 0.00) 804.71%);
 }
 
 .topheaderone p {
@@ -108,7 +108,7 @@ a {
 
 .topheadertwo {
     justify-content: flex-start;
-    background: linear-gradient(298deg, #111216 -34.19%, rgba(91, 99, 120, 0.00) 1164.24%);
+    background: linear-gradient(298deg, #000000 -34.19%, rgba(91, 99, 120, 0.00) 1164.24%);
     padding-left: 1.25rem;
 }
 
@@ -167,7 +167,7 @@ a {
 .navigation {
     width: 100vw;
     height: 62px;
-    background: linear-gradient(180deg, #D9D9D9 -406.45%, #000 139.51%);
+    background: linear-gradient(180deg, #676565 -406.45%, #000 139.51%);
 }
 
 .hamburger {
@@ -662,13 +662,13 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 5px;
 }
 
 .catgory {
     width: 100%;
     height: 100%;
 }
-
 .catgoryDiv {
     position: relative;
     width: 90%;
@@ -677,6 +677,7 @@ footer {
     background: #4C525F;
     margin-bottom: 10%;
     padding: 0.5%;
+    border-radius: 5px;
 }
 
 .catgoryDiv:nth-child(2),

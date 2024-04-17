@@ -17,10 +17,10 @@ const order = new mongoose.Schema({
         }],
 
         subtotal: {
-            type: String,
+            type: Number,
         },
         total: {
-            type: String,
+            type: Number,
         },
         address: {
             type: String
@@ -29,10 +29,10 @@ const order = new mongoose.Schema({
             type: String
         },
         discount: {
-            type: String
+            type: Number
         },
         coupondiscount: {
-            type: String
+            type: Number
         },
         status: {
             type: String,

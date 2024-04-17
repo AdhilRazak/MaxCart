@@ -8,6 +8,7 @@ const userdatacollection = require('../model/userdatacollection')
 const Cart = require('../model/cartmodel')
 const order = require('../model/ordercollection')
 const Razorpay = require('razorpay')
+const { couponget } = require('./couponcontroller')
 require('dotenv').config()
 
 
@@ -126,12 +127,23 @@ module.exports = {
 
             const addressdata = await addresscollection.findOne({ user: userId })
 
+            const coupon = await couponcontroller.find()
+            
+
             const user = await usercollection.findOne({ _id: userId })
 
             if (!user) {
                 return res.status(400).json({ error: "user not found" });
 
             }
+
+            console.log(addressdata);
+
+            if (addressdata.address.length === 0) {
+                res.redirect('/addaddress');
+            }
+            
+
 
             if (addressdata) {
                 address = addressdata
@@ -211,7 +223,7 @@ module.exports = {
                 total = buyer.discounted;
             }
 
-            return res.render('user/checkout', { total, subtotal, discountTotal, quantity, address, productstuff, user, tint });
+            return res.render('user/checkout', { total, subtotal, discountTotal, quantity, address, productstuff, user, tint,coupon });
         } catch (error) {
             console.error("Error in checkoutget:", error);
             return res.status(500).json({ error: "Internal server error" });
@@ -258,6 +270,12 @@ module.exports = {
             const userid = req.session.user;
             const { proid, total, qty, tint, address, method, discounts, discountTotals, subs } = req.body;
 
+            if (!method) {
+                const message = "Payment method is required";
+                console.error(message);
+                return res.status(210).json({ message });
+            }
+    
             let prodata;
 
             if (tint == 100 && proid == 0) {

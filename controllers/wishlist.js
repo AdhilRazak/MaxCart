@@ -10,9 +10,9 @@ module.exports = {
                 const productId = req.query.id;
                 let state;
                 let message;
-    
+
                 let wishData = await wish.findOne({ userId: userId });
-    
+
                 if (!wishData) {
                     const wishing = new wish({
                         userId: userId,
@@ -23,7 +23,7 @@ module.exports = {
                     message = "Product added to wishlist.";
                     return res.status(200).json({ success: true, state, message });
                 }
-    
+
                 const existingProduct = await wish.findOne(
                     { userId: userId, 'productId.id': productId })
                 if (existingProduct) {
@@ -50,7 +50,7 @@ module.exports = {
             return res.status(500).json({ success: false, error: 'Internal Server Error' });
         }
     },
-    
+
     wishlistget: async (req, res) => {
         try {
             if (req.session.user) {

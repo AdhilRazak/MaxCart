@@ -47,6 +47,11 @@ module.exports = {
             const { locality, country, district, state, city, houseno, pincode } = req.body;
             const data = { locality, country, district, state, city, houseno, pincode };
 
+            if (!locality || !country || !district || !state || !city || !houseno || !pincode) {
+                return res.status(400).json({ error: 'All details must be filled' });
+            }
+
+
             try {
                 let address = await addressdata.findOne({ user: userId });
 
@@ -58,10 +63,10 @@ module.exports = {
 
                 await address.save();
 
-                res.status(200).json({ message: 'Address added successfully' });
+                res.redirect('/useraddress')
             } catch (error) {
                 console.error('Error adding address:', error);
-                res.status(500).json({ error: 'Internal Server Error' });
+                res.redirect('/useraddress')
             }
         } else {
             res.status(401).json({ error: 'Unauthorized' });
@@ -111,6 +116,10 @@ module.exports = {
 
             const { locality, country, district, state, city, houseno, pincode } = req.body;
 
+            if (!locality || !country || !district || !state || !city || !houseno || !pincode) {
+                return res.status(400).json({ error: 'All details must be filled' });
+            }
+
             const addresses = await addressdata.findOneAndUpdate(
                 {
                     user,
@@ -135,7 +144,7 @@ module.exports = {
                 return res.status(404).json({ error: 'Address not found' });
             }
 
-            res.status(200).send('Address updated successfully');
+            res.redirect('/useraddress')
         } catch (error) {
             console.error('Error fetching address for editing:', error);
             res.status(500).json({ error: 'Internal Server Error' });

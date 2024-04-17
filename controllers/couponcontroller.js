@@ -2,7 +2,7 @@ const coupondata = require('../model/couponcollection')
 
 module.exports = {
     couponget: async (req, res) => {
-        if(!req.session.admin){
+        if (!req.session.admin) {
             return res.redirect('/admin')
         }
         try {
@@ -14,14 +14,14 @@ module.exports = {
     },
 
     addcouponget: (req, res) => {
-        if(!req.session.admin){
+        if (!req.session.admin) {
             return res.redirect('/admin')
         }
         res.render('admin/addcoupon')
     },
 
     addcouponpost: async (req, res) => {
-        if(!req.session.admin){
+        if (!req.session.admin) {
             return res.redirect('/admin')
         }
         try {
@@ -42,7 +42,7 @@ module.exports = {
         }
     },
     editcoupenget: async (req, res) => {
-        if(!req.session.admin){
+        if (!req.session.admin) {
             return res.redirect('/admin')
         }
         try {
@@ -58,7 +58,7 @@ module.exports = {
     },
 
     editCouponPost: async (req, res) => {
-        if(!req.session.admin){
+        if (!req.session.admin) {
             return res.redirect('/admin')
         }
         try {
@@ -84,7 +84,7 @@ module.exports = {
     },
 
     deleteCoupon: async (req, res) => {
-        if(!req.session.admin){
+        if (!req.session.admin) {
             return res.redirect('/admin')
         }
         try {

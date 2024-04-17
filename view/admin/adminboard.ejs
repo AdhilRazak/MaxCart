@@ -40,19 +40,20 @@
             <h2>Maxcart</h2>
         </div>
         <div class="items">
-            <li><i class="fa-solid fa-chart-pie"></i> <a href="#">Dashboard</a></li>
+            <li><i class="fa-solid fa-chart-pie"></i> <a href="/admin/dashboard">Dashboard</a></li>
             <li><i class="fa-solid fa-table-cells-large"></i> <a href="/admin/product">Products</a></li>
             <li> <i class="fa-solid fa-list" style="color: #adb1b8;"></i> <a href="/admin/categories">Categories</a>
             </li>
-            <li><i class="fa-solid fa-credit-card"></i> <a href="/admin/orders">Ordersp</a></li>
+            <li><i class="fa-solid fa-credit-card"></i> <a href="/admin/orders">Orders</a></li>
             <li><i class="fa-solid fa-user" style="color: #919191;"></i><a href="/admin/adminuserlist">Users</a></li>
-            <li><i class="fa-solid fa-image"></i><a href="/admin/banner">banner</a></li>
-            <li><i class="fa-solid fa-ticket" style="color: #919191;"></i><a href="/admin/coupon">coupen</a></li>
+            <li><i class="fa-solid fa-image"></i><a href="/admin/banner">Banner</a></li>
+            <li><i class="fa-solid fa-ticket" style="color: #919191;"></i><a href="/admin/coupon">Coupen</a></li>
 
 
             <!-- <li><i class="fa-solid fa-chart-line"></i> <a href="#">Blank</a></li> -->
             <div class="logout">
-                <li><i class="fa-solid fa-right-from-bracket" style="color: #d40c48;"></i> <a href="/admin/logout">Logout</a></li>
+                <li><i class="fa-solid fa-right-from-bracket" style="color: #d40c48;"></i> <a
+                        href="/admin/logout">Logout</a></li>
             </div>
         </div>
 
@@ -66,16 +67,16 @@
 
                     <i id="menu-btn" class="fa-solid fa-bars"></i>
                 </div>
-                <div class="search">
+                <!-- <div class="search">
                     <i class="fa-solid fa-magnifying-glass"></i>
                     <input type="text" placeholder="Search">
-                </div>
+                </div> -->
             </div>
 
             <div class="profile">
-                <button class="addbtn">Add Product</button>
-                <i class="fa-solid fa-bell"></i>
-                <i class="fa-solid fa-user"></i>
+                <button class="addbtn"></button>
+                <!-- <i class="fa-solid fa-bell"></i>
+                <i class="fa-solid fa-user"></i> -->
             </div>
         </div>
 
@@ -147,11 +148,7 @@
         $('#menu-btn').click(function () {
             $('#menu').toggleClass('active')
         })
-    </script>
-    <script src="/js/admin/lib/chart.min.js"></script>
-    <!-- Template Javascript -->
-    <script src="/js/admin/common.js"></script>
-    <script>
+
         const ctx = document.getElementById('myChart');
         const products = document.querySelector('.products');
         const values = JSON.parse(products.getAttribute('productArray'));
@@ -180,8 +177,8 @@
                     label: 'Number of products belong to category',
                     data: counts,
                     borderWidth: 1,
-                    borderColor: '#7B74EC',
-                    backgroundColor: 'white'
+                    borderColor: '#676565',
+                    backgroundColor: '676565'
                 }]
             },
             options: {
@@ -192,9 +189,7 @@
                 }
             }
         });
-    </script>
 
-    <script>
         const chart = document.getElementById('myChart2');
         const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
         const userClass = document.querySelector('.users');
@@ -218,7 +213,7 @@
                     data: Object.values(registrationsPerMonth),
                     borderWidth: 1,
                     borderColor: 'white',
-                    backgroundColor: '#7B74EC'
+                    backgroundColor: '#676565'
                 }]
             },
             options: {

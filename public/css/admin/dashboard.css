@@ -20,7 +20,7 @@ body {
 }
 
 .addbtn {
-    background-color: rgb(24, 194, 24);
+    background-color: rgb(255, 255, 255);
     color: white;
     width: 100px;
     height: 40px;
@@ -29,7 +29,7 @@ body {
 }
 
 #menu {
-    background-color: #111827;
+    background-color: #000000;
     width: 300px;
     height: 100%;
     position: fixed;
@@ -65,9 +65,14 @@ body {
     cursor: pointer;
 }
 
+
 #menu .items li:nth-child(1) {
-    border-left: 4px solid #fff;
+    border-left: 5px solid #ffffff;
+    border-bottom: 1px solid #ffffff;
+    border-top: 1px solid #ffffff;
+
 }
+
 
 #menu .items li i {
     color: rgb(134, 141, 151);
@@ -86,7 +91,7 @@ body {
 
 #menu .items li a {
     text-decoration: none;
-    color: rgb(134, 141, 151);
+    color: rgb(255, 255, 255);
     font-weight: 300px;
     transition: 0.3s ease;
 }
@@ -189,19 +194,19 @@ body {
 }
 
 .values .val-box:nth-child(1) i {
-    background: #7B74EC;
+    background: #676565;
 }
 
 .values .val-box:nth-child(2) i {
-    background: #5C8AF0;
+    background: #676565;
 }
 
 .values .val-box:nth-child(3) i {
-    background: #E45D99;
+    background: #676565;
 }
 
 .values .val-box:nth-child(4) i {
-    background: #74daec;
+    background: #676565;
 }
 
 .values .val-box h3 {
