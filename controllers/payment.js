@@ -139,7 +139,7 @@ module.exports = {
 
             console.log(addressdata);
 
-            if (addressdata.address.length === 0) {
+            if (!addressdata||addressdata.address.length === 0) {
                 res.redirect('/addaddress');
             }
 

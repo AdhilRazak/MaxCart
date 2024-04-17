@@ -267,7 +267,6 @@ module.exports = {
             await sendEmail(email, otpgen);
 
             res.redirect('/forgototp')
-            console.log('kooi');
         } catch (error) {
             console.error('Error in sending email:', error);
             res.status(500).send('Internal error');
@@ -284,7 +283,6 @@ module.exports = {
     },
 
     forgotpasswordOpost: async (req, res) => {
-        console.log('hai');
         const { otp } = req.body;
 
         if (otpgen != otp) {
@@ -339,8 +337,14 @@ module.exports = {
                 return res.status(401).json({ error: 'User does not exist' });
             }
 
-            if (!passwordregex.test(password)) {
-                return res.status(401).json({ error: 'Password must contain at least 5 characters, one lowercase letter, one uppercase letter, and one digit' });
+            const passwordLength = password.length;
+            const hasLowerCase = /[a-z]/.test(password);
+            const hasUpperCase = /[A-Z]/.test(password);
+            const hasDigit = /\d/.test(password);
+
+            if (passwordLength < 8 || !hasLowerCase || !hasUpperCase || !hasDigit) {
+                const errorMessage = 'Password must contain at least 8 characters, one lowercase letter, one uppercase letter, and one digit';
+                return res.status(401).json({ error: errorMessage });
             }
 
             if (password !== confirmpassword) {
