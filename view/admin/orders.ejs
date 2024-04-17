@@ -197,6 +197,8 @@
 
             try {
                 // Find the button associated with the productId
+                const blockBtnr = document.querySelector('.blockbtn' + productId);
+
                 const blockBtn = document.querySelector('.blockBtns' + productId);
                 const sta = document.querySelector('.pls' + productId);
 
@@ -219,6 +221,11 @@
                     blockBtn.innerText = 'Activate';
                     blockBtn.style.backgroundColor = 'green';
                     blockBtn.style.color = 'white';
+
+                    blockBtnr.innerText = 'Notdelivered';
+                    blockBtnr.style.backgroundColor = 'rgb(249, 117, 117)';
+                    blockBtnr.style.color = 'black';
+
                 } else {
                     blockBtn.innerText = 'cancel';
                     blockBtn.style.backgroundColor = 'red';

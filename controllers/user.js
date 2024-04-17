@@ -73,76 +73,76 @@ module.exports = {
         try {
             const { username, email, phone, oldpasse, password, cpass } = req.body;
             const userId = req.session.user;
-    
+
             const userdats = await userdatacollection.findById(userId);
-    
+
             const existuser = await userdatacollection.findOne({ username });
             if (existuser && existuser._id.toString() !== userId) {
                 return res.status(401).json({ error: 'Username already exists' });
             }
-    
+
             if (!emailregex.test(email)) {
                 return res.status(401).json({ error: 'Invalid email format' });
             }
-    
+
             if (email.split('@')[1] !== 'gmail.com') {
                 return res.status(401).json({ error: 'Email must end with gmail.com' });
             }
-    
+
             const emailExist = await userdatacollection.findOne({ email });
             if (emailExist && emailExist._id.toString() !== userId) {
                 return res.status(401).json({ error: 'Email already exists' });
             }
-    
+
             if (!phoneregex.test(phone)) {
                 return res.status(401).json({ error: 'Phone number must contain 10 digits' });
             }
-    
+
             const phoneExist = await userdatacollection.findOne({ phone });
             if (phoneExist && phoneExist._id.toString() !== userId) {
                 return res.status(401).json({ error: 'Phone number already exists' });
             }
-    
+
             const passwordLength = password.length;
             const hasLowerCase = /[a-z]/.test(password);
             const hasUpperCase = /[A-Z]/.test(password);
             const hasDigit = /\d/.test(password);
-            
+
             if (passwordLength < 8 || !hasLowerCase || !hasUpperCase || !hasDigit) {
                 const errorMessage = 'Password must contain at least 8 characters, one lowercase letter, one uppercase letter, and one digit';
                 return res.status(401).json({ error: errorMessage });
             }
-            
-    
+
+
             const oldPasswordMatch = await bcrypt.compare(oldpasse, userdats.password);
             if (!oldPasswordMatch) {
                 return res.status(401).json({ error: 'Old password and entered password do not match' });
             }
-    
+
             if (password !== cpass) {
                 return res.status(401).json({ error: 'Password and confirmation password do not match' });
             }
-    
+
             if (!username || !email || !phone || !password || !cpass) {
                 return res.status(401).json({ error: 'All details should be filled' });
             }
-    
+
             const hashedPassword = await bcrypt.hash(password, 10);
-    
+
             userdats.username = username;
             userdats.email = email;
             userdats.phone = phone;
             userdats.password = hashedPassword;
-    
+
             await userdats.save();
-    
+
             res.redirect('/userprofile');
         } catch (error) {
             console.error('Error updating user account:', error);
             res.status(500).json({ error: 'Internal error' });
         }
     },
-    
+
 
     logout: (req, res) => {
         req.session.destroy(err => {
@@ -178,6 +178,10 @@ module.exports = {
             if (orderListItem.status === 'pending' || orderListItem.status === 'completed') {
                 orderListItem.status = 'cancelled';
                 await orders.save();
+                
+                if (orderListItem.delivery === 'delivered') {
+                    orderListItem.delivery = 'not delivered';
+                    await orders.save()}
                 state = true;
             }
 

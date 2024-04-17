@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-const { admindashboardget, adminuserlistget, Blockuser, orders, deliveryupdation ,logout} = require('../controllers/admin')
+const { admindashboardget, adminuserlistget, Blockuser, orders, deliveryupdation, logout } = require('../controllers/admin')
 
 const { adminlogin, adminloginpost } = require('../controllers/authcontroller')
 
@@ -72,7 +72,7 @@ router.post('/editbanner', uploadBannerImages.array('image', 5), editbannerpost)
 router.get('/orders', orders)
 router.post('/deliveryupdation', deliveryupdation)
 
-router.get('/logout',logout)
+router.get('/logout', logout)
 
 
 

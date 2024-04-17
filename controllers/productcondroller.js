@@ -43,11 +43,17 @@ module.exports = {
                 return res.status(400).json({ message: "Please provide up to 5 images", success: false });
             }
 
+            let disamount, disprice
             const productImages = req.files.map(file => file.filename);
             const { productName, prices, discount, stock, category, subCategory, deliveryDate, description, color, size, title, write } = req.body;
 
-            const disamount = (prices * discount) / 100
-            const disprice = prices - disamount
+            disprice = prices
+
+            if (prices >= 10) {
+                disamount = (prices * discount) / 100
+                disprice = prices - disamount
+            }
+
             const newProduct = new ProductModel({
                 productName,
                 prices,
@@ -57,7 +63,7 @@ module.exports = {
                 subCategory,
                 deliveryDate,
                 description,
-                size, 
+                size,
                 color,
                 title,
                 write,
@@ -126,12 +132,20 @@ module.exports = {
             return res.redirect('/admin')
         }
         try {
+            let disamount, disprice
+
             const productId = req.params.id;
             const productImages = req.files.map(file => file.filename);
             const { productName, prices, discount, stock, category, subCategory, deliveryDate, description, color, size, title, write } = req.body;
 
-            const disamount = (prices * discount) / 100
-            const disprice = prices - disamount
+
+            disprice = prices
+
+            if (prices >= 10) {
+                disamount = (prices * discount) / 100
+                disprice = prices - disamount
+            }
+
 
             const productUpdated = await ProductModel.findByIdAndUpdate(
                 productId,

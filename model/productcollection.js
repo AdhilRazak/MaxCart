@@ -26,7 +26,7 @@ const productSchema = new mongoose.Schema({
         required: true
     },
     stock: {
-        type: Number,
+        type: String,
         required: true
     },
     category: {
@@ -42,7 +42,6 @@ const productSchema = new mongoose.Schema({
     },
     size: {
         type: String,
-        required: true
     },
     color: {
         type: String,

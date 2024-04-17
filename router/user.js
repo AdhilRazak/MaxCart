@@ -6,7 +6,7 @@ const { loginget, loginpost, signupget, signuppost, verificationget, verificatio
     forgotpasswordOpost, resetpassordget, resetpassordpost,
     resendOtpToEmail, otpVerifiedget, otpVerifiedpost } = require('../controllers/authcontroller');
 
-const { userhomeget, useraccountget, useraccounteditget, useraccounteditpost,logout ,userordercancel} = require('../controllers/user')
+const { userhomeget, useraccountget, useraccounteditget, useraccounteditpost, logout, userordercancel } = require('../controllers/user')
 
 const { categoryfilterget } = require('../controllers/categorycondroller')
 
@@ -95,7 +95,7 @@ router.post('/Userordercancel', userordercancel)
 router.get('/productreview', reviewget)
 router.post('/productreview', reviewpost)
 
-router.get('/logout',logout)
+router.get('/logout', logout)
 
 
 

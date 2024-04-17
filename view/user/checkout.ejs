@@ -299,12 +299,14 @@
                   <div class="input">
                     <select class="couponName" required>
                       <option value="" disabled selected>Select Coupon</option>
-                      <% coupon.forEach((data) => { %>
-                          <option value="<%= data.couponCode %>"><%= data.couponCode %></option>
-                      <% }); %>
-                  </select>
-                  
-                  
+                      <% coupon.forEach((data)=> { %>
+                        <option value="<%= data.couponCode %>">
+                          <%= data.couponCode %>
+                        </option>
+                        <% }); %>
+                    </select>
+
+
                   </div>
                   <div>
                     <button type="submit" onclick="coupon('<%=quantity%>','<%=total%>');return false;">APPLY</button>

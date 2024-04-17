@@ -36,7 +36,7 @@ module.exports = {
 
             await coupondats.save()
 
-            res.redirect('/admin/dashboard')
+            res.redirect('/admin/coupon')
         } catch (error) {
             res.status(500).json({ message: error.message })
         }
@@ -77,7 +77,7 @@ module.exports = {
 
             await existingCoupon.save();
 
-            res.status(200).json({ message: 'Coupon updated successfully' });
+            res.redirect('/admin/coupon')
         } catch (error) {
             res.status(500).json({ message: error.message });
         }

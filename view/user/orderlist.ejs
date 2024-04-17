@@ -202,7 +202,7 @@
                                     <% orderItem.productId.forEach(product=> {%>
                                         <div class="cartItems d-flex w-100 justify-content-between align-items-center">
                                             <div class="d-flex align-items-center gap-3">
-                                                <img src="./images/product/<%=product.id.productImage%>" alt="">
+                                                <img src="./images/product/<%=product.id.productImage[0]%>" alt="">
                                                 <div class="textOrder d-flex flex-column gap-2">
                                                     <h2 class="m-0">
                                                         <%=product.id.productName%>
@@ -221,12 +221,12 @@
                                                     <% if(orderItem.delivery=='not delivered' ) { %>
                                                         <div class="d-flex align-items-center gap-2">
                                                             <div class="statusCircle"></div>
-                                                            <p class="statusOrder me-3">Ordered</p>
+                                                            <p class="statusOrder me-3 yty<%=orderItem._id%>">Ordered</p>
                                                         </div>
                                                         <% }else { %>
                                                             <div class="d-flex align-items-center gap-2">
                                                                 <div class="statusCircle"></div>
-                                                                <p class="statusOrder me-3">delivered</p>
+                                                                <p class="statusOrder me-3 yty<%=orderItem._id%>">delivered</p>
                                                             </div>
                                                             <% } %>
 
@@ -619,13 +619,14 @@
     <!-- end of footer -->
 
     <!-- custom js -->
-    <script src="./js/userOrderPage.js"></script>
     <script>
         async function ordercancel(event, productId, user) {
             event.preventDefault();
             console.log('lololop');
             try {
                 const blockBtns = document.querySelectorAll('.cancelBtn' + productId);
+                const block = document.querySelectorAll('.yty' + productId);
+
 
 
                 const response = await axios.post(`/Userordercancel?id=${productId}&userid=${user}`, {}, {
@@ -635,7 +636,12 @@
                 });
 
                 const result = response.data.state
-
+                block.forEach(btn => {
+                    if (result) {
+                        btn.innerText = 'ordered';
+                        
+                    }
+                });
                 blockBtns.forEach(btn => {
                     if (result) {
                         btn.innerText = 'Cancelled';

@@ -2,7 +2,7 @@ const bannerdata = require('../model/bannercollection')
 
 module.exports = {
     bannerget: async (req, res) => {
-        if(!req.session.admin){
+        if (!req.session.admin) {
             return res.redirect('/admin')
         }
         const banner = await bannerdata.find({})
@@ -10,14 +10,14 @@ module.exports = {
     },
 
     addbannerget: (req, res) => {
-        if(!req.session.admin){
+        if (!req.session.admin) {
             return res.redirect('/admin')
         }
         res.render('admin/addbanner')
     },
 
     addbannerpost: async (req, res) => {
-        if(!req.session.admin){
+        if (!req.session.admin) {
             return res.redirect('/admin')
         }
         try {
@@ -46,7 +46,7 @@ module.exports = {
 
 
     bannerdelete: async (req, res) => {
-        if(!req.session.admin){
+        if (!req.session.admin) {
             return res.redirect('/admin')
         }
         try {
@@ -65,7 +65,7 @@ module.exports = {
         }
     },
     editbannerget: async (req, res) => {
-        if(!req.session.admin){
+        if (!req.session.admin) {
             return res.redirect('/admin')
         }
         try {
@@ -82,7 +82,7 @@ module.exports = {
     },
 
     editbannerpost: async (req, res) => {
-        if(!req.session.admin){
+        if (!req.session.admin) {
             return res.redirect('/admin')
         }
         try {

@@ -6,23 +6,23 @@ module.exports = {
             if (req.session.user) {
                 const userId = req.session.user;
                 const productId = req.query.id;
-    
+
                 let cartData = await Cart.findOne({ userId });
-    
+
                 if (!cartData) {
                     cartData = new Cart({ userId, productId: [{ id: productId, quantity: 1 }] });
                     await cartData.save();
                     return res.json({ success: true, count: 1, message: "Product added to cart." });
                 }
-    
+
                 const existingProduct = cartData.productId.find(product => product.id.equals(productId));
-    
+
                 if (existingProduct) {
                     existingProduct.quantity += 1;
                 } else {
                     cartData.productId.push({ id: productId, quantity: 1 });
                 }
-    
+
                 await cartData.save();
                 return res.status(200).json({ success: true, count: cartData.productId.length, message: "Product added to cart." });
             } else {
@@ -33,7 +33,7 @@ module.exports = {
             return res.status(500).json({ success: false, error: 'Internal Server Error' });
         }
     },
-    
+
     showcart: async (req, res) => {
         try {
             if (req.session.user) {

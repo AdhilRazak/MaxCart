@@ -570,50 +570,49 @@
   <!-- end of footer -->
 
   <!-- custom js -->
-  <script src="./js/addAddress.js"></script>
   <script>
     // Function to handle form submission
     function handleSubmit(event) {
       event.preventDefault(); // Prevent the default form submission
-  
+
       // Serialize form data
       const formData = new FormData(event.target);
       const data = {};
       formData.forEach((value, key) => {
         data[key] = value;
       });
-  
+
       // Make an AJAX request to submit the form data
       axios.post(event.target.action, data)
-      .then(response => {
-        // If response is ok, reload the page or do whatever you want
-        window.location.href='/useraddress'
-      })
-      .catch(error => {
-        // Check if the error response contains an error message
-        if (error.response && error.response.data && error.response.data.error) {
-          // Display the error message using SweetAlert
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: error.response.data.error
-          });
-        } else {
-          // If no specific error message, show a generic error message
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Something went wrong. Please try again later.'
-          });
-        }
-      });
+        .then(response => {
+          // If response is ok, reload the page or do whatever you want
+          window.location.href = '/useraddress'
+        })
+        .catch(error => {
+          // Check if the error response contains an error message
+          if (error.response && error.response.data && error.response.data.error) {
+            // Display the error message using SweetAlert
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: error.response.data.error
+            });
+          } else {
+            // If no specific error message, show a generic error message
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Something went wrong. Please try again later.'
+            });
+          }
+        });
     }
-  
+
     // Attach event listener to the form submission
     document.querySelector('form').addEventListener('submit', handleSubmit);
   </script>
-  
-  
+
+
   <!-- end of custom js -->
   <!-- fontawesome -->
   <script src="https://kit.fontawesome.com/23d1247997.js" crossorigin="anonymous"></script>

@@ -128,7 +128,7 @@ module.exports = {
             const addressdata = await addresscollection.findOne({ user: userId })
 
             const coupon = await couponcontroller.find()
-            
+
 
             const user = await usercollection.findOne({ _id: userId })
 
@@ -142,7 +142,7 @@ module.exports = {
             if (addressdata.address.length === 0) {
                 res.redirect('/addaddress');
             }
-            
+
 
 
             if (addressdata) {
@@ -223,7 +223,7 @@ module.exports = {
                 total = buyer.discounted;
             }
 
-            return res.render('user/checkout', { total, subtotal, discountTotal, quantity, address, productstuff, user, tint,coupon });
+            return res.render('user/checkout', { total, subtotal, discountTotal, quantity, address, productstuff, user, tint, coupon });
         } catch (error) {
             console.error("Error in checkoutget:", error);
             return res.status(500).json({ error: "Internal server error" });
@@ -275,7 +275,7 @@ module.exports = {
                 console.error(message);
                 return res.status(210).json({ message });
             }
-    
+
             let prodata;
 
             if (tint == 100 && proid == 0) {
@@ -346,7 +346,6 @@ module.exports = {
 
                 try {
                     const order = await razorpay.orders.create(options);
-                    console.log(order);
                     return res.status(200).json({ order, razorpay, users });
                 } catch (error) {
                     console.error('Error creating order:', error);
@@ -509,6 +508,12 @@ module.exports = {
             if (orderListItem.status === 'pending' || orderListItem.status === 'completed') {
                 orderListItem.status = 'cancelled';
                 await orders.save();
+                
+                if (orderListItem.delivery === 'delivered') {
+                    orderListItem.delivery = 'not delivered';
+                    await orders.save();
+
+                }
                 state = true;
             } else if (orderListItem.status === 'cancelled') {
                 orderListItem.status = 'completed';

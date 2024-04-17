@@ -8,9 +8,7 @@
     <link rel="stylesheet" href="/css/admin/addproduct.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.7.1.slim.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+   
 </head>
 
 <body>
@@ -56,47 +54,46 @@
         </div>
         <h3 class="i-name">Add Products</h3>
         <div class="content_part">
+
             <form id="add_product_form" action="/admin/addproduct" method="post" enctype="multipart/form-data">
                 <div class="frame">
                     <div class="gap_div">
-                        <div class="card_div">
+                        <d iv class="card_div">
                             <div class="form-group">
                                 <label for="productName">Product Name</label>
                                 <div id="add_product_name_error"></div>
-                                <input type="text" id="productName" name="productName" placeholder="Enter product name"
-                                    required>
+                                <input type="text" id="productName" name="productName" placeholder="Enter product name" required>
                             </div>
 
                             <div class="form-group">
-                                <label for="title">Title</label>
-                                <div id="add_product_title_error"></div>
-                                <input type="text" id="title" name="title" placeholder="Enter title" required>
+                                <label for="prices">title</label>
+                                <div id="add_product_price_error"></div>
+                                <input type="text" id="title" name="title" placeholder="Enter prices" required
+                                >
                             </div>
-
                             <div class="form-group">
-                                <label for="write">Write</label>
-                                <div id="add_product_write_error"></div>
-                                <input type="text" id="write" name="write" placeholder="Enter write" required>
+                                <label for="prices">write</label>
+                                <div id="add_product_price_error"></div>
+                                <input type="text" id="write" name="write" placeholder="Enter prices" required>
                             </div>
-
                             <div class="form-group">
                                 <label for="prices">Price</label>
                                 <div id="add_product_price_error"></div>
-                                <input type="number" id="prices" name="prices" placeholder="Enter price" required>
+                                <input type="number" id="prices" name="prices" placeholder="Enter prices" required>
                             </div>
 
                             <div class="form-group">
                                 <label for="discount">Discount</label>
                                 <div id="add_product_discount_error"></div>
-                                <input type="number" id="discount" name="discount" placeholder="Enter discount"
-                                    required>
+                                <input type="number" id="discount" name="discount" placeholder="Enter discount" required>
                             </div>
 
                             <div class="form-group">
                                 <label for="stock">Stock</label>
                                 <div id="add_product_stock_error"></div>
-                                <input type="number" id="stock" name="stock" placeholder="Enter stock" required>
+                                <input type="text" id="stock" name="stock" placeholder="Enter stock" required>
                             </div>
+
 
                             <div class="form-group">
                                 <label for="deliveryDate">Delivery Date</label>
@@ -122,7 +119,16 @@
                             <div class="form-group">
                                 <label for="size">Size</label>
                                 <div id="add_product_size_error"></div>
-                                <select name="size" id="size" required>
+                                <!-- <div class="dropdown"> -->
+                                <!-- <input type="text" style="width: 95%; position:relative;">
+                                    <ul style="display: none; position:absolute;">
+                                        <li><input type="checkbox" id="s" name="s" value="s"><label for="s">Small</label></li>
+                                        <li><input type="checkbox" id="m" name="m" value="m"><label for="m">Medium</label></li>
+                                        <li><input type="checkbox" id="l" name="l" value="l"><label for="l">Large</label></li>
+                                        <li><input type="checkbox" id="xl" name="xl" value="xl"><label for="xl">X-Large</label></li>
+                                        <li><input type="checkbox" id="xxl" name="xxl" value="xxl"><label for="xxl">XX-Large</label></li>
+                                    </ul> -->
+                                <select name="size" id="size">
                                     <option value="" selected disabled>Choose Size</option>
                                     <option value="Small">Small</option>
                                     <option value="Medium">Medium</option>
@@ -130,21 +136,27 @@
                                     <option value="X-Large">X-Large</option>
                                     <option value="Xx-Large">XX-Large</option>
                                 </select>
-                            </div>
+                                <!-- </div> -->
 
-                            <div class="form-group">
-                                <label for="description">Description</label>
-                                <div id="add_product_description_error"></div>
-                                <textarea id="description" name="description" class="descriptions" required></textarea>
-                            </div>
 
+                                <div class="form-group">
+                                    <label for="description">Description</label>
+                                    <div id="add_product_description_error"></div>
+                                    <textarea id="descriptions" name="description" class="descriptions" required></textarea>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <label for="category">Category</label>
                                 <div id="add_product_category_error"></div>
-                                <select id="category" name="category" required>
+                                <select id="category" name="category" onchange="" required>
                                     <option value="" selected disabled>Select category</option>
-                                    <!-- Add your options dynamically here -->
+                                    <% categorydata.forEach((data)=> { %>
+                                        <option value="<%= data.category %>">
+                                            <%= data.category %>
+                                        </option>
+                                        <% }); %>
                                 </select>
+
                             </div>
 
                             <div class="form-group" id="subcategory_display_div"
@@ -154,15 +166,19 @@
                                 <select name="subCategory" id="subCategory" style="width:344px" onchange="select(e)"
                                     required>
                                     <option selected disabled>Select sub category</option>
-                                    <!-- Add your options dynamically here -->
+                                    <% categorydata.forEach((data)=> { %>
+                                        <% data.subCategory.forEach((sub)=> { %>
+                                            <option value="<%= sub %>">
+                                                <%= sub %>
+                                            </option>
+                                            <% }); %>
+                                                <% }); %>
                                 </select>
                             </div>
-
                             <div class="form-group">
-                                <div class="message" style="color: red; margin-bottom: 10px; font-weight: bold;"></div>
+                                <div class="message" style="color: red ; margin-bottom: 10px; font-weight: bold;"></div>
                                 <button class="buttonsubmit" type="submit" id="add_product_btn">Submit</button>
                             </div>
-                        </div>
                     </div>
                     <div class="img_div">
                         <div class="form-group img_centr">
@@ -172,13 +188,14 @@
                             <div id="add_product_image_error"></div>
                             <div class="image_buttn">
                                 <input type="file" id="productImage" name="productImage" onchange="previewImage(this)"
-                                    multiple required>
+                                    multiple>
                             </div>
                             <div id="errorMain" style="color: brown; margin-top: 1rem;"></div>
                         </div>
                     </div>
                 </div>
-            </form>
+        </div>
+        </form>
         </div>
 
 
@@ -198,45 +215,7 @@
             }
         }
 
-        function handleSubmit(event) {
-            event.preventDefault(); // Prevent the default form submission
-
-            // Serialize form data
-            const formData = new FormData(event.target);
-            const data = {};
-            formData.forEach((value, key) => {
-                data[key] = value;
-            });
-
-            // Make an AJAX request to submit the form data
-            axios.post(event.target.action, data)
-                .then(response => {
-                    // If response is ok, reload the page or do whatever you want
-                    window.location.href = '/admin/product';
-                })
-                .catch(error => {
-                    // Check if the error response contains an error message
-                    if (error.response && error.response.data && error.response.data.error) {
-                        // Display the error message using SweetAlert
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: error.response.data.error
-                        });
-                    } else {
-                        // If no specific error message, show a generic error message
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Something went wrong. Please try again later.'
-                        });
-                    }
-                });
-        }
-
-        // Attach event listener to the form submission
-        document.querySelector('form').addEventListener('submit', handleSubmit);
-
+       
         $('#menu-btn').click(function () {
             $('#menu').toggleClass('active')
         })

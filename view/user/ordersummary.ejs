@@ -214,7 +214,7 @@
                 </div>
               </div>
               <div class="imgOrder">
-                <img src="./images/product/<%=productItem.productImage%>" alt="">
+                <img src="./images/product/<%=productItem.productImage[0]%>" alt="">
               </div>
             </div>
             <div class="ODhead pt-4 pb-4">
@@ -665,7 +665,6 @@
   <!-- end of footer -->
 
   <!-- custom js -->
-  <script src="./js/userOrderSummaryPage.js"></script>
   <script>
     function handleProductReviewLink(event) {
       console.log('kilili');

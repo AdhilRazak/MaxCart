@@ -51,15 +51,17 @@
               </div>
 
               <a href="/home">
-                <h1 class="MaxCart" style="background: linear-gradient(135deg, #b7ced4 0%, #607d8b 100%, #cfd8dc 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; ">MaxCart</h1>
-              
-              
+                <h1 class="MaxCart"
+                  style="background: linear-gradient(135deg, #b7ced4 0%, #607d8b 100%, #cfd8dc 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; ">
+                  MaxCart</h1>
+
+
               </a>
             </div>
 
             <div class="navigationnavbar">
               <ul class="d-flex list-unstyled m-0 p-0 align-items-center">
-               
+
                 <li>
                   <a href="/home"> Home </a>
                 </li>
@@ -189,7 +191,8 @@
                 <% if(wishlist && wishlist.productId.length> 0) { %>
                   <% wishlist.productId.forEach((data)=> { %>
                     <div class="kiko<%=data.id._id%>">
-                      <div class="items position-relative" onclick="window.location.href='/viewsingleproduct?id=<%=data.id._id%>'">
+                      <div class="items position-relative"
+                        >
                         <a class="position-absolute deleteBtn" onclick="deleteProduct(event,'<%=data.id._id%>')">
                           <svg viewBox="0 0 15 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -199,7 +202,7 @@
                         </a>
                         <div class="contentDiv d-flex gap-4">
                           <div class="itemImg">
-                            <img src="./images/product/<%=data.id.productImage[0]%>" alt="" />
+                            <img src="./images/product/<%=data.id.productImage[0]%>" alt="" onclick="window.location.href='/viewsingleproduct?id=<%=data.id._id%>'" />
                           </div>
                           <div class="productDetails">
                             <h2>
@@ -460,7 +463,7 @@
               </div>
             </div>
           </div>
-    
+
           <div class="row">
             <div class="col-12 mediumScreen">
               <div class="accordion accordion-flush" id="accordionFlushExample">
@@ -568,7 +571,7 @@
               </div>
             </div>
           </div>
-    
+
           <div class="row social largeScreenSocial">
             <div class="col-3 position-relative">
               <div class="socialMedia d-flex align-items-center">
@@ -654,11 +657,11 @@
                 <div class="catgoryDiv">
                   <a href="/category?category=Earphones">Shop Earphones</a>
                 </div>
-               
+
               </div>
             </div>
           </div>
-    
+
           <div class="row social smallScreenSocial">
             <div class="col-12 position-relative d-flex justify-content-center">
               <div class="socialMedia smallSocialMedia d-flex align-items-center">

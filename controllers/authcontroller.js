@@ -18,30 +18,30 @@ module.exports = {
         try {
             const { username, password, secretkey } = req.body;
             const userexist = await admindatacollection.findOne({ username });
-    
+
             if (!userexist) {
                 return res.status(401).json({ error: 'User does not exist' });
             }
-    
+
             const passwordog = userexist.password;
-    
+
             if (passwordog !== password) {
                 return res.status(401).json({ error: 'Incorrect password' });
             }
-    
+
             const secretkeyog = userexist.secretkey;
             if (secretkeyog !== secretkey) {
                 return res.status(401).json({ error: 'Incorrect secret key' });
             }
-    
+
             req.session.admin = userexist._id;
-            res.status(200).json({ success: true, adminId: userexist._id }); // You can customize success message as needed
+            res.status(200).json({ success: true, adminId: userexist._id }); 
         } catch (error) {
             console.error('Admin login error:', error);
             res.status(500).json({ error: 'Internal error' });
         }
     },
-    
+
 
 
     loginget: (req, res) => {
@@ -53,23 +53,24 @@ module.exports = {
         try {
             const { username, password } = req.body;
             const user = await userdatacollection.findOne({ username });
-    
+
             if (!user) {
                 return res.status(401).json({ error: 'Invalid user' });
             }
-    
+
             const passMatch = await bcrypt.compare(password, user.password);
-    
+
             if (!passMatch) {
                 return res.status(401).json({ error: 'Invalid password' });
             }
-    
+
             if (user.otpVerified !== true) {
-                // return res.redirect('/verifynumber');
+                return res.status(201).json({ error: 'Invalid password' });
+
             }
-    
+
             req.session.user = user._id;
-    
+
             // Send success response
             return res.status(200).json({ success: true, userId: user._id });
         } catch (error) {
@@ -78,8 +79,8 @@ module.exports = {
             return res.status(500).json({ error: 'Internal error' });
         }
     },
-    
-    
+
+
 
     signupget: (req, res) => {
         res.render('user/signup');
@@ -91,76 +92,76 @@ module.exports = {
             const phoneregex = /^\d{10}$/;
             const emailregex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             const passwordregex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
-    
+
             const { username, email, phone, password, confirmpassword } = req.body;
-    
+
             const userExist = await userdatacollection.findOne({ username });
-    
+
             if (userExist) {
                 return res.status(401).json({ error: 'User already exists' });
             }
-    
+
             if (!emailregex.test(email)) {
                 return res.status(401).json({ error: 'Invalid email format' });
             }
-    
+
             if (email.split('@')[1] !== 'gmail.com') {
                 return res.status(401).json({ error: 'Email must end with gmail.com' });
             }
-    
+
             const emailExist = await userdatacollection.findOne({ email });
-    
+
             if (emailExist) {
                 return res.status(401).json({ error: 'Email already exists' });
             }
-    
+
             if (!phoneregex.test(phone)) {
                 return res.status(401).json({ error: 'Phone number must contain 10 digits' });
             }
-    
+
             const phoneExist = await userdatacollection.findOne({ phone });
-    
+
             if (phoneExist) {
                 return res.status(401).json({ error: 'Phone number already exists' });
             }
-    
+
             if (!passwordregex.test(password)) {
                 return res.status(401).json({ error: 'Password must contain at least 8 characters, one lowercase letter, one uppercase letter, and one digit' });
             }
-    
+
             if (password !== confirmpassword) {
                 return res.status(401).json({ error: 'Password and confirmation password do not match' });
             }
-    
+
             if (!username || !email || !phone || !password || !confirmpassword) {
                 return res.status(401).json({ error: 'All details should be filled' });
             }
-    
+
             const hashedPassword = await bcrypt.hash(password, 10);
-    
+
             let newUser = new userdatacollection({
                 username,
                 email,
                 phone,
                 password: hashedPassword,
             });
-    
+
             await newUser.save();
-    
+
             req.session.phone = phone;
             const phoneo = req.session.phone;
-                //   await sendPhoneOtp(phoneo);
+            //   await sendPhoneOtp(phoneo);
 
             //    res.redirect('/')
             //    res.redirect('/verifynumber')
-    
+
             res.status(200).json({ success: true });
         } catch (error) {
             console.error('Signup error:', error);
             res.status(500).json({ error: 'Internal error' });
         }
     },
-    
+
 
 
     verificationget: (req, res) => {
@@ -199,7 +200,7 @@ module.exports = {
 
         } catch (error) {
             console.error('Verification error:', error);
-             res.status(401).json({ error: 'Invalid OTP' });
+            res.status(401).json({ error: 'Invalid OTP' });
 
         }
     },
@@ -287,18 +288,18 @@ module.exports = {
         const { otp } = req.body;
 
         if (otpgen != otp) {
-            return res.status(401).json({ error: 'OTP verification failed'});
+            return res.status(401).json({ error: 'OTP verification failed' });
 
-            
+
         }
         try {
 
             res.redirect('/resetpassword');
         } catch (error) {
             console.error('OTP verification error:', error);
-            return res.status(401).json({ error: 'OTP verification failed. Please try again'});
+            return res.status(401).json({ error: 'OTP verification failed. Please try again' });
 
-            
+
         }
     },
 
@@ -307,9 +308,9 @@ module.exports = {
             const email = req.session.email
 
             if (!email) {
-            return res.status(401).json({ error: 'Email not found in session'});
+                return res.status(401).json({ error: 'Email not found in session' });
 
-                
+
             }
 
 
@@ -333,35 +334,34 @@ module.exports = {
         try {
             const { username, password, confirmpassword } = req.body;
             const userExist = await userdatacollection.findOne({ username });
-    
+
             if (!userExist) {
                 return res.status(401).json({ error: 'User does not exist' });
             }
-    
+
             if (!passwordregex.test(password)) {
                 return res.status(401).json({ error: 'Password must contain at least 5 characters, one lowercase letter, one uppercase letter, and one digit' });
             }
-    
+
             if (password !== confirmpassword) {
                 return res.status(401).json({ error: 'Password and confirmation password do not match' });
             }
-    
+
             const newPassword = await bcrypt.hash(password, 10);
             await userdatacollection.updateOne({ username }, {
                 $set: {
                     password: newPassword,
                 }
             }, { upsert: true });
-    
-            // Redirect the user to the root URL after successful password reset
+
             res.redirect('/');
         } catch (error) {
             console.error('Reset password error:', error);
             res.status(500).json({ error: 'Internal error' });
         }
     },
-    
-    
+
+
 
 
 }
