@@ -374,7 +374,6 @@ module.exports = {
 
             res.render('user/review', { product });
         } catch (err) {
-            console.error("Error:", err);
             return res.status(500).send(err.message);
         }
     },

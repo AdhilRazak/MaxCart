@@ -11,7 +11,7 @@ require('dotenv').config()
 
 const port = process.env.port
 
-mongoose.connect('mongodb://localhost:27017/mongoecommerce')
+mongoose.connect('mongodb+srv://razakadhil49:2unZMsWN4Wksp5sZ@cluster0.lzmtxn4.mongodb.net/mongoecommerce')
     .then(() => {
         console.log('mongodb connected');
         startserver()
