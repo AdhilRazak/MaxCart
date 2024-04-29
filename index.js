@@ -9,7 +9,7 @@ const app = express()
 
 require('dotenv').config()
 
-const port = process.env.port
+const port = process.env.PORT
 
 mongoose.connect('mongodb+srv://razakadhil49:2unZMsWN4Wksp5sZ@cluster0.lzmtxn4.mongodb.net/mongoecommerce')
     .then(() => {
@@ -40,7 +40,7 @@ app.use('/admin', admin)
 
 function startserver() {
     app.listen(port, () => {
-        console.log('running on 4516');
+        console.log('running on', port);
     })
 }
 
