@@ -167,18 +167,20 @@ module.exports = {
                 }, 0);
 
 
-                discountTotal = carts.productId.reduce((acc, index) => {
-                    return (acc += index.id.discount * index.quantity);
-                }, 0);
+                // discountTotal = carts.productId.reduce((acc, index) => {
+                //     return (acc += index.id.discount * index.quantity);
+                // }, 0);
 
 
                 carts.productId.forEach(product => {
                     quantity += product.quantity;
                 });
 
+                total = carts.productId.reduce((acc, index) => {
+                    return (acc += index.id.discounted * index.quantity);
+                }, 0);
 
-
-                total = subtotal - discountTotal
+                discountTotal = subtotal-total
 
             } else if (req.session.buy === true && id) {
                 tint = 101
