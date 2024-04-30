@@ -880,7 +880,7 @@
             // Show message using SweetAlert
             showSuccessAlert(message);
           } else {
-            window.location.href = '/';
+            window.location.href = '/login';
             console.log("Failed to add product to cart.");
           }
         } catch (error) {
@@ -915,7 +915,7 @@
           } else {
             console.log("Failed to add product to wishlist.");
             // Redirect to home page if adding to wishlist fails
-            window.location.href = '/';
+            window.location.href = '/login';
           }
   
           // Extract the state from the response data
