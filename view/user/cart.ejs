@@ -772,10 +772,12 @@
 
             const total = response.data.subtotal;
             const discount = response.data.discountTotal;
+            const totally = response.data.total
+
 
             totalt.innerHTML = total;
             discountt.innerHTML = discount;
-            subtotal.innerHTML = total;
+            subtotal.innerHTML = totally;
           }
         }
 

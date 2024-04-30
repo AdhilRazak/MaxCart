@@ -54,7 +54,11 @@ module.exports = {
                         return (acc += index.id.discount * index.quantity);
                     }, 0);
 
-                    const total = subtotal - discountTotal
+                
+                     const disamount = (subtotal * discountTotal)/100
+
+
+                    const total = subtotal - disamount
 
                     res.render('user/cart', { cartdetail, subtotal, discountTotal, total, cartCount });
                 } else {
@@ -99,7 +103,12 @@ module.exports = {
                     return (acc += index.id.discount * index.quantity);
                 }, 0);
 
-                const total = subtotal - discountTotal
+               
+                const disamount = (subtotal * discountTotal)/100
+
+
+                const total = subtotal - disamount
+
 
                 const cart = await Cart.updateOne(
                     { userId: userId },
