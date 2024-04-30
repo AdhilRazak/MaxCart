@@ -152,7 +152,7 @@ module.exports = {
             const phoneo = req.session.phone;
             //   await sendPhoneOtp(phoneo);
 
-            //    res.redirect('/')
+            //    res.redirect('/login')
             //    res.redirect('/verifynumber')
 
             res.status(200).json({ success: true });
@@ -196,7 +196,7 @@ module.exports = {
 
 
 
-            res.redirect('/');
+            res.redirect('/login');
 
         } catch (error) {
             console.error('Verification error:', error);
@@ -358,7 +358,7 @@ module.exports = {
                 }
             }, { upsert: true });
 
-            res.redirect('/');
+            res.redirect('/login');
         } catch (error) {
             console.error('Reset password error:', error);
             res.status(500).json({ error: 'Internal error' });

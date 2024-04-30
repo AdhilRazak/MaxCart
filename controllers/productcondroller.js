@@ -340,7 +340,7 @@ module.exports = {
 
     reviewget: async (req, res) => {
         if (!req.session.user) {
-            return res.redirect('/');
+            return res.redirect('/login');
         }
 
         const userId = req.session.user;
@@ -382,7 +382,7 @@ module.exports = {
 
     reviewpost: async (req, res) => {
         if (!req.session.user) {
-            return res.redirect('/');
+            return res.redirect('/login');
         }
         const { rating, description, title } = req.body;
         const userId = req.session.user;

@@ -61,7 +61,7 @@ module.exports = {
                     res.render('user/cart', { cartdetail: null, subtotal: 0, discountTotal: 0, total: 0, cartCount });
                 }
             } else {
-                res.redirect('/');
+                res.redirect('/login');
             }
         } catch (error) {
             console.error('Error in showcart:', error);

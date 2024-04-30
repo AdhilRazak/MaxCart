@@ -63,7 +63,7 @@ module.exports = {
                 }
                 res.render('user/wishlist', { wishlist, count });
             } else {
-                res.redirect('/');
+                res.redirect('/login');
             }
         } catch (error) {
             console.error("Error retrieving wishlist:", error);

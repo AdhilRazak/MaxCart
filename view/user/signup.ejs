@@ -145,7 +145,7 @@
         axios.post(event.target.action, data)
             .then(response => {
                 // If response is ok, reload the page or do whatever you want
-                window.location.href = '/';
+                window.location.href = '/login';
             })
             .catch(error => {
                 // Check if the error response contains an error message

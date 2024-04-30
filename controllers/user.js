@@ -26,7 +26,7 @@ module.exports = {
             const userID = req.session.user;
 
             if (!userID) {
-                return res.redirect('/');
+                return res.redirect('/login');
             }
 
             const userdata = await userdatacollection.findById(userID);
@@ -55,7 +55,7 @@ module.exports = {
             const userID = req.session.user;
 
             if (!userID) {
-                return res.redirect('/');
+                return res.redirect('/login');
             }
             const user = await userdatacollection.findById(userID);
             if (!user) {
@@ -150,7 +150,7 @@ module.exports = {
                 console.error("Error destroying session:", err);
                 return res.status(500).send("Internal Server Error");
             }
-            res.redirect('/');
+            res.redirect('/login');
         });
 
 

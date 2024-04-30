@@ -114,7 +114,7 @@
     </div>
     <div class="container">
         <h2>Login</h2>
-        <form action="/" method="post">
+        <form action="/login" method="post">
             <div class="input-group">
                 <label for="username">Username</label>
                 <input type="text" id="username" name="username" required>
@@ -152,10 +152,10 @@
         .then(response => {
             if (response.status === 201) { // Check if status is 201
                 // Redirect to '/'
-                window.location.href = '/';
+                window.location.href = '/login';
             } else if (response.status === 200) { // Check if status is 200
-                // Redirect to '/home'
-                window.location.href = '/home';
+                // Redirect to '/'
+                window.location.href = '/';
             } else {
                 // If response is neither 200 nor 201, display a generic message
                 Swal.fire({

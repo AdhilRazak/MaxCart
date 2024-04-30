@@ -132,7 +132,7 @@ module.exports = {
 
     categoryfilterget: async (req, res) => {
         if (!req.session.user) {
-            return res.redirect('/');
+            return res.redirect('/login');
         }
         try {
             const category = req.query.category;

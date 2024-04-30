@@ -18,7 +18,7 @@ module.exports = {
 
                 res.render('user/address', { addressdats, user });
             } else {
-                res.redirect('/');
+                res.redirect('/login');
             }
         } catch (error) {
             console.error('Error retrieving address data:', error);
@@ -32,7 +32,7 @@ module.exports = {
             if (req.session.user) {
                 res.render('user/addaddress');
             } else {
-                res.redirect('/');
+                res.redirect('/login');
             }
         } catch (error) {
             console.error('Error rendering add address page:', error);

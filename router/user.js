@@ -22,8 +22,8 @@ const { buyoneget, buyoneupdate, checkoutget, applyCoupon,
     checkoutpost, completeOrder, completed, orderlist,
     ordersummary, ordercancel } = require('../controllers/payment')
 
-router.get('/', loginget);
-router.post('/', loginpost);
+router.get('/login', loginget);
+router.post('/login', loginpost);
 router.get('/signup', signupget);
 router.post('/signup', signuppost);
 
@@ -45,7 +45,7 @@ router.post('/resentotpemail', resendOtpToEmail)
 router.get('/resetpassword', resetpassordget)
 router.post('/resetpassword', resetpassordpost)
 
-router.get('/home', userhomeget)
+router.get('/', userhomeget)
 
 router.get('/allproduct', userallproducts)
 router.get('/filterproduct', filterProduct)

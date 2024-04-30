@@ -34,7 +34,7 @@ module.exports = {
 
                 res.render('user/buyone', { productexist })
             } else {
-                res.redirect('/')
+                res.redirect('/login')
 
             }
         }
@@ -98,7 +98,7 @@ module.exports = {
                     return res.status(200).json({ success: true, message: "New document created successfully" });
                 }
             } else {
-                res.redirect('/')
+                res.redirect('/login')
             }
 
         } catch (error) {
@@ -110,7 +110,7 @@ module.exports = {
     checkoutget: async (req, res) => {
         try {
             if (!req.session.user) {
-                return res.redirect('/')
+                return res.redirect('/login')
             }
 
             const userId = req.session.user;
@@ -264,7 +264,7 @@ module.exports = {
     checkoutpost: async (req, res) => {
         try {
             if (!req.session.user) {
-                return res.redirect('/');
+                return res.redirect('/login');
             }
 
             const userid = req.session.user;
@@ -363,7 +363,7 @@ module.exports = {
 
     completeOrder: async (req, res) => {
         if (!req.session.user) {
-            return res.redirect('/');
+            return res.redirect('/login');
         }
         const userid = req.session.user;
 
@@ -432,7 +432,7 @@ module.exports = {
 
                 res.render('user/orderlist', { orders });
             } else {
-                res.redirect('/');
+                res.redirect('/login');
             }
         } catch (error) {
             console.error("Error fetching order list:", error);
@@ -443,7 +443,7 @@ module.exports = {
     ordersummary: async (req, res) => {
         try {
             if (!req.session.user) {
-                return res.redirect('/');
+                return res.redirect('/login');
             }
 
             const userId = req.session.user;
