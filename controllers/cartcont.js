@@ -50,16 +50,18 @@ module.exports = {
                     }, 0);
 
 
-                    const discountTotal = cartdetail.productId.reduce((acc, index) => {
-                        return (acc += index.id.discount * index.quantity);
+                    // const discountTotal = cartdetail.productId.reduce((acc, index) => {
+                    //     return (acc += index.id.discount * index.quantity);
+                    // }, 0);
+
+
+                    const total = cartdetail.productId.reduce((acc, index) => {
+                        return (acc += index.id.discounted * index.quantity);
                     }, 0);
 
+                    const discountTotal =subtotal -total
+
                 
-                     const disamount = (subtotal * discountTotal)/100
-
-
-                    const total = subtotal - disamount
-
                     res.render('user/cart', { cartdetail, subtotal, discountTotal, total, cartCount });
                 } else {
                     res.render('user/cart', { cartdetail: null, subtotal: 0, discountTotal: 0, total: 0, cartCount });
@@ -99,16 +101,16 @@ module.exports = {
                     return acc + (item.id.prices * item.quantity);
                 }, 0);
 
-                const discountTotal = cartdetail.productId.reduce((acc, index) => {
-                    return (acc += index.id.discount * index.quantity);
-                }, 0);
+                // const discountTotal = cartdetail.productId.reduce((acc, index) => {
+                //     return (acc += index.id.discount * index.quantity);
+                // }, 0);
 
                
-                const disamount = (subtotal * discountTotal)/100
+                const total = cartdetail.productId.reduce((acc, index) => {
+                    return (acc += index.id.discounted * index.quantity);
+                }, 0);
 
-
-                const total = subtotal - disamount
-
+                const discountTotal =subtotal -total
 
                 const cart = await Cart.updateOne(
                     { userId: userId },
@@ -149,11 +151,16 @@ module.exports = {
                     return acc + (item.id.prices * item.quantity);
                 }, 0);
 
-                discountTotal = cartdetail.productId.reduce((acc, index) => {
-                    return (acc += index.id.discount * index.quantity);
+                // discountTotal = cartdetail.productId.reduce((acc, index) => {
+                //     return (acc += index.id.discount * index.quantity);
+                // }, 0);
+
+                 total = cartdetail.productId.reduce((acc, index) => {
+                    return (acc += index.id.discounted * index.quantity);
                 }, 0);
 
-                total = subtotal - discountTotal;
+                discountTotal = subtotal-total
+               
             }
 
             res.status(200).json({
